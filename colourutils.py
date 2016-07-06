@@ -34,7 +34,7 @@ def RandomColour():
   return randrange(_COLOUR_MIN, _COLOUR_MAX + 1)
 
 if __name__ == "__main__":
-  print('"ColourUtils" support unit.')
+  print('"colourutils" support unit.')
 
   #keep the window open
   input('\nPress Enter to Close:')

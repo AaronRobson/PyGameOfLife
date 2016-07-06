@@ -36,7 +36,7 @@ def GetCellsFromFile(filepath):
   return GetCellsFromText(GetFileText(filepath))
 
 if __name__ == "__main__":
-
+  print('"cellfile" support unit.')
 
   #keep the window open
   input('\nPress Enter to Exit:')
