@@ -9,32 +9,32 @@ assert _COLOUR_MIN <= _COLOUR_MAX
 from random import randrange
 
 def HexPlain(number):
-	'''Without 0x at the start.
-	'''
-	return '%X' % number
+  '''Without 0x at the start.
+  '''
+  return '%X' % number
 
 _COLOUR_MAX_LENGTH = len(HexPlain(_COLOUR_MAX))
 
 def HexPlainPadded(number, paddedLen):
-	return HexPlain(number).zfill(paddedLen)
+  return HexPlain(number).zfill(paddedLen)
 
 def HexColourPadded(colourNumber, prefix=''):
-	return str(prefix) + HexPlainPadded(colourNumber, _COLOUR_MAX_LENGTH)
+  return str(prefix) + HexPlainPadded(colourNumber, _COLOUR_MAX_LENGTH)
 
 def StandardHexColourPadded(colourNumber):
-	return HexColourPadded(colourNumber, prefix='0x')
+  return HexColourPadded(colourNumber, prefix='0x')
 
 def TKHexColourPadded(colourNumber):
-	return HexColourPadded(colourNumber, prefix='#')
+  return HexColourPadded(colourNumber, prefix='#')
 
 def ColourNumberIsValid(colourNumber):
-	return _COLOUR_MIN <= colourNumber <= _COLOUR_MAX
+  return _COLOUR_MIN <= colourNumber <= _COLOUR_MAX
 
 def RandomColour():
-	return randrange(_COLOUR_MIN, _COLOUR_MAX + 1)
+  return randrange(_COLOUR_MIN, _COLOUR_MAX + 1)
 
 if __name__ == "__main__":
-	print('"ColourUtils" support unit.')
+  print('"ColourUtils" support unit.')
 
-	#keep the window open
-	input('\nPress Enter to Close:')
+  #keep the window open
+  input('\nPress Enter to Close:')
