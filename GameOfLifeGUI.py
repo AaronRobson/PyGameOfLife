@@ -10,10 +10,6 @@ import GameOfLife
 import colourutils
 from cellfile import GetCellsFromFile
 
-'''TO-DO:
-find a better way to do things than self.keyDict in self.Bindings().
-'''
-
 fileCellpath = 'cells.ini'
 
 colourTypeMessages = ('Background', 'Foreground')

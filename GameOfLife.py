@@ -7,7 +7,6 @@ from operator import mul as OpMultiply
 from itertools import product as itertoolsProduct
 from counter import Counter
 
-_author = 'A. Robson'
 _todo = '''To-Do:
 
 Make game stop when the iteration is the same as the last.
@@ -18,53 +17,6 @@ so that it knows it doesn't have to change anything for the next generation.
 Be able to initialise with a tuple/set of tuples live cells, in order
 to continue from some defined state such as the last time it was run.
 
-'''
-
-_history = '''History:
-
-2008-06-28 03:38
-First working Iteration().
-
-2010-10-23, 17:15
-Last changed. Think this is when "Make a test class for the test code at the
-bottom and make it at least run through all functions." happened.
-Though not functionality is tested.
-
-2011-04-10 20:08
-Changing a few areas to use faster generators rather
-than creating lists all the time.
-
-2011-08-26 +
-Applying seperation of concerns (orthogonality) to loading cells from file, colour utilities, rule utilities.
-
-Clarification of methods by making new properties to hold often used data in a more consisely referenced form.
-
-2011-08-28 18:16
-Factored out AffectableCells from Iterate and unit tested it, finding that Around does not include the given cell.
-Made AroundInclusive to not take that out and Around now uses its common functionality (and then takes out the given point).
-
-Use Set type instead of Dictionary as done here (with a set of tuples):
-http://stackoverflow.com/questions/1306631/python-add-list-to-set
-Isolated the actual type pretty well now, think it is the minimum without hiding it behind an interface of my own.
-
-2011-09-26 23:49
-Removing the second of the two set variables,
-it is just wasted memory since it gets cleared down
-at the start of each Iteration and the Go Back method
-was never going to be practical.
-
-
-2011-09-28 6:00 ish till 12:00ish
-Factoring out Rule functionality into its own class.
-all of the questions about whether a cell will survive go through that central point of control.
-
-Making an Abstract Data Type to hold the current generation called IncrementableNumber.
-So that nothing else should be able to happen to the value other than incrementing and resetting to zero.
-
-Completely gutted AroundList using the included libraries to avoid the inefficiencies of reinventing the wheel.
-
-2011-10-03 lateish
-Extracted into a new modules and refactored "colourutils" and "counter" (used to be called "IncrementableNumber"), tests made/updated.
 '''
 
 STRING_RULE_SEPARATOR = '/'
