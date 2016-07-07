@@ -17,7 +17,7 @@ class TestRuleClass(unittest.TestCase):
     self.support = GameOfLife
     self.widget = self.support.Rule()
 
-  def testString(self):
+  def test_String(self):
     self.assertEqual(self.widget.string, '3/23', 'Default rule string incorrect.')
 
     self.widget.string = '12/23'
@@ -35,7 +35,7 @@ class TestRuleClass(unittest.TestCase):
     self.widget.string = ''
     self.assertEqual(self.widget._rule, ((), ()), '')
 
-  def testIsAliveNextGeneration(self):
+  def test_IsAliveNextGeneration(self):
     self.assertTrue(self.widget.IsAliveNextGeneration(True, 3), '')
     self.assertTrue(self.widget.IsAliveNextGeneration(True, 2), '')
     self.assertTrue(self.widget.IsAliveNextGeneration(False, 3), '')
@@ -113,11 +113,11 @@ class TestGameOfLifeClass(unittest.TestCase):
     self.support = GameOfLife
     self.widget = self.support.GameOfLifeClass()
 
-  def testProductOfSeq(self):
+  def test_ProductOfSeq(self):
     self.assertEqual(self.support.ProductOfSeq((1, 2, 3)), 6, 'ProductOfSeq Fail: on simple integer multiplication.')
     self.assertEqual(self.support.ProductOfSeq((1/2, 2/1, 3/5, 5/3)), 1, 'ProductOfSeq Fail: on opposing fractions.')
 
-  def testAround(self):
+  def test_Around(self):
     result = self.widget.Around((1,1,1))
     self.assertFalse((1,1,1) in result, 'Around Fail: centre cell not being removed from result.')
     self.assertTrue((1,1,2) in result, 'Around Fail: not including normal values around centre cell.')
@@ -125,7 +125,7 @@ class TestGameOfLifeClass(unittest.TestCase):
     self.assertTrue((2,2,2) in result, 'Around Fail: not including high values around centre cell.')
     self.assertFalse((3,1,1) in result, 'Around Fail: value out of range included.')
 
-  def testAroundInclusive(self):
+  def test_AroundInclusive(self):
     result = self.widget.AroundInclusive((1,1,1))
     self.assertTrue((1,1,1) in result, 'Around Inclusive Fail: centre cell being removed from result.')
     self.assertTrue((1,1,2) in result, 'Around Inclusive Fail: not including normal values around centre cell.')
@@ -133,12 +133,12 @@ class TestGameOfLifeClass(unittest.TestCase):
     self.assertTrue((2,2,2) in result, 'Around Inclusive Fail: not including high values around centre cell.')
     self.assertFalse((3,1,1) in result, 'Around Inclusive Fail: value out of range included.')
 
-  def testAroundList(self):
+  def test_AroundList(self):
     aroundListResult = self.widget.AroundList((3,4), (0,2))
     expectedResult = (0,2), (0,3), (0,4), (0,5), (1,2), (1,3), (1,4), (1,5), (2,2), (2,3), (2,4), (2,5)
     self.assertEqual(aroundListResult, expectedResult, '')
 
-  def testCountAround(self):
+  def test_CountAround(self):
     #Glider
     self.widget.SetCells((1,0),(2,1),(0,2),(1,2),(2,2))
 
@@ -147,14 +147,14 @@ class TestGameOfLifeClass(unittest.TestCase):
     self.assertEqual(self.widget.CountAround((3,3)), 1, '')
     self.assertEqual(self.widget.CountAround((-1,-1)), 0, '')
 
-  def testAffectableCells(self):
+  def test_AffectableCells(self):
     x = 1
     y = 5
     self.widget.SetCell((x,y))
     expected = (x-1,y-1), (x-1,y), (x-1,y+1), (x,y-1),(x,y), (x,y+1), (x+1,y-1), (x+1,y), (x+1,y+1)
     self.assertEqual(self.widget.AffectableCells(), expected, 'AffectableCells incorrect.')
 
-  def testSetCells_Iterate__call__(self):
+  def test_SetCells_Iterate__call__(self):
     exampleKeyList = (0,1), (1,1), (2,1)
     self.assertEqual(self.widget(), (), 'SetCells & __call__ Fail: point listing type or contents incorrect at start.')
     self.widget.SetCells(*exampleKeyList)
@@ -163,10 +163,10 @@ class TestGameOfLifeClass(unittest.TestCase):
     self.widget.Iterate()
     self.assertEqual(self.widget(), ((1,0), (1,1), (1,2)), 'SetCells & Iterate & __call__ Fail: point listing type or contents incorrect after blinker has one iteration.')
 
-  def testFixRange(self):
+  def test_FixRange(self):
     self.assertEqual(self.widget.FixRange((-1,-1), (0,0)), ((1,1), (-1,-1)), 'FixRange Fail: incorrectly handles minus size.')
 
-  def testRandomBoolean(self):
+  def test_RandomBoolean(self):
     possiblities = True, False
     for i in range(10):
       self.assertTrue(self.support.RandomBoolean() in possiblities, '')
@@ -175,27 +175,27 @@ class TestColourUtils(unittest.TestCase):
   def setUp(self):
     self.support = colourutils
 
-  def testHexPlain(self):
+  def test_HexPlain(self):
     self.assertEqual(self.support.HexPlain(0xF0), 'F0', '')
     self.assertEqual(self.support.HexPlain(0xF0F0F0), 'F0F0F0', '')
 
-  def testHexPlainPadded(self):
+  def test_HexPlainPadded(self):
     self.assertEqual(self.support.HexPlainPadded(0xF0, 6), '0000F0', '')
     self.assertEqual(self.support.HexPlainPadded(0xF0F0F0, 6), 'F0F0F0', '')
 
-  def testHexColourPadded(self):
+  def test_HexColourPadded(self):
     self.assertEqual(self.support.HexColourPadded(0xF0), '0000F0', '')
     self.assertEqual(self.support.HexColourPadded(0xF0F0F0), 'F0F0F0', '')
 
-  def testStandardHexColourPadded(self):
+  def test_StandardHexColourPadded(self):
     self.assertEqual(self.support.StandardHexColourPadded(0xF0), '0x0000F0', '')
     self.assertEqual(self.support.StandardHexColourPadded(0xF0F0F0), '0xF0F0F0', '')
 
-  def testTKHexColourPadded(self):
+  def test_TKHexColourPadded(self):
     self.assertEqual(self.support.TKHexColourPadded(0xF0), '#0000F0', '')
     self.assertEqual(self.support.TKHexColourPadded(0xF0F0F0), '#F0F0F0', '')
 
-  def testColourNumberIsValid(self):
+  def test_ColourNumberIsValid(self):
     self.assertFalse(self.support.ColourNumberIsValid(0x1000000), 'Outside lower limit.')
     self.assertTrue(self.support.ColourNumberIsValid(0xFFFFFF), 'Within lower limit')
     self.assertTrue(self.support.ColourNumberIsValid(0x101010), 'Nominal.')
