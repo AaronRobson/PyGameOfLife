@@ -232,6 +232,3 @@ testClassesToRun = (TestColourUtils, TestCounterClass, TestRuleClass, TestGameOf
 if __name__ == "__main__":
   print('Unit testing')
   RunTests()
-
-  #keep the window open
-  input('\nPress Enter to Close:')
