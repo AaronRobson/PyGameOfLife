@@ -204,31 +204,5 @@ class TestColourUtils(unittest.TestCase):
     self.assertTrue(self.support.ColourNumberIsValid(0), 'Within upper limit.')
     self.assertFalse(self.support.ColourNumberIsValid(-1), 'Outside upper limit.')
 
-def RunTests(*testClasses):
-  """if no specific test classes are wanted add all of them."""
-  #http://docs.python.org/library/unittest.html
-  #http://diveintopython.org/unit_testing/index.html
-  #http://diveintopython.org/unit_testing/testing_for_success.html
-  #http://diveintopython.org/unit_testing/testing_for_failure.html
-  #To check for exceptions being called; search for assertRaises in: http://diveintopython.org/unit_testing/testing_for_sanity.html
-
-  print('--Testing Start--')
-
-  if len(testClasses) == 0:
-    testClasses = testClassesToRun
-
-  for tc in testClasses:
-    print('\n\n%s:\n' % tc.__name__)
-    suite = unittest.TestLoader().loadTestsFromTestCase(tc)
-    runner = unittest.TextTestRunner(verbosity=2)
-    runner.run(suite)
-
-  print('\n\n--Testing End--\n')
-
-'''Important that this links to all Test Classes (those sub-classed from unittest.TestCase) otherwise they will not be run
-to run just one, ensure there is a comma afterwards (otherwise with just brackets it is assumed to be a single object and not a collection)'''
-testClassesToRun = (TestColourUtils, TestCounterClass, TestRuleClass, TestGameOfLifeClass,)
-
 if __name__ == "__main__":
-  print('Unit testing')
-  RunTests()
+  unittest.main()
