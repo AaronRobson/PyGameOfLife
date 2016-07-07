@@ -1,7 +1,5 @@
 #!/usr/bin/python
 
-#Unit testing
-
 import unittest
 
 import GameOfLifeGUI
