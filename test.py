@@ -151,7 +151,7 @@ class TestGameOfLife(unittest.TestCase):
     x = 1
     y = 5
     self.widget.SetCell((x,y))
-    expected = (x-1,y-1), (x-1,y), (x-1,y+1), (x,y-1),(x,y), (x,y+1), (x+1,y-1), (x+1,y), (x+1,y+1)
+    expected = {(x-1,y-1), (x-1,y), (x-1,y+1), (x,y-1),(x,y), (x,y+1), (x+1,y-1), (x+1,y), (x+1,y+1)}
     self.assertEqual(self.widget.AffectableCells(), expected, 'AffectableCells incorrect.')
 
   def test_SetCells_Iterate__call__(self):

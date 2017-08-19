@@ -226,12 +226,9 @@ class GameOfLife():
     return self._currRule.IsAliveNextGeneration(self.GetCell(cell), self.CountAround(cell))
 
   def AffectableCells(self):
-    '''Return a tuple of all the cells in arr and all those around them within range of checking.
-    In sorted order and without duplicates.
+    '''All the live cells and all those around them within range of checking without duplicates.
     '''
-    cells = list(set(c for cell in self.currArrData for c in self.AroundInclusive(cell)))
-    cells.sort()
-    return tuple(cells)
+    return set(c for cell in self.currArrData for c in self.AroundInclusive(cell))
 
   def Iterate(self):
     '''Do a single iteration.
