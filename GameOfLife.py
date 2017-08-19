@@ -150,7 +150,7 @@ class GameOfLife():
     '''
     self.dimensions = ValidateDimensions(dim)
 
-    self._currRule = Rule(ruleStr)
+    self._rule = Rule(ruleStr)
 
     self.Reset()
 
@@ -214,7 +214,7 @@ class GameOfLife():
   def WillBeAlive(self, cell):
     '''Will a given cell be alive in the next generation?
     '''
-    return self._currRule.IsAliveNextGeneration(self.GetCell(cell), self.CountAround(cell))
+    return self._rule.IsAliveNextGeneration(self.GetCell(cell), self.CountAround(cell))
 
   def AffectableCells(self):
     '''All the live cells and all those around them within range of checking without duplicates.
@@ -337,11 +337,11 @@ class GameOfLife():
 
   @property
   def ruleStr(self):
-    return self._currRule.string
+    return self._rule.string
 
   @ruleStr.setter
   def ruleStr(self, ruleStr):
-    self._currRule.string = ruleStr
+    self._rule.string = ruleStr
 
   @property
   def cells(self):
@@ -402,8 +402,8 @@ if __name__ == "__main__":
 
   print(GOL.population)
   print(GOL.ruleStr)
-  print(GOL._currRule())
-  print('%r' % GOL._currRule)
+  print(GOL._rule())
+  print('%r' % GOL._rule)
 
   print('\nAround Testing')
   a = GOL.Around((1,1,1))
