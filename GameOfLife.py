@@ -150,9 +150,6 @@ class GameOfLife():
     '''
     self.dimensions = ValidateDimensions(dim)
 
-    #run at every place at which it may need to be changed
-    self._check = tuple(Check())
-
     self._currRule = Rule(ruleStr)
 
     self.Reset()
