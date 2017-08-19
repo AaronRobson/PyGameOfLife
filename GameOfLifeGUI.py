@@ -41,9 +41,6 @@ class GUI(tk.Tk):
   def initialise(self):
     self.title('Game Of Life')
 
-    #the name given to all cells shown in the canvas
-    #self.cellTag = 'cell'
-
     self.grid()
 
     #leave at defaults for a 2 dimensional game of life with John Conway standard rules (23/3)
@@ -55,7 +52,6 @@ class GUI(tk.Tk):
     self.ResetColour()
 
   def Reset(self):
-    #print('Reset')
     self.ChangeGoNow(False)
     self.side = 5
     self.GAP = 1
@@ -80,17 +76,14 @@ class GUI(tk.Tk):
     self.ChangeBackground(DEFAULT_BACKGROUND_COLOUR)
 
   def Key(self, event):
-    #print(event.keysym)
     if event.keysym in self.keyDict:
       self.keyDict[event.keysym]()
 
   def CloseProgram(self):
-    #print('closing')
     self.ChangeGoNow(False)
     self.destroy()
 
   def CreateWidgets(self):
-    #print('Create Widgets')
     self.vGoStop = tk.StringVar()
 
     fCont = tk.Frame(self)
@@ -105,13 +98,6 @@ class GUI(tk.Tk):
 
     self.cnvs = tk.Canvas(bd=0) #put canvas in same GUI rather than #master = Tk() (new one)
     self.cnvs.grid(row=1, column=0, columnspan=2, sticky=tk.NSEW)
-
-    #self.cnvs.config(scrollregion="10 10 100 100")
-
-    #self.cnvs.xview_moveto(0) #explicitly set the top left viewpoint co-ordinates; should do this by itself. and now seems to
-    #self.cnvs.yview_moveto(0)
-
-    #self.cnvs.create_line(0,0,200,100,fill='#f0f0f0')
 
     self.rowconfigure(1, weight=1)
     self.columnconfigure(1, weight=1)
@@ -155,8 +141,6 @@ class GUI(tk.Tk):
     return tuple(map(self.PointDimToCellDim, canvasedPoints))
 
   def PlacePointClick(self, event): 
-    #print("place point clicked at", event.x, event.y)
-    #print("place point clicked at", self.cnvs.canvasx(event.x),self.cnvs.canvasy(event.y))
 
     #Using normal variable rather than object one stops doubling up of turning on and off or vice versa of a single point (re-entrancy).
     pointPlace = self.PointToCell(event.x, event.y)
@@ -171,10 +155,7 @@ class GUI(tk.Tk):
   def PlacePointDrag(self, event):
     '''Assumes that PlacePointClick sets self.point otherwise in setup it must be set to "= None".
     '''
-    #print("place point dragged at", event.x, event.y)
-    #print("place point clicked at", self.cnvs.canvasx(event.x),self.cnvs.canvasy(event.y))
     pointPlace = self.PointToCell(event.x, event.y)
-    #print('Point placed at', pointPlace)
     if not pointPlace == self.pointPlace:
       #remove final argument to replace the value of all cells rather than keep value
       self.GOL.SetCell(pointPlace, self.pointPlaceValue)
@@ -184,16 +165,12 @@ class GUI(tk.Tk):
   def ResetOriginClick(self, event=None):
     '''Default scroll to 0,0 in top left.
     '''
-    #if not event == None: print('reset origin clicked at', event.x, event.y)
-    #else: print('reset origin clicked')
     self.cnvs.config(scrollregion='0 0 %s %s' % (self.cnvs.cget('width'), self.cnvs.cget('height')))
 
   def ChangeOriginClick(self, event):
-    #print('change origin clicked at', event.x, event.y)
     self.pointScroll = self.cnvs.canvasx(event.x), self.cnvs.canvasy(event.y)
 
   def ChangeOriginDrag(self, event):
-    #print('change origin dragged at:', event.x, event.y)
     #for the first two remove float part and convert to integer
     curScroll = (floor(float(value)) for value in self.cnvs.cget('scrollregion').split()[:2])
     toScroll = self.pointScroll[0] - self.cnvs.canvasx(event.x), self.pointScroll[1] - self.cnvs.canvasy(event.y)
@@ -223,10 +200,10 @@ class GUI(tk.Tk):
     zoomStep = self.ZoomStep()
 
     if event.num == 4 or event.delta == _DELTA:
-      #print('mouse wheel up')
+      #mouse wheel up
       self.side += zoomStep
     elif event.num == 5 or event.delta == -_DELTA:
-      #print('mouse wheel down')
+      #mouse wheel down
       self.side -= zoomStep
 
     self.Display()
@@ -235,7 +212,7 @@ class GUI(tk.Tk):
     return tuple([b * (self.side + self.GAP) + (end * self.side) for b in a])
 
   def PlaceCellOnCanvas(self, i):
-    self.cnvs.create_rectangle(self.CellToPoint(False, *i), self.CellToPoint(True, *i), fill=self.foregroundTKColour, width=0)#, tag = self.cellTag)
+    self.cnvs.create_rectangle(self.CellToPoint(False, *i), self.CellToPoint(True, *i), fill=self.foregroundTKColour, width=0)
 
   def Display(self):
     '''Deletes any relevant contents of the canvas called "cnvs" replacing them with an updated view of the cells.
@@ -244,12 +221,10 @@ class GUI(tk.Tk):
     the canvas is redrawn as soon as possible.
     http://mail.python.org/pipermail/python-list/2001-March/073778.html
     '''
-    #print('Display')
     self.cnvs.delete(tk.ALL)
     list(map(self.PlaceCellOnCanvas, self.GOL()))
 
   def Iterate(self):
-    #print('Iterating')
     self.ChangeGoNow(False)
     self.GOL.Iterate()
     self.Display()
@@ -339,18 +314,8 @@ class GUI(tk.Tk):
   def CanvasResize(self, event):
     '''Change the size stored in the canvas when the window is resized so ChangeOriginDrag works properly.
     '''
-    #print ('(%d, %d)' % (event.width, event.height))
     self.cnvs['width'], self.cnvs['height'] = event.width-4, event.height-4
 
 if __name__ == "__main__":
   gui = GUI()
   gui.mainloop()
-
-  #import profile
-  #profile.run( 'gui.mainloop()' )
-  #profile.run('for i in range(1000): gui.Iterate()')
-
-  #print(GameOfLife.GameOfLifeClass.__doc__)
-
-  #needed to keep window from closing directly after use
-  #input('Press Enter to Exit: ')

@@ -417,7 +417,6 @@ if __name__ == "__main__":
     print(Display(GOL.GetRange(*ranging)))
 
   print(GOL.population)
-  #GOL.ruleStr
   print(GOL.ruleStr)
   print(GOL._currRule())
   print('%r' % GOL._currRule)
