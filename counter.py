@@ -13,10 +13,9 @@ class Counter():
   def Inc(self):
     self._value += 1
 
-  def _getValue(self):
+  @property
+  def value(self):
     return self._value
-
-  value = property(_getValue)
 
   def __call__(self):
     return self.value

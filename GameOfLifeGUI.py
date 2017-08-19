@@ -66,13 +66,13 @@ class GUI(tk.Tk):
     self.Display()
     self.DisplayGoingToString()
 
-  def _getSide(self):
+  @property
+  def side(self):
     return self._side
 
-  def _setSide(self, side):
+  @side.setter
+  def side(self, side):
     self._side = max(int(side), _MINIMUM_SIDE)
-
-  side = property(_getSide, _setSide)
 
   def ResetColour(self):
     self.ChangeForeground(DEFAULT_FOREGROUND_COLOUR)

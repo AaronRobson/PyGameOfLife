@@ -47,17 +47,17 @@ class Rule():
   def __init__(self, ruleStr=None):
     self.string = ruleStr
 
-  def _getString(self):
+  @property
+  def string(self):
     return self._RuleToString(self._rule)
 
-  def _setString(self, ruleStr):
+  @string.setter
+  def string(self, ruleStr):
     self._rule = self._StringToRule(ruleStr)
 
   def IsAliveNextGeneration(self, aliveNow, liveCellsAround):
     aliveNow = bool(aliveNow)
     return liveCellsAround in self._rule[aliveNow]
-
-  string = property(_getString, _setString)
 
   def __str__(self):
     return self.string
@@ -333,35 +333,35 @@ class GameOfLife():
         line = []      
     return grid
 
-  def _getPopulation(self):
+  @property
+  def population(self):
     '''As a side effect of storing co-ordinates as a sparse dataset,
     population does not have to be counted by exhaustive searching.
     '''
     return len(self.currArrData)
 
-  def _getGeneration(self):
+  @property
+  def generation(self):
     return self._generation()
 
-  def _getRuleStr(self):
+  @property
+  def ruleStr(self):
     return self._currRule.string
 
-  def _setRuleStr(self, ruleStr):
+  @ruleStr.setter
+  def ruleStr(self, ruleStr):
     self._currRule.string = ruleStr
 
-  def _getCurrentArrData(self):
+  @property
+  def currArrData(self):
     return self._arr
 
-  def _getCells(self):
+  @property
+  def cells(self):
     return tuple(sorted(self.currArrData))
 
   def __len__(self):
     return self.population
-
-  population = property(_getPopulation)
-  generation = property(_getGeneration)
-  ruleStr = property(_getRuleStr, _setRuleStr)
-  currArrData = property(_getCurrentArrData)
-  cells = property(_getCells)
 
 if __name__ == "__main__":
   def CellToChar(cellVal):
