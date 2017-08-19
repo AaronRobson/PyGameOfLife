@@ -172,7 +172,7 @@ class GameOfLife():
     """Population <=1/2 of maximum population for a stable arrangement,
     this favours a sparse data storage choice.
     """
-    self._arr = set()
+    self._cells = set()
 
   def __call__(self):
     '''Catch when the class is called like a function. Return a list of tuples representing the live cells.
@@ -233,7 +233,7 @@ class GameOfLife():
   def Iterate(self):
     '''Do a single iteration.
     '''
-    self._arr = set(cell for cell in self.AffectableCells() if self.WillBeAlive(cell))
+    self._cells = set(cell for cell in self.AffectableCells() if self.WillBeAlive(cell))
     self._generation.Inc()
 
   def IterateMany(self, number=1):
@@ -354,7 +354,7 @@ class GameOfLife():
 
   @property
   def currArrData(self):
-    return self._arr
+    return self._cells
 
   @property
   def cells(self):
