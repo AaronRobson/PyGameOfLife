@@ -155,13 +155,13 @@ class TestGameOfLife(unittest.TestCase):
     self.assertEqual(self.widget.AffectableCells(), expected, 'AffectableCells incorrect.')
 
   def test_SetCells_Iterate__call__(self):
-    exampleKeyList = (0,1), (1,1), (2,1)
-    self.assertEqual(self.widget(), (), 'SetCells & __call__ Fail: point listing type or contents incorrect at start.')
+    exampleKeyList = {(0,1), (1,1), (2,1)}
+    self.assertEqual(self.widget(), set(), 'SetCells & __call__ Fail: point listing type or contents incorrect at start.')
     self.widget.SetCells(*exampleKeyList)
     self.assertEqual(self.widget(), exampleKeyList, 'SetCells & __call__ Fail: point listing type or contents incorrect after points added.')
 
     self.widget.Iterate()
-    self.assertEqual(self.widget(), ((1,0), (1,1), (1,2)), 'SetCells & Iterate & __call__ Fail: point listing type or contents incorrect after blinker has one iteration.')
+    self.assertEqual(self.widget(), {(1,0), (1,1), (1,2)}, 'SetCells & Iterate & __call__ Fail: point listing type or contents incorrect after blinker has one iteration.')
 
   def test_FixRange(self):
     self.assertEqual(self.widget.FixRange((-1,-1), (0,0)), ((1,1), (-1,-1)), 'FixRange Fail: incorrectly handles minus size.')

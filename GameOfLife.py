@@ -175,8 +175,6 @@ class GameOfLife():
     self._cells = set()
 
   def __call__(self):
-    '''Catch when the class is called like a function. Return a list of tuples representing the live cells.
-    '''
     return self.cells
 
   def Around(self, origin):
@@ -218,7 +216,7 @@ class GameOfLife():
     '''Add up all the presant has_keys for all those Around()
     a given cell in the 'Current Array'.
     '''
-    return sum(p in self.currArrData for p in self.Around(cell))
+    return sum(p in self.cells for p in self.Around(cell))
 
   def WillBeAlive(self, cell):
     '''Will a given cell be alive in the next generation?
@@ -228,7 +226,7 @@ class GameOfLife():
   def AffectableCells(self):
     '''All the live cells and all those around them within range of checking without duplicates.
     '''
-    return set(c for cell in self.currArrData for c in self.AroundInclusive(cell))
+    return set(c for cell in self.cells for c in self.AroundInclusive(cell))
 
   def Iterate(self):
     '''Do a single iteration.
@@ -255,16 +253,16 @@ class GameOfLife():
       self.SetCell(cell, RandomBoolean())
 
   def GetCell(self, cell):
-    return cell in self.currArrData
+    return cell in self.cells
 
   def SetCellSwap(self, cell):
     self.SetCell(cell, not self.GetCell(cell))
 
   def SetCell(self, cell, value=True):  
     if value:
-      self.currArrData.add(cell)
-    elif cell in self.currArrData:
-      self.currArrData.remove(cell)
+      self.cells.add(cell)
+    elif cell in self.cells:
+      self.cells.remove(cell)
 
   def SetCellsAlive(self, *cells):
     list(map(self.SetCell, cells))
@@ -326,7 +324,7 @@ class GameOfLife():
     grid = []
     line = []
     for r in ranges:
-      line.append(r in self.currArrData)
+      line.append(r in self.cells)
       #Is the end of a line?
       if r[dimensionWrapOn] == linePlace - 1:
         grid.append(line)
@@ -338,7 +336,7 @@ class GameOfLife():
     '''As a side effect of storing co-ordinates as a sparse dataset,
     population does not have to be counted by exhaustive searching.
     '''
-    return len(self.currArrData)
+    return len(self.cells)
 
   @property
   def generation(self):
@@ -353,12 +351,8 @@ class GameOfLife():
     self._currRule.string = ruleStr
 
   @property
-  def currArrData(self):
-    return self._cells
-
-  @property
   def cells(self):
-    return tuple(sorted(self.currArrData))
+    return self._cells
 
   def __len__(self):
     return self.population
