@@ -12,7 +12,7 @@ import cellfile
 Test: GameOfLifeGUI
 '''
 
-class TestRuleClass(unittest.TestCase):
+class TestRule(unittest.TestCase):
   def setUp(self):
     self.support = GameOfLife
     self.widget = self.support.Rule()
@@ -89,7 +89,7 @@ class TestRuleClass(unittest.TestCase):
     #self.assertEqual(self.widget.rule, ((4,5), (8,9)), 'RuleParserFromString & GetRule & RuleToString Fail: custom 2 by 2 rule incorrectly stored.')
     self.assertEqual(self.widget.string, ruleStr, 'RuleParserFromString & GetRule & RuleToString Fail: custom 2 by 2 rule round trip change.')
 
-class TestCounterClass(unittest.TestCase):
+class TestCounter(unittest.TestCase):
   def setUp(self):
     self.support = counter
     self.widget = self.support.Counter()
@@ -108,10 +108,10 @@ class TestCounterClass(unittest.TestCase):
     self.widget.Reset()
     self.assertEqual(self.widget(), 0, '')
 
-class TestGameOfLifeClass(unittest.TestCase):
+class TestGameOfLife(unittest.TestCase):
   def setUp(self):
     self.support = GameOfLife
-    self.widget = self.support.GameOfLifeClass()
+    self.widget = self.support.GameOfLife()
 
   def test_ProductOfSeq(self):
     self.assertEqual(self.support.ProductOfSeq((1, 2, 3)), 6, 'ProductOfSeq Fail: on simple integer multiplication.')

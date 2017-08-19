@@ -6,7 +6,7 @@ from math import floor
 import time
 import random
 
-import GameOfLife
+from GameOfLife import GameOfLife
 import colourutils
 from cellfile import GetCellsFromFile
 
@@ -44,7 +44,7 @@ class GUI(tk.Tk):
     self.grid()
 
     #leave at defaults for a 2 dimensional game of life with John Conway standard rules (23/3)
-    self.GOL = GameOfLife.GameOfLifeClass()
+    self.GOL = GameOfLife()
 
     self.CreateWidgets()
     self.Bindings()

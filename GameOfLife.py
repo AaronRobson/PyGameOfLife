@@ -135,7 +135,7 @@ def RandomBoolean():
   '''
   return bool(randrange(2))
 
-class GameOfLifeClass():
+class GameOfLife():
   def __init__(self, *args, **kwargs):
     '''"dim" is the number of dimensions wanted and the ruleStr is a string
     consisting of two sets of an arbitary number of integer values separated 
@@ -403,7 +403,7 @@ if __name__ == "__main__":
   #ranging = (6, 6), (0, 0)
   ranging = (SIZE_NUM,) * DIMENSIONS, (ORIGIN_NUM,) * DIMENSIONS
 
-  GOL = GameOfLifeClass()
+  GOL = GameOfLife()
 
   GOL.Glider()
   #GOL.GosperGliderGun()
