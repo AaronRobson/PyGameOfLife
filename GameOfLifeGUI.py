@@ -27,6 +27,9 @@ goingStringEnum = ('Go', 'Stop')
 def GoToString(isGoing):
   return goingStringEnum[isGoing]
 
+def BoolToPlusMinusOne(inputBool):
+  return (bool(inputBool) * 2) - 1
+
 _MINIMUM_SIDE = 1
 class GUI(tk.Tk):
   """A custom graphical user interface for the GameOfLife Class
@@ -188,11 +191,8 @@ class GUI(tk.Tk):
 
     self.pointScroll = self.cnvs.canvasx(event.x), self.cnvs.canvasy(event.y)
 
-  def BoolToPlusMinusOne(self, inputBool):
-    return (bool(inputBool) * 2) - 1
-
   def ZoomStep(self):
-    return self.BoolToPlusMinusOne(not self.InvertZoom) * self.ZoomIncrement
+    return BoolToPlusMinusOne(not self.InvertZoom) * self.ZoomIncrement
 
   def MouseWheelZoom(self, event):
     '''Respond to Linux (event.num) or Windows (event.delta) wheel events.
