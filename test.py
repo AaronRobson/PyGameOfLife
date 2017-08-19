@@ -171,6 +171,16 @@ class TestGameOfLife(unittest.TestCase):
     for i in range(10):
       self.assertTrue(self.support.RandomBoolean() in possiblities, '')
 
+  def test_population(self):
+    self.assertEqual(self.widget.population, 0)
+    self.assertEqual(len(self.widget), 0)
+
+    #Glider
+    self.widget.SetCells((1,0),(2,1),(0,2),(1,2),(2,2))
+
+    self.assertEqual(self.widget.population, 5)
+    self.assertEqual(len(self.widget), 5)
+
 class TestColourUtils(unittest.TestCase):
   def setUp(self):
     self.support = colourutils
