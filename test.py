@@ -15,79 +15,81 @@ Test: GameOfLifeGUI
 class TestRule(unittest.TestCase):
   def setUp(self):
     self.support = GameOfLife
-    self.widget = self.support.Rule()
+    self.widget = self.support.Rule
 
   def test_String(self):
-    self.assertEqual(self.widget.string, '3/23', 'Default rule string incorrect.')
+    rule = self.widget()
+    self.assertEqual(rule.string, '3/23', 'Default rule string incorrect.')
 
-    self.widget.string = '12/23'
-    self.assertEqual(self.widget.string, '12/23', '')
-    self.assertEqual(str(self.widget), '12/23', '')
+    rule = self.widget('12/23')
+    self.assertEqual(rule.string, '12/23', '')
+    self.assertEqual(str(rule), '12/23', '')
 
-    self.assertEqual(self.widget._rule, ((1,2),(2,3)), 'Test internal rule storage as white box.')
+    self.assertEqual(rule._rule, ((1,2),(2,3)), 'Test internal rule storage as white box.')
 
-    self.widget.string = '9876543210/'
-    self.assertEqual(self.widget._rule, ((0,1,2,3,4,5,6,7,8,9), ()), '')
+    rule = self.widget('9876543210/')
+    self.assertEqual(rule._rule, ((0,1,2,3,4,5,6,7,8,9), ()), '')
 
-    self.widget.string = '/11'
-    self.assertEqual(self.widget._rule, ((), (1,)), '')
+    rule = self.widget('/11')
+    self.assertEqual(rule._rule, ((), (1,)), '')
 
-    self.widget.string = ''
-    self.assertEqual(self.widget._rule, ((), ()), '')
+    rule = self.widget('')
+    self.assertEqual(rule._rule, ((), ()), '')
 
   def test_IsAliveNextGeneration(self):
-    self.assertTrue(self.widget.IsAliveNextGeneration(True, 3), '')
-    self.assertTrue(self.widget.IsAliveNextGeneration(True, 2), '')
-    self.assertTrue(self.widget.IsAliveNextGeneration(False, 3), '')
+    rule = self.widget()
 
-    self.assertFalse(self.widget.IsAliveNextGeneration(True, 4), '')
-    self.assertFalse(self.widget.IsAliveNextGeneration(True, 1), '')
-    self.assertFalse(self.widget.IsAliveNextGeneration(False, 4), '')
-    self.assertFalse(self.widget.IsAliveNextGeneration(False, 2), '')
+    self.assertTrue(rule.IsAliveNextGeneration(True, 3), '')
+    self.assertTrue(rule.IsAliveNextGeneration(True, 2), '')
+    self.assertTrue(rule.IsAliveNextGeneration(False, 3), '')
 
-    self.widget.string = '23/12'
+    self.assertFalse(rule.IsAliveNextGeneration(True, 4), '')
+    self.assertFalse(rule.IsAliveNextGeneration(True, 1), '')
+    self.assertFalse(rule.IsAliveNextGeneration(False, 4), '')
+    self.assertFalse(rule.IsAliveNextGeneration(False, 2), '')
 
-    self.assertTrue(self.widget.IsAliveNextGeneration(True, 1), '')
-    self.assertTrue(self.widget.IsAliveNextGeneration(True, 2), '')
-    self.assertTrue(self.widget.IsAliveNextGeneration(False, 2), '')
-    self.assertTrue(self.widget.IsAliveNextGeneration(False, 3), '')
+    rule = self.widget('23/12')
 
-    self.assertFalse(self.widget.IsAliveNextGeneration(True, 3), '')
-    self.assertFalse(self.widget.IsAliveNextGeneration(True, 0), '')
-    self.assertFalse(self.widget.IsAliveNextGeneration(False, 4), '')
-    self.assertFalse(self.widget.IsAliveNextGeneration(False, 1), '')
+    self.assertTrue(rule.IsAliveNextGeneration(True, 1), '')
+    self.assertTrue(rule.IsAliveNextGeneration(True, 2), '')
+    self.assertTrue(rule.IsAliveNextGeneration(False, 2), '')
+    self.assertTrue(rule.IsAliveNextGeneration(False, 3), '')
+
+    self.assertFalse(rule.IsAliveNextGeneration(True, 3), '')
+    self.assertFalse(rule.IsAliveNextGeneration(True, 0), '')
+    self.assertFalse(rule.IsAliveNextGeneration(False, 4), '')
+    self.assertFalse(rule.IsAliveNextGeneration(False, 1), '')
 
   def test_StringToDigitTuple(self):
-    self.assertEqual(self.widget._StringToDigitTuple(''), (), '')
-    self.assertEqual(self.widget._StringToDigitTuple('jasdjf £€$ ;\!"£$%^//&*()\'#;[]\':{:\')'), (), '')
-    self.assertEqual(self.widget._StringToDigitTuple('93648261'), (1,2,3,4,6,8,9), '')
-    self.assertEqual(self.widget._StringToDigitTuple('djksd2kdfadfk3kfa;@~}1'), (1,2,3), '')
-    self.assertEqual(self.widget._StringToDigitTuple('11111111111111111111adjfa33333333jdfj5555'), (1,3,5), '')
+    self.assertEqual(self.widget()._StringToDigitTuple(''), (), '')
+    self.assertEqual(self.widget()._StringToDigitTuple('jasdjf £€$ ;\!"£$%^//&*()\'#;[]\':{:\')'), (), '')
+    self.assertEqual(self.widget()._StringToDigitTuple('93648261'), (1,2,3,4,6,8,9), '')
+    self.assertEqual(self.widget()._StringToDigitTuple('djksd2kdfadfk3kfa;@~}1'), (1,2,3), '')
+    self.assertEqual(self.widget()._StringToDigitTuple('11111111111111111111adjfa33333333jdfj5555'), (1,3,5), '')
 
   def test_RuleToString(self):
-    self.assertEqual(self.widget._RuleToString(((), ())), '/', 'RuleToString Fail: on empty notation.')
-    self.assertEqual(self.widget._RuleToString(((1,), (2,))), '1/2', 'RuleToString Fail: on standard notation 1 by 1.')
-    self.assertEqual(self.widget._RuleToString(((1,2,), (3,))), '12/3', 'RuleToString Fail: on standard notation 2 by 1.')
-    self.assertEqual(self.widget._RuleToString(((1,2,), (3,4,))), '12/34', 'RuleToString Fail: on standard notation extended 2 by 2.')
-    self.assertEqual(self.widget._RuleToString(((1,), (2,), (3,))), '1/2', 'RuleToString Fail: on more than two rule sections.')
+    self.assertEqual(self.widget()._RuleToString(((), ())), '/', 'RuleToString Fail: on empty notation.')
+    self.assertEqual(self.widget()._RuleToString(((1,), (2,))), '1/2', 'RuleToString Fail: on standard notation 1 by 1.')
+    self.assertEqual(self.widget()._RuleToString(((1,2,), (3,))), '12/3', 'RuleToString Fail: on standard notation 2 by 1.')
+    self.assertEqual(self.widget()._RuleToString(((1,2,), (3,4,))), '12/34', 'RuleToString Fail: on standard notation extended 2 by 2.')
+    self.assertEqual(self.widget()._RuleToString(((1,), (2,), (3,))), '1/2', 'RuleToString Fail: on more than two rule sections.')
 
   def test_StringToRule(self):
-    self.assertEqual(self.widget._StringToRule(), ((3,), (2,3,)), 'StringToRule Fail: default rule incorrect.')
-    self.assertEqual(self.widget._StringToRule(''), ((), ()), 'StringToRule Fail: on empty notation.')
-    self.assertEqual(self.widget._StringToRule('/'), ((), ()), 'StringToRule Fail: on only separator notation.')
-    self.assertEqual(self.widget._StringToRule('1/'), ((1,), ()), 'StringToRule Fail: on first empty.')
-    self.assertEqual(self.widget._StringToRule('/2'), ((), (2,)), 'StringToRule Fail: on second empty.')
-    self.assertEqual(self.widget._StringToRule('1/2'), ((1,), (2,)), 'StringToRule Fail: on standard notation 1 by 1.')
-    self.assertEqual(self.widget._StringToRule('  5  6  /  7  8  \r\n\t!"£$%^&*()'), ((5,6), (7,8)), 'StringToRule Fail: Fails to ignore whitespace and other characters properly.')
-    self.assertEqual(self.widget._StringToRule('12/3'), ((1,2,), (3,)), 'StringToRule Fail: on standard notation 2 by 1.')
-    self.assertEqual(self.widget._StringToRule('12/34'), ((1,2,), (3,4,)), 'StringToRule Fail: on standard notation extended 2 by 2.')
-    self.assertEqual(self.widget._StringToRule('1/2/3'), ((1,), (2,)), 'StringToRule Fail: on more than two rule sections.')
+    self.assertEqual(self.widget()._StringToRule(), ((3,), (2,3,)), 'StringToRule Fail: default rule incorrect.')
+    self.assertEqual(self.widget()._StringToRule(''), ((), ()), 'StringToRule Fail: on empty notation.')
+    self.assertEqual(self.widget()._StringToRule('/'), ((), ()), 'StringToRule Fail: on only separator notation.')
+    self.assertEqual(self.widget()._StringToRule('1/'), ((1,), ()), 'StringToRule Fail: on first empty.')
+    self.assertEqual(self.widget()._StringToRule('/2'), ((), (2,)), 'StringToRule Fail: on second empty.')
+    self.assertEqual(self.widget()._StringToRule('1/2'), ((1,), (2,)), 'StringToRule Fail: on standard notation 1 by 1.')
+    self.assertEqual(self.widget()._StringToRule('  5  6  /  7  8  \r\n\t!"£$%^&*()'), ((5,6), (7,8)), 'StringToRule Fail: Fails to ignore whitespace and other characters properly.')
+    self.assertEqual(self.widget()._StringToRule('12/3'), ((1,2,), (3,)), 'StringToRule Fail: on standard notation 2 by 1.')
+    self.assertEqual(self.widget()._StringToRule('12/34'), ((1,2,), (3,4,)), 'StringToRule Fail: on standard notation extended 2 by 2.')
+    self.assertEqual(self.widget()._StringToRule('1/2/3'), ((1,), (2,)), 'StringToRule Fail: on more than two rule sections.')
 
   def test_RuleParserFromString_GetRule_RuleToString(self):
     ruleStr = '45/89'
-    self.widget.string = ruleStr
-    #self.assertEqual(self.widget.rule, ((4,5), (8,9)), 'RuleParserFromString & GetRule & RuleToString Fail: custom 2 by 2 rule incorrectly stored.')
-    self.assertEqual(self.widget.string, ruleStr, 'RuleParserFromString & GetRule & RuleToString Fail: custom 2 by 2 rule round trip change.')
+    rule = self.widget(ruleStr)
+    self.assertEqual(rule.string, ruleStr, 'RuleParserFromString & GetRule & RuleToString Fail: custom 2 by 2 rule round trip change.')
 
 class TestCounter(unittest.TestCase):
   def setUp(self):

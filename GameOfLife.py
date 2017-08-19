@@ -45,15 +45,11 @@ def ValidateToActualWholeNumber(num):
 
 class Rule():
   def __init__(self, ruleStr=None):
-    self.string = ruleStr
+    self._rule = self._StringToRule(ruleStr)
 
   @property
   def string(self):
     return self._RuleToString(self._rule)
-
-  @string.setter
-  def string(self, ruleStr):
-    self._rule = self._StringToRule(ruleStr)
 
   def IsAliveNextGeneration(self, aliveNow, liveCellsAround):
     aliveNow = bool(aliveNow)
