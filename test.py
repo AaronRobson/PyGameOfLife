@@ -85,7 +85,7 @@ class TestRule(unittest.TestCase):
 
   def test_StringToDigitTuple(self):
     self.assertEqual(self.support._StringToDigitTuple(''), (), '')
-    self.assertEqual(self.support._StringToDigitTuple('jasdjf £$ ;\!"£$%^//&*()\'#;[]\':{:\')'), (), '')
+    self.assertEqual(self.support._StringToDigitTuple('jasdjf $ ;\!"$%^//&*()\'#;[]\':{:\')'), (), '')
     self.assertEqual(self.support._StringToDigitTuple('93648261'), (1,2,3,4,6,8,9), '')
     self.assertEqual(self.support._StringToDigitTuple('djksd2kdfadfk3kfa;@~}1'), (1,2,3), '')
     self.assertEqual(self.support._StringToDigitTuple('11111111111111111111adjfa33333333jdfj5555'), (1,3,5), '')
