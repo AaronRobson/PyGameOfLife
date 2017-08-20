@@ -1,12 +1,12 @@
 #!/usr/bin/python
 
+from random import randrange
+
 #RGB
 _COLOUR_MIN = 0x000000
 _COLOUR_MAX = 0xFFFFFF
 
 assert _COLOUR_MIN <= _COLOUR_MAX
-
-from random import randrange
 
 def HexPlain(number):
   '''Without 0x at the start.
