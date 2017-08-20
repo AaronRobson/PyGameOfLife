@@ -139,7 +139,7 @@ class TestGameOfLife(unittest.TestCase):
     self.widget = self.support.GameOfLife()
 
   def test_Around(self):
-    result = self.support.Around((1,1,1))
+    result = list(self.support.Around((1,1,1)))
     self.assertFalse((1,1,1) in result, 'Around Fail: centre cell not being removed from result.')
     self.assertTrue((1,1,2) in result, 'Around Fail: not including normal values around centre cell.')
     self.assertTrue((0,0,0) in result, 'Around Fail: not including low values around centre cell.')

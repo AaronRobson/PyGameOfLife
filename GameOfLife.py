@@ -82,15 +82,7 @@ def MooreNeighborhood(origin):
   return itertoolsProduct(*dimensionValues)
 
 def Around(origin):
-  '''Same as MooreNeighborhood but does not include the given centre point.
-  '''
-  output = list(MooreNeighborhood(origin))
-
-  """remove centre cell (the origin value):
-  which is [0] or [0,0] or [0,0,0] etc."""
-  del output[len(output) // 2]
-
-  return tuple(output)
+  return filter(lambda x: x != origin, MooreNeighborhood(origin))
 
 def AroundList(size, origin=None):
   '''Returns tuples of co-ordinates for a given range.
@@ -346,7 +338,7 @@ if __name__ == "__main__":
   print('%r' % GOL.rule)
 
   print('\nAround Testing')
-  a = Around((1,1,1))
+  a = list(Around((1,1,1)))
   print(a[len(a) // 2])
   print((1,1,1) not in a)
   print((1,1,2) in a)
