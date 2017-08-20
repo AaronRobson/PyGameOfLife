@@ -141,7 +141,7 @@ def AroundInclusive(origin, dimensions=None):
   if not origin: origin = (DEFAULT_ORIGIN,) * dimensions
 
   dimensionValues = map(Check, origin)
-  return tuple(itertoolsProduct(*dimensionValues))
+  return itertoolsProduct(*dimensionValues)
 
 class GameOfLife():
   def __init__(self, *args, **kwargs):
