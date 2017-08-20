@@ -165,7 +165,7 @@ class GameOfLife():
     """Population <=1/2 of maximum population for a stable arrangement,
     this favours a sparse data storage choice.
     """
-    self._cells = set()
+    self.cells = []
 
   def __call__(self):
     return self.cells
@@ -224,7 +224,7 @@ class GameOfLife():
   def Iterate(self):
     '''Do a single iteration.
     '''
-    self._cells = set(cell for cell in self.AffectableCells() if self.WillBeAlive(cell))
+    self.cells = (cell for cell in self.AffectableCells() if self.WillBeAlive(cell))
     self._generation.Inc()
 
   def IterateMany(self, number=1):
@@ -257,23 +257,15 @@ class GameOfLife():
     elif cell in self.cells:
       self.cells.remove(cell)
 
-  def SetCellsAlive(self, *cells):
-    list(map(self.SetCell, cells))
-
-  def SetCells(self, *cells):
-    '''Multiple SetCellSwap Calls in a single call.
-    '''
-    list(map(self.SetCellSwap, cells))
-
   def Glider(self):
     '''OXO
     OOX
     XXX
     '''
-    self.SetCellsAlive((1,0), (2,1), (0,2), (1,2), (2,2))
+    self.cells = [(1,0), (2,1), (0,2), (1,2), (2,2)]
 
   def GosperGliderGun(self):
-    self.SetCellsAlive(
+    self.cells = [
       (0,6), (0,7), (1,6), (1,7), #block
       (8,7), (8,8), (9,6), (9,8), (10,6), (10,7), #beehive
       (16,8), (16,9), (16,10), (17,8), (18,9), #glider
@@ -281,7 +273,7 @@ class GameOfLife():
       (34,4), (34,5), (35,4), (35,5), #block
       (24,16), (24,17), (25,16), (25,18), (26,16), #glider
       (35,11), (35,12), (35,13), (36,11), (37,12), #gliders
-    )
+    ]
 
   def FixRange(self, size, origin):
     '''If a dimension is a minus size it it converted to positive
@@ -346,6 +338,10 @@ class GameOfLife():
   @property
   def cells(self):
     return self._cells
+
+  @cells.setter
+  def cells(self, cells):
+    self._cells = set(cells)
 
   def __len__(self):
     return self.population

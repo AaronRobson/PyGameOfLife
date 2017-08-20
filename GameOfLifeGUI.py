@@ -305,13 +305,12 @@ class GUI(tk.Tk):
 
   def LoadCells(self):
     try:
-      cells = tuple(GetCellsFromFile(fileCellpath))
+      cells = GetCellsFromFile(fileCellpath)
     except IOError:
       print('File "%s" not found.' % fileCellpath)
     else:
       if cells:
-        self.Reset()
-        self.GOL.SetCellsAlive(*cells)
+        self.GOL.cells = cells
         self.Display()
 
   def CanvasResize(self, event):

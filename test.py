@@ -142,7 +142,7 @@ class TestGameOfLife(unittest.TestCase):
 
   def test_CountAround(self):
     #Glider
-    self.widget.SetCells((1,0),(2,1),(0,2),(1,2),(2,2))
+    self.widget.cells = [(1,0),(2,1),(0,2),(1,2),(2,2)]
 
     self.assertEqual(self.widget.CountAround((1,1)), 5, '')
     self.assertEqual(self.widget.CountAround((1,3)), 3, '')
@@ -159,7 +159,7 @@ class TestGameOfLife(unittest.TestCase):
   def test_SetCells_Iterate__call__(self):
     exampleKeyList = {(0,1), (1,1), (2,1)}
     self.assertEqual(self.widget(), set(), 'SetCells & __call__ Fail: point listing type or contents incorrect at start.')
-    self.widget.SetCells(*exampleKeyList)
+    self.widget.cells = exampleKeyList
     self.assertEqual(self.widget(), exampleKeyList, 'SetCells & __call__ Fail: point listing type or contents incorrect after points added.')
 
     self.widget.Iterate()
@@ -178,7 +178,7 @@ class TestGameOfLife(unittest.TestCase):
     self.assertEqual(len(self.widget), 0)
 
     #Glider
-    self.widget.SetCells((1,0),(2,1),(0,2),(1,2),(2,2))
+    self.widget.cells = [(1,0),(2,1),(0,2),(1,2),(2,2)]
 
     self.assertEqual(self.widget.population, 5)
     self.assertEqual(len(self.widget), 5)
