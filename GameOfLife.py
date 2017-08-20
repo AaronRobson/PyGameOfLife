@@ -158,7 +158,7 @@ class GameOfLife():
     """Population <=1/2 of maximum population for a stable arrangement,
     this favours a sparse data storage choice.
     """
-    self.cells = []
+    self.cells = set()
 
   def __call__(self):
     return self.cells
