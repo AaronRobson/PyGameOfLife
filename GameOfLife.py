@@ -125,6 +125,16 @@ def FixRange(size, origin):
   numbers of dimensions, which they should not)."""
   return tuple(zip(*map(Fix, size, origin)))
 
+def WillBeAlive(cell, cells, rule):
+  '''Will a given cell be alive in the next generation?
+  '''
+  return rule.IsAliveNextGeneration(cell in cells, CountAround(cell, cells))
+
+def AffectableCells(cells):
+  '''All the live cells and all those around them within range of checking without duplicates.
+  '''
+  return set(c for cell in cells for c in AroundInclusive(cell))
+
 class GameOfLife():
   def __init__(self, *args, **kwargs):
     '''"dim" is the number of dimensions wanted and the ruleStr is a string
@@ -163,20 +173,10 @@ class GameOfLife():
   def __call__(self):
     return self.cells
 
-  def WillBeAlive(self, cell):
-    '''Will a given cell be alive in the next generation?
-    '''
-    return self._rule.IsAliveNextGeneration(self.IsCellAlive(cell), CountAround(cell, self.cells))
-
-  def AffectableCells(self):
-    '''All the live cells and all those around them within range of checking without duplicates.
-    '''
-    return set(c for cell in self.cells for c in AroundInclusive(cell))
-
   def Iterate(self):
     '''Do a single iteration.
     '''
-    self.cells = (cell for cell in self.AffectableCells() if self.WillBeAlive(cell))
+    self.cells = (cell for cell in AffectableCells(self.cells) if WillBeAlive(cell, self.cells, self._rule))
     self._generation.Inc()
 
   def IterateMany(self, number=1):
