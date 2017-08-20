@@ -1,6 +1,10 @@
 #!/usr/bin/python
 
-import tkinter as tk
+try:
+  import tkinter as tk
+except:
+  import Tkinter as tk
+
 from operator import add as OpAdd
 from math import floor
 import time
