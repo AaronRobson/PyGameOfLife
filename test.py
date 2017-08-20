@@ -25,16 +25,14 @@ class TestRule(unittest.TestCase):
     rule = self.widget('12/23')
     self.assertEqual(str(rule), '12/23', '')
 
-    self.assertEqual(rule._rule, ((1,2),(2,3)), 'Test internal rule storage as white box.')
-
     rule = self.widget('9876543210/')
-    self.assertEqual(rule._rule, ((0,1,2,3,4,5,6,7,8,9), ()), '')
+    self.assertEqual(str(rule), '0123456789/', '')
 
     rule = self.widget('/11')
-    self.assertEqual(rule._rule, ((), (1,)), '')
+    self.assertEqual(str(rule), '/1', '')
 
     rule = self.widget('')
-    self.assertEqual(rule._rule, ((), ()), '')
+    self.assertEqual(str(rule), '/', '')
 
   def test_IsAliveNextGeneration(self):
     rule = self.widget()
@@ -65,9 +63,25 @@ class TestRule(unittest.TestCase):
     self.assertEqual(rule.born, (3,), '')
     self.assertEqual(rule.survives, (2,3), '')
 
+    rule = self.widget('12/23')
+    self.assertEqual(rule.born, (1,2), '')
+    self.assertEqual(rule.survives, (2,3), '')
+
     rule = self.widget('23/12')
     self.assertEqual(rule.born, (2,3), '')
     self.assertEqual(rule.survives, (1,2), '')
+
+    rule = self.widget('9876543210/')
+    self.assertEqual(rule.born, (0,1,2,3,4,5,6,7,8,9), '')
+    self.assertEqual(rule.survives, (), '')
+
+    rule = self.widget('/11')
+    self.assertEqual(rule.born, (), '')
+    self.assertEqual(rule.survives, (1,), '')
+
+    rule = self.widget('')
+    self.assertEqual(rule.born, (), '')
+    self.assertEqual(rule.survives, (), '')
 
   def test_StringToDigitTuple(self):
     self.assertEqual(self.support._StringToDigitTuple(''), (), '')

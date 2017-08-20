@@ -44,10 +44,10 @@ def _StringToRule(stringRule=None):
 
 class Rule():
   def __init__(self, ruleStr=None):
-    self._rule = _StringToRule(ruleStr)
+    self._born, self._survives = _StringToRule(ruleStr)
 
   def __str__(self):
-    return _RuleToString(self._rule)
+    return _RuleToString((self._born, self.survives,))
 
   def __repr__(self):
     return '%s(%r)' % (self.__class__.__name__, str(self))
@@ -57,11 +57,11 @@ class Rule():
 
   @property
   def born(self):
-    return self._rule[0]
+    return self._born
 
   @property
   def survives(self):
-    return self._rule[1]
+    return self._survives
 
   def IsAliveNextGeneration(self, aliveNow, liveCellsAround):
     if aliveNow:
