@@ -74,7 +74,7 @@ def CountAround(cell, cells):
   '''
   return sum(p in cells for p in Around(cell))
 
-def AroundInclusive(origin):
+def MooreNeighborhood(origin):
   '''Like AroundList but can take advantage of the fact that check
   [-1,0,1] is the same for all dimensions.
   '''
@@ -82,9 +82,9 @@ def AroundInclusive(origin):
   return itertoolsProduct(*dimensionValues)
 
 def Around(origin):
-  '''Same as AroundInclusive but does not include the given centre point.
+  '''Same as MooreNeighborhood but does not include the given centre point.
   '''
-  output = list(AroundInclusive(origin))
+  output = list(MooreNeighborhood(origin))
 
   """remove centre cell (the origin value):
   which is [0] or [0,0] or [0,0,0] etc."""
@@ -130,7 +130,7 @@ def WillBeAlive(cell, cells, rule):
 def AffectableCells(cells):
   '''All the live cells and all those around them within range of checking without duplicates.
   '''
-  return set(c for cell in cells for c in AroundInclusive(cell))
+  return set(c for cell in cells for c in MooreNeighborhood(cell))
 
 def CellsOfNextGeneration(cells, rule):
   return (cell for cell in AffectableCells(cells) if WillBeAlive(cell, cells, rule))

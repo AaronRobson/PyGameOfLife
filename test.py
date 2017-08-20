@@ -146,13 +146,13 @@ class TestGameOfLife(unittest.TestCase):
     self.assertTrue((2,2,2) in result, 'Around Fail: not including high values around centre cell.')
     self.assertFalse((3,1,1) in result, 'Around Fail: value out of range included.')
 
-  def test_AroundInclusive(self):
-    result = list(self.support.AroundInclusive((1,1,1)))
-    self.assertTrue((1,1,1) in result, 'Around Inclusive Fail: centre cell being removed from result.')
-    self.assertTrue((1,1,2) in result, 'Around Inclusive Fail: not including normal values around centre cell.')
-    self.assertTrue((0,0,0) in result, 'Around Inclusive Fail: not including low values around centre cell.')
-    self.assertTrue((2,2,2) in result, 'Around Inclusive Fail: not including high values around centre cell.')
-    self.assertFalse((3,1,1) in result, 'Around Inclusive Fail: value out of range included.')
+  def test_MooreNeighborhood(self):
+    result = list(self.support.MooreNeighborhood((1,1,1)))
+    self.assertTrue((1,1,1) in result, 'MooreNeighborhood Fail: centre cell being removed from result.')
+    self.assertTrue((1,1,2) in result, 'MooreNeighborhood Fail: not including normal values around centre cell.')
+    self.assertTrue((0,0,0) in result, 'MooreNeighborhood Fail: not including low values around centre cell.')
+    self.assertTrue((2,2,2) in result, 'MooreNeighborhood Fail: not including high values around centre cell.')
+    self.assertFalse((3,1,1) in result, 'MooreNeighborhood Fail: value out of range included.')
 
   def test_AroundList(self):
     aroundListResult = self.support.AroundList((3,4), (0,2))
