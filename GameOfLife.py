@@ -94,7 +94,7 @@ def AroundList(size, origin):
   # http://www.daniweb.com/software-development/python/threads/272931
 
   dimensionalRanges = map(LowHigh, *FixRange(size, origin))
-  return tuple(itertoolsProduct(*dimensionalRanges))
+  return itertoolsProduct(*dimensionalRanges)
 
 def FixRange(size, origin):
   '''If a dimension is a minus size it it converted to positive
@@ -345,7 +345,7 @@ if __name__ == "__main__":
 
   print('\nAroundList Testing')
   test = (2,2,2)
-  a = AroundList(test, (1,1,1))
+  a = list(AroundList(test, (1,1,1)))
   print('a', a)
   print(a[len(a) - 1] == test)
 

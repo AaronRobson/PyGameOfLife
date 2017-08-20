@@ -155,8 +155,8 @@ class TestGameOfLife(unittest.TestCase):
     self.assertFalse((3,1,1) in result, 'MooreNeighborhood Fail: value out of range included.')
 
   def test_AroundList(self):
-    aroundListResult = self.support.AroundList((3,4), (0,2))
-    expectedResult = (0,2), (0,3), (0,4), (0,5), (1,2), (1,3), (1,4), (1,5), (2,2), (2,3), (2,4), (2,5)
+    aroundListResult = list(self.support.AroundList((3,4), (0,2)))
+    expectedResult = [(0,2), (0,3), (0,4), (0,5), (1,2), (1,3), (1,4), (1,5), (2,2), (2,3), (2,4), (2,5)]
     self.assertEqual(aroundListResult, expectedResult, '')
 
   def test_CountAround(self):
