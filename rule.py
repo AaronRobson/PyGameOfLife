@@ -46,25 +46,23 @@ class Rule():
   def __init__(self, ruleStr=None):
     self._rule = _StringToRule(ruleStr)
 
-  @property
-  def string(self):
+  def __str__(self):
     return _RuleToString(self._rule)
+
+  def __repr__(self):
+    return '%s(%r)' % (self.__class__.__name__, str(self))
+
+  def __call__(self):
+    return str(self)
 
   def IsAliveNextGeneration(self, aliveNow, liveCellsAround):
     aliveNow = bool(aliveNow)
     return liveCellsAround in self._rule[aliveNow]
 
-  def __str__(self):
-    return self.string
-
-  def __repr__(self):
-    return '%s(%r)' % (self.__class__.__name__, self.string)
-
-  def __call__(self):
-    return self.string
-
 if __name__ == "__main__":
   print('"Rule" support unit.')
+
+  print(Rule())
 
   #keep the window open
   input('\nPress Enter to Close:')

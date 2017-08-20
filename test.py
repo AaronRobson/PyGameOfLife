@@ -20,10 +20,9 @@ class TestRule(unittest.TestCase):
 
   def test_String(self):
     rule = self.widget()
-    self.assertEqual(rule.string, '3/23', 'Default rule string incorrect.')
+    self.assertEqual(str(rule), '3/23', 'Default rule string incorrect.')
 
     rule = self.widget('12/23')
-    self.assertEqual(rule.string, '12/23', '')
     self.assertEqual(str(rule), '12/23', '')
 
     self.assertEqual(rule._rule, ((1,2),(2,3)), 'Test internal rule storage as white box.')
@@ -90,7 +89,7 @@ class TestRule(unittest.TestCase):
   def test_RuleParserFromString_GetRule_RuleToString(self):
     ruleStr = '45/89'
     rule = self.widget(ruleStr)
-    self.assertEqual(rule.string, ruleStr, 'RuleParserFromString & GetRule & RuleToString Fail: custom 2 by 2 rule round trip change.')
+    self.assertEqual(str(rule), ruleStr, 'RuleParserFromString & GetRule & RuleToString Fail: custom 2 by 2 rule round trip change.')
 
 class TestCounter(unittest.TestCase):
   def setUp(self):

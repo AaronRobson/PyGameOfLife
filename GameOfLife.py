@@ -276,7 +276,7 @@ class GameOfLife():
 
   @property
   def ruleStr(self):
-    return self.rule.string
+    return str(self.rule)
 
   @ruleStr.setter
   def ruleStr(self, ruleStr):
