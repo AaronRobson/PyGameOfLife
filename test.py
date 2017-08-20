@@ -237,9 +237,13 @@ class TestGameOfLifeGUI(unittest.TestCase):
   def setUp(self):
     self.support = GameOfLifeGUI
 
+  def test_GoToString(self):
+     self.assertEqual(self.support.GoToString(False), 'Go')
+     self.assertEqual(self.support.GoToString(True), 'Stop')
+
   def test_BoolToPlusMinusOne(self):
-    self.assertEqual(self.support.BoolToPlusMinusOne(True), 1)
     self.assertEqual(self.support.BoolToPlusMinusOne(False), -1)
+    self.assertEqual(self.support.BoolToPlusMinusOne(True), 1)
 
 if __name__ == "__main__":
   unittest.main()
