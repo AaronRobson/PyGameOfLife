@@ -104,7 +104,7 @@ class TestRule(unittest.TestCase):
     self.assertEqual(self.support._StringToRule('1/'), ((1,), ()), 'StringToRule Fail: on first empty.')
     self.assertEqual(self.support._StringToRule('/2'), ((), (2,)), 'StringToRule Fail: on second empty.')
     self.assertEqual(self.support._StringToRule('1/2'), ((1,), (2,)), 'StringToRule Fail: on standard notation 1 by 1.')
-    self.assertEqual(self.support._StringToRule('  5  6  /  7  8  \r\n\t!"£$%^&*()'), ((5,6), (7,8)), 'StringToRule Fail: Fails to ignore whitespace and other characters properly.')
+    self.assertEqual(self.support._StringToRule('  5  6  /  7  8  \r\n\t!"$%^&*()'), ((5,6), (7,8)), 'StringToRule Fail: Fails to ignore whitespace and other characters properly.')
     self.assertEqual(self.support._StringToRule('12/3'), ((1,2,), (3,)), 'StringToRule Fail: on standard notation 2 by 1.')
     self.assertEqual(self.support._StringToRule('12/34'), ((1,2,), (3,4,)), 'StringToRule Fail: on standard notation extended 2 by 2.')
     self.assertEqual(self.support._StringToRule('1/2/3'), ((1,), (2,)), 'StringToRule Fail: on more than two rule sections.')
