@@ -128,7 +128,7 @@ class TestGameOfLife(unittest.TestCase):
     self.assertFalse((3,1,1) in result, 'Around Fail: value out of range included.')
 
   def test_AroundInclusive(self):
-    result = self.support.AroundInclusive((1,1,1))
+    result = list(self.support.AroundInclusive((1,1,1)))
     self.assertTrue((1,1,1) in result, 'Around Inclusive Fail: centre cell being removed from result.')
     self.assertTrue((1,1,2) in result, 'Around Inclusive Fail: not including normal values around centre cell.')
     self.assertTrue((0,0,0) in result, 'Around Inclusive Fail: not including low values around centre cell.')
