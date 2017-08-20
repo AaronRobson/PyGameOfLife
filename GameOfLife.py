@@ -74,13 +74,10 @@ def CountAround(cell, cells):
   '''
   return sum(p in cells for p in Around(cell))
 
-def AroundInclusive(origin, dimensions=None):
+def AroundInclusive(origin):
   '''Like AroundList but can take advantage of the fact that check
   [-1,0,1] is the same for all dimensions.
   '''
-  dimensions = ValidateDimensions(dimensions)
-  if not origin: origin = (DEFAULT_ORIGIN,) * dimensions
-
   dimensionValues = map(Check, origin)
   return itertoolsProduct(*dimensionValues)
 
