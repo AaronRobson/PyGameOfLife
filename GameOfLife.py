@@ -135,6 +135,9 @@ def AffectableCells(cells):
   '''
   return set(c for cell in cells for c in AroundInclusive(cell))
 
+def CellsOfNextGeneration(cells, rule):
+  return (cell for cell in AffectableCells(cells) if WillBeAlive(cell, cells, rule))
+
 class GameOfLife():
   def __init__(self, *args, **kwargs):
     '''"dim" is the number of dimensions wanted and the ruleStr is a string
@@ -176,7 +179,7 @@ class GameOfLife():
   def Iterate(self):
     '''Do a single iteration.
     '''
-    self.cells = (cell for cell in AffectableCells(self.cells) if WillBeAlive(cell, self.cells, self._rule))
+    self.cells = CellsOfNextGeneration(self.cells, self.rule)
     self._generation.Inc()
 
   def IterateMany(self, number=1):
@@ -264,12 +267,16 @@ class GameOfLife():
     return self._generation()
 
   @property
+  def rule(self):
+    return self._rule
+
+  @property
   def ruleStr(self):
-    return self._rule.string
+    return self.rule.string
 
   @ruleStr.setter
   def ruleStr(self, ruleStr):
-    self._rule.string = ruleStr
+    self.rule.string = ruleStr
 
   @property
   def cells(self):
@@ -334,8 +341,8 @@ if __name__ == "__main__":
 
   print(GOL.population)
   print(GOL.ruleStr)
-  print(GOL._rule())
-  print('%r' % GOL._rule)
+  print(GOL.rule())
+  print('%r' % GOL.rule)
 
   print('\nAround Testing')
   a = Around((1,1,1))
