@@ -84,12 +84,10 @@ def MooreNeighborhood(origin):
 def Around(origin):
   return filter(lambda x: x != origin, MooreNeighborhood(origin))
 
-def AroundList(size, origin=None):
+def AroundList(size, origin):
   '''Returns tuples of co-ordinates for a given range.
   Built from ideas learned on the making of Around().
   '''
-  if not origin: origin = (DEFAULT_ORIGIN,) * self.dimensions
-
   def LowHigh(size, origin):
     return range(origin, origin + size)
 
