@@ -24,7 +24,7 @@ DEFAULT_FOREGROUND_COLOUR = 0x00ff00
 DEFAULT_BACKGROUND_COLOUR = 0x000000
 
 goingStringEnum = ('Go', 'Stop')
-def GoToString(isGoing):
+def GoingToString(isGoing):
   return goingStringEnum[isGoing]
 
 def BoolToPlusMinusOne(inputBool):
@@ -250,11 +250,8 @@ class GUI(tk.Tk):
       self.cnvs.update()
       #time.sleep(.1)
 
-  def GoingToString(self):
-    return GoToString(self.goNow)
-
   def DisplayGoingToString(self):
-    self.vGoStop.set(self.GoingToString())
+    self.vGoStop.set(GoingToString(self.goNow))
 
   def ChangeGoNow(self, newValue=None):
     if newValue == None:
