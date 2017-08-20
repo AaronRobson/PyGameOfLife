@@ -155,7 +155,7 @@ class GUI(tk.Tk):
 
     self.pointPlace = pointPlace
     #store the value so all those in any directly subsequent PlacePointDrag will use it
-    self.pointPlaceValue = self.GOL.GetCell(pointPlace)
+    self.pointPlaceValue = self.GOL.IsCellAlive(pointPlace)
     self.Display()
 
   def PlacePointDrag(self, event):

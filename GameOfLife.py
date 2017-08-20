@@ -214,7 +214,7 @@ class GameOfLife():
   def WillBeAlive(self, cell):
     '''Will a given cell be alive in the next generation?
     '''
-    return self._rule.IsAliveNextGeneration(self.GetCell(cell), self.CountAround(cell))
+    return self._rule.IsAliveNextGeneration(self.IsCellAlive(cell), self.CountAround(cell))
 
   def AffectableCells(self):
     '''All the live cells and all those around them within range of checking without duplicates.
@@ -245,11 +245,11 @@ class GameOfLife():
     for cell in self.AroundList(*self.FixRange(size, origin)):
       self.SetCell(cell, RandomBoolean())
 
-  def GetCell(self, cell):
+  def IsCellAlive(self, cell):
     return cell in self.cells
 
   def SetCellSwap(self, cell):
-    self.SetCell(cell, not self.GetCell(cell))
+    self.SetCell(cell, not self.IsCellAlive(cell))
 
   def SetCell(self, cell, value=True):  
     if value:
