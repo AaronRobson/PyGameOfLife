@@ -61,7 +61,8 @@ class Rule():
 
 if __name__ == "__main__":
   print('"Rule" support unit.')
-
+  print()
+  print(repr(Rule()))
   print(Rule())
 
   #keep the window open
