@@ -64,8 +64,12 @@ class Rule():
     return self._rule[1]
 
   def IsAliveNextGeneration(self, aliveNow, liveCellsAround):
-    aliveNow = bool(aliveNow)
-    return liveCellsAround in self._rule[aliveNow]
+    if aliveNow:
+      allowed = self.survives
+    else:
+      allowed = self.born
+
+    return liveCellsAround in allowed
 
 if __name__ == "__main__":
   print('"Rule" support unit.')
