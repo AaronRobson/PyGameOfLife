@@ -211,11 +211,11 @@ class GUI(tk.Tk):
 
     self.Display()
 
-  def CellToPoint(self, end, *a):
-    return tuple([b * (self.side + self.GAP) + (end * self.side) for b in a])
+  def CellToPoint(self, end, *cell):
+    return tuple([coordinate * (self.side + self.GAP) + (end * self.side) for coordinate in cell])
 
-  def PlaceCellOnCanvas(self, i):
-    self.cnvs.create_rectangle(self.CellToPoint(False, *i), self.CellToPoint(True, *i), fill=self.foregroundTKColour, width=0)
+  def PlaceCellOnCanvas(self, cell):
+    self.cnvs.create_rectangle(self.CellToPoint(False, *cell), self.CellToPoint(True, *cell), fill=self.foregroundTKColour, width=0)
 
   def Display(self):
     '''Deletes any relevant contents of the canvas called "cnvs" replacing them with an updated view of the cells.
