@@ -139,12 +139,12 @@ class TestGameOfLife(unittest.TestCase):
 
   def test_CountAround(self):
     #Glider
-    self.widget.cells = [(1,0),(2,1),(0,2),(1,2),(2,2)]
+    cells = [(1,0),(2,1),(0,2),(1,2),(2,2)]
 
-    self.assertEqual(self.widget.CountAround((1,1)), 5, '')
-    self.assertEqual(self.widget.CountAround((1,3)), 3, '')
-    self.assertEqual(self.widget.CountAround((3,3)), 1, '')
-    self.assertEqual(self.widget.CountAround((-1,-1)), 0, '')
+    self.assertEqual(self.support.CountAround((1,1), cells), 5, '')
+    self.assertEqual(self.support.CountAround((1,3), cells), 3, '')
+    self.assertEqual(self.support.CountAround((3,3), cells), 1, '')
+    self.assertEqual(self.support.CountAround((-1,-1), cells), 0, '')
 
   def test_AffectableCells(self):
     x = 1

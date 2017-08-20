@@ -68,6 +68,12 @@ def RandomBoolean():
   '''
   return bool(randrange(2))
 
+def CountAround(cell, cells):
+  '''Add up all the present has_keys for all those Around()
+  a given cell in the 'Current Array'.
+  '''
+  return sum(p in cells for p in Around(cell))
+
 def AroundInclusive(origin, dimensions=None):
   '''Like AroundList but can take advantage of the fact that check
   [-1,0,1] is the same for all dimensions.
@@ -157,16 +163,10 @@ class GameOfLife():
   def __call__(self):
     return self.cells
 
-  def CountAround(self, cell):
-    '''Add up all the presant has_keys for all those Around()
-    a given cell in the 'Current Array'.
-    '''
-    return sum(p in self.cells for p in Around(cell))
-
   def WillBeAlive(self, cell):
     '''Will a given cell be alive in the next generation?
     '''
-    return self._rule.IsAliveNextGeneration(self.IsCellAlive(cell), self.CountAround(cell))
+    return self._rule.IsAliveNextGeneration(self.IsCellAlive(cell), CountAround(cell, self.cells))
 
   def AffectableCells(self):
     '''All the live cells and all those around them within range of checking without duplicates.
