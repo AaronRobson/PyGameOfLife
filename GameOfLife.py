@@ -24,7 +24,9 @@ STRING_RULE_SEPARATOR = '/'
 CONWAY_STANDARD_STRING_RULE = STRING_RULE_SEPARATOR.join(['3', '23'])
 
 DEFAULT_SIZE = 50
-DEFAULT_ORIGIN = 0
+
+#For co-ordinates.
+ORIGIN = 0
 
 def ProductOfSeq(seq):
   return reduce(OpMultiply, seq)
@@ -131,6 +133,16 @@ def RandomBoolean():
   '''
   return bool(randrange(2))
 
+def AroundInclusive(origin, dimensions=None):
+  '''Like AroundList but can take advantage of the fact that check
+  [-1,0,1] is the same for all dimensions.
+  '''
+  dimensions = ValidateDimensions(dimensions)
+  if not origin: origin = (DEFAULT_ORIGIN,) * dimensions
+
+  dimensionValues = map(Check, origin)
+  return tuple(itertoolsProduct(*dimensionValues))
+
 class GameOfLife():
   def __init__(self, *args, **kwargs):
     '''"dim" is the number of dimensions wanted and the ruleStr is a string
@@ -158,7 +170,6 @@ class GameOfLife():
     '''Default view size, position, statistics and cells.
     '''
     self.SIZE = DEFAULT_SIZE
-    self.ORIGIN = DEFAULT_ORIGIN
 
     self._generation = Counter()
 
@@ -173,7 +184,7 @@ class GameOfLife():
   def Around(self, origin):
     '''Same as AroundInclusive but does not include the given centre point.
     '''
-    output = list(self.AroundInclusive(origin))
+    output = list(AroundInclusive(origin))
 
     """remove centre cell (the origin value):
     which is [0] or [0,0] or [0,0,0] etc."""
@@ -181,21 +192,12 @@ class GameOfLife():
 
     return tuple(output)
 
-  def AroundInclusive(self, origin):
-    '''Like AroundList but can take advantage of the fact that check
-    [-1,0,1] is the same for all dimensions.
-    '''
-    if not origin: origin = (self.ORIGIN,) * self.dimensions
-
-    dimensionValues = map(Check, origin)
-    return tuple(itertoolsProduct(*dimensionValues))
-
   def AroundList(self, size=None, origin=None):
     '''Returns tuples of co-ordinates for a given range.
     Built from ideas learned on the making of Around().
     '''
     if not size: size = (self.SIZE,) * self.dimensions
-    if not origin: origin = (self.ORIGIN,) * self.dimensions
+    if not origin: origin = (self.DEFAULT_ORIGIN,) * self.dimensions
 
     def LowHigh(size, origin):
       return range(origin, origin + size)
@@ -219,7 +221,7 @@ class GameOfLife():
   def AffectableCells(self):
     '''All the live cells and all those around them within range of checking without duplicates.
     '''
-    return set(c for cell in self.cells for c in self.AroundInclusive(cell))
+    return set(c for cell in self.cells for c in AroundInclusive(cell))
 
   def Iterate(self):
     '''Do a single iteration.
@@ -295,7 +297,7 @@ class GameOfLife():
     '''A minus size will just select in the other direction. Assumes 2D.
     '''
     if not size: size = (self.SIZE,) * self.dimensions
-    if not origin: origin = (self.ORIGIN,) * self.dimensions
+    if not origin: origin = (ORIGIN,) * self.dimensions
 
     size, origin = self.FixRange(size, origin)
 
