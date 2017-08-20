@@ -265,7 +265,7 @@ class GameOfLife():
   def IsCellAlive(self, cell):
     return cell in self.cells
 
-  def SetCellSwap(self, cell):
+  def ToggleCell(self, cell):
     self.SetCell(cell, not self.IsCellAlive(cell))
 
   def SetCell(self, cell, value=True):  
