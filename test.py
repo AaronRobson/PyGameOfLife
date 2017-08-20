@@ -136,7 +136,7 @@ class TestGameOfLife(unittest.TestCase):
     self.assertFalse((3,1,1) in result, 'Around Inclusive Fail: value out of range included.')
 
   def test_AroundList(self):
-    aroundListResult = self.widget.AroundList((3,4), (0,2))
+    aroundListResult = self.support.AroundList((3,4), (0,2))
     expectedResult = (0,2), (0,3), (0,4), (0,5), (1,2), (1,3), (1,4), (1,5), (2,2), (2,3), (2,4), (2,5)
     self.assertEqual(aroundListResult, expectedResult, '')
 
@@ -166,7 +166,7 @@ class TestGameOfLife(unittest.TestCase):
     self.assertEqual(self.widget(), {(1,0), (1,1), (1,2)}, 'SetCells & Iterate & __call__ Fail: point listing type or contents incorrect after blinker has one iteration.')
 
   def test_FixRange(self):
-    self.assertEqual(self.widget.FixRange((-1,-1), (0,0)), ((1,1), (-1,-1)), 'FixRange Fail: incorrectly handles minus size.')
+    self.assertEqual(self.support.FixRange((-1,-1), (0,0)), ((1,1), (-1,-1)), 'FixRange Fail: incorrectly handles minus size.')
 
   def test_RandomBoolean(self):
     possiblities = True, False

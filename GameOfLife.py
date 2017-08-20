@@ -154,6 +154,36 @@ def Around(origin):
 
   return tuple(output)
 
+def AroundList(size, origin=None):
+  '''Returns tuples of co-ordinates for a given range.
+  Built from ideas learned on the making of Around().
+  '''
+  if not origin: origin = (DEFAULT_ORIGIN,) * self.dimensions
+
+  def LowHigh(size, origin):
+    return range(origin, origin + size)
+
+  # http://www.daniweb.com/software-development/python/threads/272931
+
+  dimensionalRanges = map(LowHigh, *FixRange(size, origin))
+  return tuple(itertoolsProduct(*dimensionalRanges))
+
+def FixRange(size, origin):
+  '''If a dimension is a minus size it it converted to positive
+  and the origin is adjusted to compensate.
+  This is done for all dimensions together.
+  '''
+  def Fix(sizeDim, originDim):
+    if sizeDim < 0:
+      sizeDim = -sizeDim
+      originDim -= sizeDim
+    return sizeDim, originDim
+
+  """The zip should truncate the values to the smallest of
+  the two in length (only applicable if they have different
+  numbers of dimensions, which they should not)."""
+  return tuple(zip(*map(Fix, size, origin)))
+
 class GameOfLife():
   def __init__(self, *args, **kwargs):
     '''"dim" is the number of dimensions wanted and the ruleStr is a string
@@ -192,21 +222,6 @@ class GameOfLife():
   def __call__(self):
     return self.cells
 
-  def AroundList(self, size=None, origin=None):
-    '''Returns tuples of co-ordinates for a given range.
-    Built from ideas learned on the making of Around().
-    '''
-    if not size: size = (self.SIZE,) * self.dimensions
-    if not origin: origin = (self.DEFAULT_ORIGIN,) * self.dimensions
-
-    def LowHigh(size, origin):
-      return range(origin, origin + size)
-
-    # http://www.daniweb.com/software-development/python/threads/272931
-
-    dimensionalRanges = map(LowHigh, *self.FixRange(size, origin))
-    return tuple(itertoolsProduct(*dimensionalRanges))
-
   def CountAround(self, cell):
     '''Add up all the presant has_keys for all those Around()
     a given cell in the 'Current Array'.
@@ -244,7 +259,7 @@ class GameOfLife():
     if size == None: size = (self.SIZE,) * self.dimensions
     if origin == None: origin = (self.ORIGIN,) * self.dimensions
 
-    for cell in self.AroundList(*self.FixRange(size, origin)):
+    for cell in AroundList(*FixRange(size, origin)):
       self.SetCell(cell, RandomBoolean())
 
   def IsCellAlive(self, cell):
@@ -277,31 +292,15 @@ class GameOfLife():
       (35,11), (35,12), (35,13), (36,11), (37,12), #gliders
     ]
 
-  def FixRange(self, size, origin):
-    '''If a dimension is a minus size it it converted to positive
-    and the origin is adjusted to compensate.
-    This is done for all dimensions together.
-    '''
-    def Fix(sizeDim, originDim):
-      if sizeDim < 0:
-        sizeDim = -sizeDim
-        originDim -= sizeDim
-      return sizeDim, originDim
-
-    """The zip should truncate the values to the smallest of
-    the two in length (only applicable if they have different
-    numbers of dimensions, which they should not)."""
-    return tuple(zip(*map(Fix, size, origin)))
-
   def GetRange(self, size=None, origin=None):
     '''A minus size will just select in the other direction. Assumes 2D.
     '''
     if not size: size = (self.SIZE,) * self.dimensions
     if not origin: origin = (ORIGIN,) * self.dimensions
 
-    size, origin = self.FixRange(size, origin)
+    size, origin = FixRange(size, origin)
 
-    ranges = self.AroundList(size, origin)
+    ranges = AroundList(size, origin)
     
     #depends upon number of dimensions and how AroundList is sorted
     dimensionWrapOn = 1
@@ -413,7 +412,7 @@ if __name__ == "__main__":
 
   print('\nAroundList Testing')
   test = (2,2,2)
-  a = GOL.AroundList(test, (1,1,1))
+  a = AroundList(test, (1,1,1))
   print('a', a)
   print(a[len(a) - 1] == test)
 
