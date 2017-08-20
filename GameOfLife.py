@@ -166,7 +166,7 @@ class GameOfLife():
   def Iterate(self):
     '''Do a single iteration.
     '''
-    self.cells = CellsOfNextGeneration(self.cells, self.rule)
+    self.cells = set(CellsOfNextGeneration(self.cells, self.rule))
     self._generation.Inc()
 
   def IterateMany(self, number=1):
