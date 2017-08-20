@@ -116,10 +116,6 @@ class TestGameOfLife(unittest.TestCase):
     self.support = GameOfLife
     self.widget = self.support.GameOfLife()
 
-  def test_ProductOfSeq(self):
-    self.assertEqual(self.support.ProductOfSeq((1, 2, 3)), 6, 'ProductOfSeq Fail: on simple integer multiplication.')
-    self.assertEqual(self.support.ProductOfSeq((1/2, 2/1, 3/5, 5/3)), 1, 'ProductOfSeq Fail: on opposing fractions.')
-
   def test_Around(self):
     result = self.support.Around((1,1,1))
     self.assertFalse((1,1,1) in result, 'Around Fail: centre cell not being removed from result.')

@@ -1,8 +1,6 @@
 #!/usr/bin/python
 
 from random import randrange
-from functools import reduce
-from operator import mul as OpMultiply
 from itertools import product as itertoolsProduct
 from counter import Counter
 from rule import Rule
@@ -23,9 +21,6 @@ DEFAULT_SIZE = 50
 
 #For co-ordinates.
 ORIGIN = 0
-
-def ProductOfSeq(seq):
-  return reduce(OpMultiply, seq)
 
 def ValidateToActualWholeNumber(num):
   '''No negative, fractional or zero numbers.
