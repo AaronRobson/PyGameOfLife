@@ -157,7 +157,7 @@ class GameOfLife():
     '''
     self.dimensions = ValidateDimensions(dim)
 
-    self._rule = Rule(ruleStr)
+    self.rule = Rule(ruleStr)
 
     self.Reset()
 
@@ -270,13 +270,17 @@ class GameOfLife():
   def rule(self):
     return self._rule
 
+  @rule.setter
+  def rule(self, rule):
+    self._rule = rule
+
   @property
   def ruleStr(self):
     return self.rule.string
 
   @ruleStr.setter
   def ruleStr(self, ruleStr):
-    self.rule.string = ruleStr
+    self.rule = Rule(ruleStr)
 
   @property
   def cells(self):
@@ -359,6 +363,8 @@ if __name__ == "__main__":
   print(a[len(a) - 1] == test)
 
   print('\nPopulation: ' + str(GOL.population))
+
+  GOL.ruleStr = ''
 
   del(GOL)
 
