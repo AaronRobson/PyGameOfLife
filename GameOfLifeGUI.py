@@ -309,9 +309,8 @@ class GUI(tk.Tk):
     except IOError:
       print('File "%s" not found.' % fileCellpath)
     else:
-      if cells:
-        self.GOL.cells = cells
-        self.Display()
+      self.GOL.cells = cells
+      self.Display()
 
   def CanvasResize(self, event):
     '''Change the size stored in the canvas when the window is resized so ChangeOriginDrag works properly.
