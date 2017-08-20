@@ -33,7 +33,7 @@ def GetCellsFromText(text):
       yield cell
 
 def GetCellsFromFile(filepath):
-  yield from GetCellsFromText(GetFileText(filepath))
+  return GetCellsFromText(GetFileText(filepath))
 
 if __name__ == "__main__":
   print('"cellfile" support unit.')
