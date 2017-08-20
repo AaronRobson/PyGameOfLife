@@ -46,7 +46,7 @@ class GUI(tk.Tk):
 
     self.grid()
 
-    #leave at defaults for a 2 dimensional game of life with John Conway standard rules (23/3)
+    #leave at defaults for a 2 dimensional game of life with John Conway standard rules (3/23)
     self.GOL = GameOfLife()
 
     self.CreateWidgets()
