@@ -60,6 +60,15 @@ class TestRule(unittest.TestCase):
     self.assertFalse(rule.IsAliveNextGeneration(False, 4), '')
     self.assertFalse(rule.IsAliveNextGeneration(False, 1), '')
 
+  def test_born_and_survives(self):
+    rule = self.widget('3/23')
+    self.assertEqual(rule.born, (3,), '')
+    self.assertEqual(rule.survives, (2,3), '')
+
+    rule = self.widget('23/12')
+    self.assertEqual(rule.born, (2,3), '')
+    self.assertEqual(rule.survives, (1,2), '')
+
   def test_StringToDigitTuple(self):
     self.assertEqual(self.support._StringToDigitTuple(''), (), '')
     self.assertEqual(self.support._StringToDigitTuple('jasdjf £€$ ;\!"£$%^//&*()\'#;[]\':{:\')'), (), '')

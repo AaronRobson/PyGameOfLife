@@ -55,6 +55,14 @@ class Rule():
   def __call__(self):
     return str(self)
 
+  @property
+  def born(self):
+    return self._rule[0]
+
+  @property
+  def survives(self):
+    return self._rule[1]
+
   def IsAliveNextGeneration(self, aliveNow, liveCellsAround):
     aliveNow = bool(aliveNow)
     return liveCellsAround in self._rule[aliveNow]
@@ -62,8 +70,11 @@ class Rule():
 if __name__ == "__main__":
   print('"Rule" support unit.')
   print()
-  print(repr(Rule()))
-  print(Rule())
+  rule = Rule()
+  print(repr(rule))
+  print(rule)
+  print('born:', rule.born)
+  print('survives:', rule.survives)
 
   #keep the window open
   input('\nPress Enter to Close:')
