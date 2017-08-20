@@ -143,6 +143,17 @@ def AroundInclusive(origin, dimensions=None):
   dimensionValues = map(Check, origin)
   return itertoolsProduct(*dimensionValues)
 
+def Around(origin):
+  '''Same as AroundInclusive but does not include the given centre point.
+  '''
+  output = list(AroundInclusive(origin))
+
+  """remove centre cell (the origin value):
+  which is [0] or [0,0] or [0,0,0] etc."""
+  del output[len(output) // 2]
+
+  return tuple(output)
+
 class GameOfLife():
   def __init__(self, *args, **kwargs):
     '''"dim" is the number of dimensions wanted and the ruleStr is a string
@@ -181,17 +192,6 @@ class GameOfLife():
   def __call__(self):
     return self.cells
 
-  def Around(self, origin):
-    '''Same as AroundInclusive but does not include the given centre point.
-    '''
-    output = list(AroundInclusive(origin))
-
-    """remove centre cell (the origin value):
-    which is [0] or [0,0] or [0,0,0] etc."""
-    del output[len(output) // 2]
-
-    return tuple(output)
-
   def AroundList(self, size=None, origin=None):
     '''Returns tuples of co-ordinates for a given range.
     Built from ideas learned on the making of Around().
@@ -211,7 +211,7 @@ class GameOfLife():
     '''Add up all the presant has_keys for all those Around()
     a given cell in the 'Current Array'.
     '''
-    return sum(p in self.cells for p in self.Around(cell))
+    return sum(p in self.cells for p in Around(cell))
 
   def WillBeAlive(self, cell):
     '''Will a given cell be alive in the next generation?
@@ -404,7 +404,7 @@ if __name__ == "__main__":
   print('%r' % GOL._rule)
 
   print('\nAround Testing')
-  a = GOL.Around((1,1,1))
+  a = Around((1,1,1))
   print(a[len(a) // 2])
   print((1,1,1) not in a)
   print((1,1,2) in a)
