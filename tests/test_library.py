@@ -3,7 +3,6 @@
 import unittest
 
 import GameOfLife
-import cellfile
 
 
 class TestGameOfLife(unittest.TestCase):
