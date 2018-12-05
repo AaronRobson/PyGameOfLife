@@ -2,16 +2,12 @@
 
 import unittest
 
-import GameOfLifeGUI
 import GameOfLife
 import colourutils
 import counter
 import cellfile
 import rule
 
-'''TODO:
-Test: GameOfLifeGUI
-'''
 
 class TestRule(unittest.TestCase):
   def setUp(self):
@@ -233,17 +229,6 @@ class TestColourUtils(unittest.TestCase):
     self.assertTrue(self.support.ColourNumberIsValid(0), 'Within upper limit.')
     self.assertFalse(self.support.ColourNumberIsValid(-1), 'Outside upper limit.')
 
-class TestGameOfLifeGUI(unittest.TestCase):
-  def setUp(self):
-    self.support = GameOfLifeGUI
-
-  def test_GoingToString(self):
-     self.assertEqual(self.support.GoingToString(False), 'Go')
-     self.assertEqual(self.support.GoingToString(True), 'Stop')
-
-  def test_BoolToPlusMinusOne(self):
-    self.assertEqual(self.support.BoolToPlusMinusOne(False), -1)
-    self.assertEqual(self.support.BoolToPlusMinusOne(True), 1)
 
 if __name__ == "__main__":
   unittest.main()
