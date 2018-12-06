@@ -17,8 +17,11 @@ from cellfile import GetCellsFromFile
 fileCellpath = 'cells.ini'
 
 colourTypeMessages = ('Background', 'Foreground')
+
+
 def ColourTypeToString(isForegound):
     return colourTypeMessages[isForegound]
+
 
 def ColourTypeToChangeString(isForeground):
     return 'Change %s' % ColourTypeToString(isForeground)
@@ -28,13 +31,18 @@ DEFAULT_FOREGROUND_COLOUR = 0x00ff00
 DEFAULT_BACKGROUND_COLOUR = 0x000000
 
 goingStringEnum = ('Go', 'Stop')
+
+
 def GoingToString(isGoing):
     return goingStringEnum[isGoing]
+
 
 def BoolToPlusMinusOne(inputBool):
     return (bool(inputBool) * 2) - 1
 
 _MINIMUM_SIDE = 1
+
+
 class GUI(tk.Tk):
     """A custom graphical user interface for the GameOfLife Class
 

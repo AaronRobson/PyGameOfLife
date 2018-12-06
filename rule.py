@@ -7,11 +7,13 @@ _STRING_RULE_SEPARATOR = '/'
 # '3/23'
 _CONWAY_STANDARD_STRING_RULE = _STRING_RULE_SEPARATOR.join(['3', '23'])
 
+
 def _StringToDigitTuple(digitString):
     '''Sorts and removes duplicates.
     Returns the canonical representation.
     '''
     return tuple(sorted(set(int(char) for char in digitString if str(char) in digits)))
+
 
 def _RuleToString(rule):
     '''Returns the string notation of an inputted rule data structure,
@@ -24,6 +26,7 @@ def _RuleToString(rule):
         ''.join((str(int(num)) for num in subList))
       for subList in rule[:2]
     ])
+
 
 def _StringToRule(stringRule=None):
     '''Returns the rule data structure of an inputted string notation.
@@ -41,6 +44,7 @@ def _StringToRule(stringRule=None):
         # if char not in string .digits ignore it as bad value and move on
         output[s] = _StringToDigitTuple(splitRules[s])
     return tuple(output)
+
 
 class Rule():
     def __init__(self, ruleStr=None):

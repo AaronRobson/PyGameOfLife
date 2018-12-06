@@ -22,6 +22,7 @@ DEFAULT_SIZE = 50
 # For co-ordinates.
 ORIGIN = 0
 
+
 def ValidateToActualWholeNumber(num):
     '''No negative, fractional or zero numbers.
     '''
@@ -36,6 +37,7 @@ def ValidateToActualWholeNumber(num):
         else:
             return default
 
+
 def Check(cent=0, ran=1):
     '''Defaults make = [-1,0,1]
     '''
@@ -46,6 +48,8 @@ def Check(cent=0, ran=1):
 # Must be an integer; 1 or above
 DEFAULT_NUM_DIMENSIONS = 2
 VALIDATE_DIMENSIONS_ERROR = 'Dimensions must be an integer of at least 1.'
+
+
 def ValidateDimensions(dimensions=None):
     '''May raise ValueError exception.
     '''
@@ -63,16 +67,19 @@ def ValidateDimensions(dimensions=None):
         else:
             raise ValueError(VALIDATE_DIMENSIONS_ERROR)
 
+
 def RandomBoolean():
     '''Choice of True or False enforced from a choice of 1 or 0.
     '''
     return bool(randrange(2))
+
 
 def CountAround(cell, cells):
     '''Add up all the present has_keys for all those Around()
     a given cell in the 'Current Array'.
     '''
     return sum(p in cells for p in Around(cell))
+
 
 def MooreNeighborhood(origin):
     '''Like AroundList but can take advantage of the fact that check
@@ -81,8 +88,10 @@ def MooreNeighborhood(origin):
     dimensionValues = map(Check, origin)
     return itertoolsProduct(*dimensionValues)
 
+
 def Around(origin):
     return filter(lambda x: x != origin, MooreNeighborhood(origin))
+
 
 def AroundList(size, origin):
     '''Returns tuples of co-ordinates for a given range.
@@ -95,6 +104,7 @@ def AroundList(size, origin):
 
     dimensionalRanges = map(LowHigh, *FixRange(size, origin))
     return itertoolsProduct(*dimensionalRanges)
+
 
 def FixRange(size, origin):
     '''If a dimension is a minus size it it converted to positive
@@ -112,18 +122,22 @@ def FixRange(size, origin):
     numbers of dimensions, which they should not)."""
     return tuple(zip(*map(Fix, size, origin)))
 
+
 def WillBeAlive(cell, cells, rule):
     '''Will a given cell be alive in the next generation?
     '''
     return rule.IsAliveNextGeneration(cell in cells, CountAround(cell, cells))
+
 
 def AffectableCells(cells):
     '''All the live cells and all those around them within range of checking without duplicates.
     '''
     return set(c for cell in cells for c in MooreNeighborhood(cell))
 
+
 def CellsOfNextGeneration(cells, rule):
     return (cell for cell in AffectableCells(cells) if WillBeAlive(cell, cells, rule))
+
 
 class GameOfLife():
     def __init__(self, *args, **kwargs):
