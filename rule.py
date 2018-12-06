@@ -20,7 +20,7 @@ def _RuleToString(rule):
 
     # outer one uses a direct list as join takes longer to deal with generator objects
     return _STRING_RULE_SEPARATOR.join([
-        # inner one makes a generator object rather than a list directly, speeds up 
+        # inner one makes a generator object rather than a list directly, speeds up
         ''.join((str(int(num)) for num in subList))
       for subList in rule[:2]
     ])

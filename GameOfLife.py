@@ -128,7 +128,7 @@ def CellsOfNextGeneration(cells, rule):
 class GameOfLife():
     def __init__(self, *args, **kwargs):
         '''"dim" is the number of dimensions wanted and the ruleStr is a string
-        consisting of two sets of an arbitary number of integer values separated 
+        consisting of two sets of an arbitary number of integer values separated
         with a '/' (forward slash).
         
         The first set refers to the allowed numbers of live cells around each
@@ -193,7 +193,7 @@ class GameOfLife():
     def ToggleCell(self, cell):
         self.SetCell(cell, not self.IsCellAlive(cell))
 
-    def SetCell(self, cell, value=True):  
+    def SetCell(self, cell, value=True):
         if value:
             self.cells.add(cell)
         elif cell in self.cells:
@@ -239,7 +239,7 @@ class GameOfLife():
             # Is the end of a line?
             if r[dimensionWrapOn] == linePlace - 1:
                 grid.append(line)
-                line = []      
+                line = []
         return grid
 
     @property
@@ -326,7 +326,7 @@ if __name__ == "__main__":
         '''Display every time including when r == -1 but only Iterate() from 0,
         so that the initial state is shown on screen.'''
         if not r < 0:
-            GOL.Iterate()      
+            GOL.Iterate()
         print() #separate the displays
         print(Display(GOL.GetRange(*ranging)))
 

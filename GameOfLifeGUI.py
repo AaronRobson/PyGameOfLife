@@ -150,7 +150,7 @@ class GUI(tk.Tk):
         canvasedPoints = self.cnvs.canvasx(point[0]), self.cnvs.canvasy(point[1])
         return tuple(map(self.PointDimToCellDim, canvasedPoints))
 
-    def PlacePointClick(self, event): 
+    def PlacePointClick(self, event):
         # Using normal variable rather than object one stops doubling up of turning on and off or vice versa of a single point (re-entrancy).
         pointPlace = self.PointToCell(event.x, event.y)
         
