@@ -23,7 +23,7 @@ DEFAULT_SIZE = 50
 ORIGIN = 0
 
 
-def ValidateToActualWholeNumber(num):
+def ValidateToActualWholeNumber(number):
     '''No negative, fractional or zero numbers.
     '''
     default = 1
