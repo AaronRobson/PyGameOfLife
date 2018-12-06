@@ -7,8 +7,7 @@ except:
 
 from operator import add as OpAdd
 from math import floor
-import time
-import random
+# import time
 
 from GameOfLife import GameOfLife
 import colourutils
