@@ -41,7 +41,7 @@ class GUI(tk.Tk):
   First working Iteration() at 10:08Pm 2nd July 2008"""
 
   def __init__(self, parent=None):
-    tk.Tk.__init__(self,parent)
+    tk.Tk.__init__(self, parent)
     self.parent = parent
     self.initialise()
 

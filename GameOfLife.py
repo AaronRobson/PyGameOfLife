@@ -204,17 +204,17 @@ class GameOfLife():
     OOX
     XXX
     '''
-    self.cells = [(1,0), (2,1), (0,2), (1,2), (2,2)]
+    self.cells = [(1, 0), (2, 1), (0, 2), (1, 2), (2, 2)]
 
   def GosperGliderGun(self):
     self.cells = [
-      (0,6), (0,7), (1,6), (1,7), #block
-      (8,7), (8,8), (9,6), (9,8), (10,6), (10,7), #beehive
-      (16,8), (16,9), (16,10), (17,8), (18,9), #glider
-      (22,5), (22,6), (23,4), (23,6), (24,4), (24,5), #beehive
-      (34,4), (34,5), (35,4), (35,5), #block
-      (24,16), (24,17), (25,16), (25,18), (26,16), #glider
-      (35,11), (35,12), (35,13), (36,11), (37,12), #gliders
+      (0, 6), (0, 7), (1, 6), (1, 7), #block
+      (8, 7), (8, 8), (9, 6), (9, 8), (10, 6), (10, 7), #beehive
+      (16, 8), (16, 9), (16, 10), (17, 8), (18, 9), #glider
+      (22, 5), (22, 6), (23, 4), (23, 6), (24, 4), (24, 5), #beehive
+      (34, 4), (34, 5), (35, 4), (35, 5), #block
+      (24, 16), (24, 17), (25, 16), (25, 18), (26, 16), #glider
+      (35, 11), (35, 12), (35, 13), (36, 11), (37, 12), #gliders
     ]
 
   def GetRange(self, size=None, origin=None):
@@ -336,16 +336,16 @@ if __name__ == "__main__":
   print('%r' % GOL.rule)
 
   print('\nAround Testing')
-  a = list(Around((1,1,1)))
+  a = list(Around((1, 1, 1)))
   print(a[len(a) // 2])
-  print((1,1,1) not in a)
-  print((1,1,2) in a)
+  print((1, 1, 1) not in a)
+  print((1, 1, 2) in a)
   
-  print(a[len(a)-1] == (2,2,2))
+  print(a[len(a)-1] == (2, 2, 2))
 
   print('\nAroundList Testing')
-  test = (2,2,2)
-  a = list(AroundList(test, (1,1,1)))
+  test = (2, 2, 2)
+  a = list(AroundList(test, (1, 1, 1)))
   print('a', a)
   print(a[len(a) - 1] == test)
 
