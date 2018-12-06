@@ -225,13 +225,13 @@ class GameOfLife():
 
     def GosperGliderGun(self):
         self.cells = [
-            (0, 6), (0, 7), (1, 6), (1, 7), #block
-            (8, 7), (8, 8), (9, 6), (9, 8), (10, 6), (10, 7), #beehive
-            (16, 8), (16, 9), (16, 10), (17, 8), (18, 9), #glider
-            (22, 5), (22, 6), (23, 4), (23, 6), (24, 4), (24, 5), #beehive
-            (34, 4), (34, 5), (35, 4), (35, 5), #block
-            (24, 16), (24, 17), (25, 16), (25, 18), (26, 16), #glider
-            (35, 11), (35, 12), (35, 13), (36, 11), (37, 12), #gliders
+            (0, 6), (0, 7), (1, 6), (1, 7), # block
+            (8, 7), (8, 8), (9, 6), (9, 8), (10, 6), (10, 7), # beehive
+            (16, 8), (16, 9), (16, 10), (17, 8), (18, 9), # glider
+            (22, 5), (22, 6), (23, 4), (23, 6), (24, 4), (24, 5), # beehive
+            (34, 4), (34, 5), (35, 4), (35, 5), # block
+            (24, 16), (24, 17), (25, 16), (25, 18), (26, 16), # glider
+            (35, 11), (35, 12), (35, 13), (36, 11), (37, 12), # gliders
         ]
 
     def GetRange(self, size=None, origin=None):
@@ -347,7 +347,7 @@ if __name__ == "__main__":
         so that the initial state is shown on screen.'''
         if not r < 0:
             GOL.Iterate()
-        print() #separate the displays
+        print() # separate the displays
         print(Display(GOL.GetRange(*ranging)))
 
       print(GOL.population)

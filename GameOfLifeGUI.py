@@ -111,7 +111,7 @@ class GUI(tk.Tk):
         tk.Button(fCont, text='Load Cells', command=self.LoadCells).pack(side=tk.LEFT)
         fCont.grid(sticky=tk.W)
 
-        self.cnvs = tk.Canvas(bd=0) #put canvas in same GUI rather than #master = Tk() (new one)
+        self.cnvs = tk.Canvas(bd=0) # put canvas in same GUI rather than #master = Tk() (new one)
         self.cnvs.grid(row=1, column=0, columnspan=2, sticky=tk.NSEW)
 
         self.rowconfigure(1, weight=1)
@@ -138,12 +138,12 @@ class GUI(tk.Tk):
             # 'Down': '',
         }
         self.bind('<Key>', self.Key)
-        self.cnvs.bind('<Button-1>', self.PlacePointClick) #left mouse click
+        self.cnvs.bind('<Button-1>', self.PlacePointClick) # left mouse click
         self.cnvs.bind('<B1-Motion>', self.PlacePointDrag)
-        self.cnvs.bind('<Button-2>', self.ResetOriginClick) #right mouse click
+        self.cnvs.bind('<Button-2>', self.ResetOriginClick) # right mouse click
         self.cnvs.bind('<Button-3>', self.ChangeOriginClick)
         self.cnvs.bind('<B3-Motion>', self.ChangeOriginDrag)
-        self.bind('<MouseWheel>', self.MouseWheelZoom) #mouse wheel
+        self.bind('<MouseWheel>', self.MouseWheelZoom) # mouse wheel
         self.bind('<Button-4>', self.MouseWheelZoom)
         self.bind('<Button-5>', self.MouseWheelZoom)
 
