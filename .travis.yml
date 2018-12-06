@@ -9,8 +9,9 @@ python:
   - pypy3
 
 install:
-  pip install -r requirements.txt
+  - pip install -r requirements.txt
 
 script:
-    nosetests
-    flake8 .
+  - nosetests
+  - pip install flake8
+  - flake8 .
