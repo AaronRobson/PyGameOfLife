@@ -2,7 +2,7 @@
 
 from random import randrange
 
-#RGB
+# RGB
 _COLOUR_MIN = 0x000000
 _COLOUR_MAX = 0xFFFFFF
 
@@ -35,6 +35,4 @@ def RandomColour():
 
 if __name__ == "__main__":
     print('"colourutils" support unit.')
-
-    #keep the window open
     input('\nPress Enter to Close:')

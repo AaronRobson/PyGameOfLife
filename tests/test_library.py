@@ -32,7 +32,7 @@ class TestGameOfLife(unittest.TestCase):
         self.assertEqual(aroundListResult, expectedResult, '')
 
     def test_CountAround(self):
-        #Glider
+        # Glider
         cells = [(1, 0), (2, 1), (0, 2), (1, 2), (2, 2)]
 
         self.assertEqual(self.support.CountAround((1, 1), cells), 5, '')
@@ -68,7 +68,7 @@ class TestGameOfLife(unittest.TestCase):
         self.assertEqual(self.widget.population, 0)
         self.assertEqual(len(self.widget), 0)
 
-        #Glider
+        # Glider
         self.widget.cells = [(1, 0), (2, 1), (0, 2), (1, 2), (2, 2)]
 
         self.assertEqual(self.widget.population, 5)

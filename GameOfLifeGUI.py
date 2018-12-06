@@ -23,7 +23,7 @@ def ColourTypeToString(isForegound):
 def ColourTypeToChangeString(isForeground):
     return 'Change %s' % ColourTypeToString(isForeground)
 
-#green on black
+# green on black
 DEFAULT_FOREGROUND_COLOUR = 0x00ff00
 DEFAULT_BACKGROUND_COLOUR = 0x000000
 
@@ -50,7 +50,7 @@ class GUI(tk.Tk):
 
         self.grid()
 
-        #leave at defaults for a 2 dimensional game of life with John Conway standard rules (3/23)
+        # leave at defaults for a 2 dimensional game of life with John Conway standard rules (3/23)
         self.GOL = GameOfLife()
 
         self.CreateWidgets()
@@ -124,10 +124,10 @@ class GUI(tk.Tk):
             'f': self.ChangeForeground,
             'b': self.ChangeBackground,
             'l': self.LoadCells,
-            #'Left': '',
-            #'Right': '',
-            #'Up': '',
-            #'Down': '',
+            # 'Left': '',
+            # 'Right': '',
+            # 'Up': '',
+            # 'Down': '',
         }
         self.bind('<Key>', self.Key)
         self.cnvs.bind('<Button-1>', self.PlacePointClick) #left mouse click
@@ -151,14 +151,13 @@ class GUI(tk.Tk):
         return tuple(map(self.PointDimToCellDim, canvasedPoints))
 
     def PlacePointClick(self, event): 
-
-        #Using normal variable rather than object one stops doubling up of turning on and off or vice versa of a single point (re-entrancy).
+        # Using normal variable rather than object one stops doubling up of turning on and off or vice versa of a single point (re-entrancy).
         pointPlace = self.PointToCell(event.x, event.y)
         
         self.GOL.ToggleCell(pointPlace)
 
         self.pointPlace = pointPlace
-        #store the value so all those in any directly subsequent PlacePointDrag will use it
+        # store the value so all those in any directly subsequent PlacePointDrag will use it
         self.pointPlaceValue = self.GOL.IsCellAlive(pointPlace)
         self.Display()
 
@@ -167,7 +166,7 @@ class GUI(tk.Tk):
         '''
         pointPlace = self.PointToCell(event.x, event.y)
         if not pointPlace == self.pointPlace:
-            #remove final argument to replace the value of all cells rather than keep value
+            # remove final argument to replace the value of all cells rather than keep value
             self.GOL.SetCell(pointPlace, self.pointPlaceValue)
             self.pointPlace = pointPlace
             self.Display()
@@ -181,7 +180,7 @@ class GUI(tk.Tk):
         self.pointScroll = self.cnvs.canvasx(event.x), self.cnvs.canvasy(event.y)
 
     def ChangeOriginDrag(self, event):
-        #for the first two remove float part and convert to integer
+        # for the first two remove float part and convert to integer
         curScroll = (floor(float(value)) for value in self.cnvs.cget('scrollregion').split()[:2])
         toScroll = self.pointScroll[0] - self.cnvs.canvasx(event.x), self.pointScroll[1] - self.cnvs.canvasy(event.y)
         goingScroll = tuple(map(OpAdd, curScroll, toScroll))
@@ -207,10 +206,10 @@ class GUI(tk.Tk):
         zoomStep = self.ZoomStep()
 
         if event.num == 4 or event.delta == _DELTA:
-            #mouse wheel up
+            # mouse wheel up
             self.side += zoomStep
         elif event.num == 5 or event.delta == -_DELTA:
-            #mouse wheel down
+            # mouse wheel down
             self.side -= zoomStep
 
         self.Display()
@@ -252,7 +251,7 @@ class GUI(tk.Tk):
             self.GOL.Iterate()
             self.Display()
             self.cnvs.update()
-            #time.sleep(.1)
+            # time.sleep(.1)
 
     def DisplayGoingToString(self):
         self.vGoStop.set(GoingToString(self.goNow))
@@ -282,7 +281,7 @@ class GUI(tk.Tk):
         self.PrintColour(colour, isForeground=True)
         self.cnvs.itemconfig(tk.ALL, fill=tkColour)
 
-        #storing choices
+        # storing choices
         self.foreground = colour
         self.foregroundTKColour = tkColour
 
@@ -295,7 +294,7 @@ class GUI(tk.Tk):
         self.PrintColour(colour, isForeground=False)
         self.cnvs.config(bg=tkColour)
 
-        #storing choices
+        # storing choices
         self.background = colour
         self.backgroundTKColour = tkColour
 

@@ -4,7 +4,7 @@ from string import digits
 
 _STRING_RULE_SEPARATOR = '/'
 
-#'3/23'
+# '3/23'
 _CONWAY_STANDARD_STRING_RULE = _STRING_RULE_SEPARATOR.join(['3', '23'])
 
 def _StringToDigitTuple(digitString):
@@ -18,9 +18,9 @@ def _RuleToString(rule):
     Exactly opposite to StringToRule when using valid notations.
     '''
 
-    #outer one uses a direct list as join takes longer to deal with generator objects
+    # outer one uses a direct list as join takes longer to deal with generator objects
     return _STRING_RULE_SEPARATOR.join([
-        #inner one makes a generator object rather than a list directly, speeds up 
+        # inner one makes a generator object rather than a list directly, speeds up 
         ''.join((str(int(num)) for num in subList))
       for subList in rule[:2]
     ])
@@ -34,11 +34,11 @@ def _StringToRule(stringRule=None):
 
     splitRules = stringRule.split(_STRING_RULE_SEPARATOR)
 
-    #All after the second '/' if present is ignored
+    # All after the second '/' if present is ignored
     output = [()]*2
     count = min(len(output), len(splitRules))
     for s in range(count):
-        #if char not in string .digits ignore it as bad value and move on
+        # if char not in string .digits ignore it as bad value and move on
         output[s] = _StringToDigitTuple(splitRules[s])
     return tuple(output)
 

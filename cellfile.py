@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-#file options
+# file options
 fileCellSplitter = '\n'
 fileCellDimensionSplitter = ','
 fileCellComment = ';'
@@ -10,11 +10,8 @@ def GetFileText(filepath):
     Assumes contents are small enough to read in all together without problems.
     If the file does not exist will raise IOError exception
     '''
-    #try:
     with open(filepath, 'r') as f:
         return f.read()
-    #except IOError:
-    #  print('File "%s" not found.' % filepath)
 
 def RemoveComments(line):
     return line.split(fileCellComment)[0].strip()
@@ -37,6 +34,4 @@ def GetCellsFromFile(filepath):
 
 if __name__ == "__main__":
     print('"cellfile" support unit.')
-
-    #keep the window open
     input('\nPress Enter to Exit:')

@@ -19,7 +19,7 @@ to continue from some defined state such as the last time it was run.
 
 DEFAULT_SIZE = 50
 
-#For co-ordinates.
+# For co-ordinates.
 ORIGIN = 0
 
 def ValidateToActualWholeNumber(num):
@@ -43,7 +43,7 @@ def Check(cent=0, ran=1):
     ran = abs(int(ran))
     return range(cent - ran, 1 + cent + ran)
 
-#Must be an integer; 1 or above
+# Must be an integer; 1 or above
 DEFAULT_NUM_DIMENSIONS = 2
 VALIDATE_DIMENSIONS_ERROR = 'Dimensions must be an integer of at least 1.'
 def ValidateDimensions(dimensions=None):
@@ -57,7 +57,7 @@ def ValidateDimensions(dimensions=None):
     except (ValueError, TypeError):
         raise ValueError(VALIDATE_DIMENSIONS_ERROR)
     else:
-        #No such thing as negative or 0 dimensions this side of Event Horizon.
+        # No such thing as negative or 0 dimensions this side of Event Horizon.
         if 1 <= dimensions:
             return dimensions
         else:
@@ -227,7 +227,7 @@ class GameOfLife():
 
         ranges = AroundList(size, origin)
         
-        #depends upon number of dimensions and how AroundList is sorted
+        # depends upon number of dimensions and how AroundList is sorted
         dimensionWrapOn = 1
         
         linePlace = origin[dimensionWrapOn] + size[dimensionWrapOn]
@@ -236,7 +236,7 @@ class GameOfLife():
         line = []
         for r in ranges:
             line.append(r in self.cells)
-            #Is the end of a line?
+            # Is the end of a line?
             if r[dimensionWrapOn] == linePlace - 1:
                 grid.append(line)
                 line = []      
@@ -300,7 +300,7 @@ if __name__ == "__main__":
             ) for line in grid]
         )
 
-    #None of these constants should be referred to by the class directly
+    # None of these constants should be referred to by the class directly
     CHAR_CELL_ALIVE = 'X'
     CHAR_CELL_DEAD = '-'
     CHAR_SEP_CELL = ''
@@ -314,13 +314,13 @@ if __name__ == "__main__":
 
     print('Game Of Life - Testing')
 
-    #ranging = (6, 6), (0, 0)
+    # ranging = (6, 6), (0, 0)
     ranging = (SIZE_NUM,) * DIMENSIONS, (ORIGIN_NUM,) * DIMENSIONS
 
     GOL = GameOfLife()
 
     GOL.Glider()
-    #GOL.GosperGliderGun()
+    # GOL.GosperGliderGun()
 
     for r in range(-1, GLIDER_PERIOD):
         '''Display every time including when r == -1 but only Iterate() from 0,

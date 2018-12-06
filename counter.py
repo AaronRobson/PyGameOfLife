@@ -31,7 +31,5 @@ class Counter():
 
 if __name__ == "__main__":
     print('"Counter" support unit.')
-
-    #keep the window open
     input('\nPress Enter to Close:')
 
