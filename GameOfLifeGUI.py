@@ -26,6 +26,7 @@ def ColourTypeToString(isForegound):
 def ColourTypeToChangeString(isForeground):
     return 'Change %s' % ColourTypeToString(isForeground)
 
+
 # green on black
 DEFAULT_FOREGROUND_COLOUR = 0x00ff00
 DEFAULT_BACKGROUND_COLOUR = 0x000000
@@ -39,6 +40,7 @@ def GoingToString(isGoing):
 
 def BoolToPlusMinusOne(inputBool):
     return (bool(inputBool) * 2) - 1
+
 
 _MINIMUM_SIDE = 1
 
@@ -324,6 +326,7 @@ class GUI(tk.Tk):
         '''Change the size stored in the canvas when the window is resized so ChangeOriginDrag works properly.
         '''
         self.cnvs['width'], self.cnvs['height'] = event.width-4, event.height-4
+
 
 if __name__ == "__main__":
     gui = GUI()

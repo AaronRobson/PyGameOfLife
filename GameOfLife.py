@@ -45,6 +45,7 @@ def Check(cent=0, ran=1):
     ran = abs(int(ran))
     return range(cent - ran, 1 + cent + ran)
 
+
 # Must be an integer; 1 or above
 DEFAULT_NUM_DIMENSIONS = 2
 VALIDATE_DIMENSIONS_ERROR = 'Dimensions must be an integer of at least 1.'
@@ -299,6 +300,7 @@ class GameOfLife():
 
     def __len__(self):
         return self.population
+
 
 if __name__ == "__main__":
     def CellToChar(cellVal):

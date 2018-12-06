@@ -30,6 +30,7 @@ class Counter():
     def __repr__(self):
         return '%s(%d)' % (self.__class__.__name__, self.value)
 
+
 if __name__ == "__main__":
     print('"Counter" support unit.')
     input('\nPress Enter to Close:')

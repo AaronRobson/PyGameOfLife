@@ -14,6 +14,7 @@ def HexPlain(number):
     '''
     return '%X' % number
 
+
 _COLOUR_MAX_LENGTH = len(HexPlain(_COLOUR_MAX))
 
 
@@ -39,6 +40,7 @@ def ColourNumberIsValid(colourNumber):
 
 def RandomColour():
     return randrange(_COLOUR_MIN, _COLOUR_MAX + 1)
+
 
 if __name__ == "__main__":
     print('"colourutils" support unit.')
