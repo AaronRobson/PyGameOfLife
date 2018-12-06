@@ -85,5 +85,4 @@ if __name__ == "__main__":
     print('born:', rule.born)
     print('survives:', rule.survives)
 
-    #keep the window open
     input('\nPress Enter to Close:')

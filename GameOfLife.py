@@ -377,5 +377,4 @@ if __name__ == "__main__":
 
     del(GOL)
 
-    #keep the window open
     input('\nPress Enter to Close:')
