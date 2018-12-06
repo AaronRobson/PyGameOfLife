@@ -2,7 +2,7 @@
 
 try:
     import tkinter as tk
-except:
+except ImportError:
     import Tkinter as tk
 
 from operator import add as OpAdd
