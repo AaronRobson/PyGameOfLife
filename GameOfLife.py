@@ -196,10 +196,10 @@ class GameOfLife():
         Has to be limited so it doesn't try to assign a value to
         every coordinate in infinity.
         '''
-        if size == None:
+        if size is None:
             size = (self.SIZE,) * self.dimensions
 
-        if origin == None:
+        if origin is None:
             origin = (self.ORIGIN,) * self.dimensions
 
         for cell in AroundList(*FixRange(size, origin)):

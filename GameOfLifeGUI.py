@@ -267,7 +267,7 @@ class GUI(tk.Tk):
         self.vGoStop.set(GoingToString(self.goNow))
 
     def ChangeGoNow(self, newValue=None):
-        if newValue == None:
+        if newValue is None:
             self.goNow = not self.goNow
         else:
             self.goNow = bool(newValue)
@@ -275,7 +275,7 @@ class GUI(tk.Tk):
         self.DisplayGoingToString()
 
     def RandomIfUnspecifiedColour(self, colour=None):
-        if colour == None:
+        if colour is None:
             colour = colourutils.RandomColour()
         return colour
 
