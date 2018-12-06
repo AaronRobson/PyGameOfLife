@@ -352,30 +352,30 @@ if __name__ == "__main__":
         print() # separate the displays
         print(Display(GOL.GetRange(*ranging)))
 
-      print(GOL.population)
-      print(GOL.ruleStr)
-      print(GOL.rule())
-      print('%r' % GOL.rule)
+    print(GOL.population)
+    print(GOL.ruleStr)
+    print(GOL.rule())
+    print('%r' % GOL.rule)
 
-      print('\nAround Testing')
-      a = list(Around((1, 1, 1)))
-      print(a[len(a) // 2])
-      print((1, 1, 1) not in a)
-      print((1, 1, 2) in a)
+    print('\nAround Testing')
+    a = list(Around((1, 1, 1)))
+    print(a[len(a) // 2])
+    print((1, 1, 1) not in a)
+    print((1, 1, 2) in a)
       
-      print(a[len(a)-1] == (2, 2, 2))
+    print(a[len(a)-1] == (2, 2, 2))
 
-      print('\nAroundList Testing')
-      test = (2, 2, 2)
-      a = list(AroundList(test, (1, 1, 1)))
-      print('a', a)
-      print(a[len(a) - 1] == test)
+    print('\nAroundList Testing')
+    test = (2, 2, 2)
+    a = list(AroundList(test, (1, 1, 1)))
+    print('a', a)
+    print(a[len(a) - 1] == test)
 
-      print('\nPopulation: ' + str(GOL.population))
+    print('\nPopulation: ' + str(GOL.population))
 
-      GOL.ruleStr = ''
+    GOL.ruleStr = ''
 
-      del(GOL)
+    del(GOL)
 
-      #keep the window open
-      input('\nPress Enter to Close:')
+    #keep the window open
+    input('\nPress Enter to Close:')

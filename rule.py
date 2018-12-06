@@ -64,8 +64,8 @@ class Rule():
     def born(self):
         return self._born
 
-      @property
-      def survives(self):
+    @property
+    def survives(self):
         return self._survives
 
     def IsAliveNextGeneration(self, aliveNow, liveCellsAround):
