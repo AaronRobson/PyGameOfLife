@@ -130,11 +130,11 @@ class GameOfLife():
         '''"dim" is the number of dimensions wanted and the ruleStr is a string
         consisting of two sets of an arbitary number of integer values separated
         with a '/' (forward slash).
-        
+
         The first set refers to the allowed numbers of live cells around each
         live cell that will make it stay alive, the second refers to how many
         needed to make a new cell be born.
-        
+
         These numbers may but have no obligation to overlap.
         '''
         self.Restart(*args, **kwargs)
@@ -226,10 +226,10 @@ class GameOfLife():
         size, origin = FixRange(size, origin)
 
         ranges = AroundList(size, origin)
-        
+
         # depends upon number of dimensions and how AroundList is sorted
         dimensionWrapOn = 1
-        
+
         linePlace = origin[dimensionWrapOn] + size[dimensionWrapOn]
 
         grid = []

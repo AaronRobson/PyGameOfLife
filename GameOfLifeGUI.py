@@ -153,7 +153,7 @@ class GUI(tk.Tk):
     def PlacePointClick(self, event):
         # Using normal variable rather than object one stops doubling up of turning on and off or vice versa of a single point (re-entrancy).
         pointPlace = self.PointToCell(event.x, event.y)
-        
+
         self.GOL.ToggleCell(pointPlace)
 
         self.pointPlace = pointPlace
