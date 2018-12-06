@@ -131,20 +131,23 @@ def WillBeAlive(cell, cells, rule):
 
 
 def AffectableCells(cells):
-    '''All the live cells and all those around them within range of checking without duplicates.
+    '''All the live cells and all those around them within
+    range of checking without duplicates.
     '''
     return set(c for cell in cells for c in MooreNeighborhood(cell))
 
 
 def CellsOfNextGeneration(cells, rule):
-    return (cell for cell in AffectableCells(cells) if WillBeAlive(cell, cells, rule))
+    return (cell
+            for cell in AffectableCells(cells)
+            if WillBeAlive(cell, cells, rule))
 
 
 class GameOfLife():
     def __init__(self, *args, **kwargs):
         '''"dim" is the number of dimensions wanted and the ruleStr is a string
-        consisting of two sets of an arbitary number of integer values separated
-        with a '/' (forward slash).
+        consisting of two sets of an arbitary number of integer values
+        separated with a '/' (forward slash).
 
         The first set refers to the allowed numbers of live cells around each
         live cell that will make it stay alive, the second refers to how many

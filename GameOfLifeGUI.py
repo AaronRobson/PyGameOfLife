@@ -59,7 +59,8 @@ class GUI(tk.Tk):
 
         self.grid()
 
-        # leave at defaults for a 2 dimensional game of life with John Conway standard rules (3/23)
+        # leave at defaults for a 2 dimensional game of life with
+        # John Conway standard rules (3/23)
         self.GOL = GameOfLife()
 
         self.CreateWidgets()
@@ -103,16 +104,38 @@ class GUI(tk.Tk):
         self.vGoStop = tk.StringVar()
 
         fCont = tk.Frame(self)
-        tk.Button(fCont, text='Reset', command=self.Reset).pack(side=tk.LEFT)
-        tk.Button(fCont, text='Iterate', command=self.Iterate).pack(side=tk.LEFT)
-        tk.Button(fCont, textvariable=self.vGoStop, command=self.GoStop).pack(side=tk.LEFT)
-        tk.Button(fCont, text='Reset Colour', command=self.ResetColour).pack(side=tk.LEFT)
-        tk.Button(fCont, text=ColourTypeToChangeString(True), command=self.ChangeForeground).pack(side=tk.LEFT)
-        tk.Button(fCont, text=ColourTypeToChangeString(False), command=self.ChangeBackground).pack(side=tk.LEFT)
-        tk.Button(fCont, text='Load Cells', command=self.LoadCells).pack(side=tk.LEFT)
+        tk.Button(
+            fCont,
+            text='Reset',
+            command=self.Reset).pack(side=tk.LEFT)
+        tk.Button(
+            fCont,
+            text='Iterate',
+            command=self.Iterate).pack(side=tk.LEFT)
+        tk.Button(
+            fCont,
+            textvariable=self.vGoStop,
+            command=self.GoStop).pack(side=tk.LEFT)
+        tk.Button(
+            fCont,
+            text='Reset Colour',
+            command=self.ResetColour).pack(side=tk.LEFT)
+        tk.Button(
+            fCont,
+            text=ColourTypeToChangeString(True),
+            command=self.ChangeForeground).pack(side=tk.LEFT)
+        tk.Button(
+            fCont,
+            text=ColourTypeToChangeString(False),
+            command=self.ChangeBackground).pack(side=tk.LEFT)
+        tk.Button(
+            fCont,
+            text='Load Cells',
+            command=self.LoadCells).pack(side=tk.LEFT)
         fCont.grid(sticky=tk.W)
 
-        self.cnvs = tk.Canvas(bd=0)  # put canvas in same GUI rather than #master = Tk() (new one)
+        # put canvas in same GUI rather than #master = Tk() (new one)
+        self.cnvs = tk.Canvas(bd=0)
         self.cnvs.grid(row=1, column=0, columnspan=2, sticky=tk.NSEW)
 
         self.rowconfigure(1, weight=1)
@@ -139,9 +162,9 @@ class GUI(tk.Tk):
             # 'Down': '',
         }
         self.bind('<Key>', self.Key)
-        self.cnvs.bind('<Button-1>', self.PlacePointClick)  # left mouse click
+        self.cnvs.bind('<Button-1>', self.PlacePointClick)  # left mouse
         self.cnvs.bind('<B1-Motion>', self.PlacePointDrag)
-        self.cnvs.bind('<Button-2>', self.ResetOriginClick)  # right mouse click
+        self.cnvs.bind('<Button-2>', self.ResetOriginClick)  # right mouse
         self.cnvs.bind('<Button-3>', self.ChangeOriginClick)
         self.cnvs.bind('<B3-Motion>', self.ChangeOriginDrag)
         self.bind('<MouseWheel>', self.MouseWheelZoom)  # mouse wheel
@@ -154,28 +177,36 @@ class GUI(tk.Tk):
         return int(i // (self.side + self.GAP))
 
     def PointToCell(self, *point):
-        '''Internal method to Convert a Point on the canvas to a Tuple refering to the Cell it is in.
+        '''Internal method to Convert a Point on the canvas to
+        a Tuple refering to the Cell it is in.
         '''
-        canvasedPoints = self.cnvs.canvasx(point[0]), self.cnvs.canvasy(point[1])
+        canvasedPoints = (
+            self.cnvs.canvasx(point[0]),
+            self.cnvs.canvasy(point[1]))
         return tuple(map(self.PointDimToCellDim, canvasedPoints))
 
     def PlacePointClick(self, event):
-        # Using normal variable rather than object one stops doubling up of turning on and off or vice versa of a single point (re-entrancy).
+        '''Using normal variable rather than object one stops doubling up
+        of turning on and off or vice versa of a single point (re-entrancy).
+        '''
         pointPlace = self.PointToCell(event.x, event.y)
 
         self.GOL.ToggleCell(pointPlace)
 
         self.pointPlace = pointPlace
-        # store the value so all those in any directly subsequent PlacePointDrag will use it
+        # store the value so all those in any directly subsequent
+        # PlacePointDrag will use it
         self.pointPlaceValue = self.GOL.IsCellAlive(pointPlace)
         self.Display()
 
     def PlacePointDrag(self, event):
-        '''Assumes that PlacePointClick sets self.point otherwise in setup it must be set to "= None".
+        '''Assumes that PlacePointClick sets self.point otherwise
+        in setup it must be set to "= None".
         '''
         pointPlace = self.PointToCell(event.x, event.y)
         if not pointPlace == self.pointPlace:
-            # remove final argument to replace the value of all cells rather than keep value
+            # remove final argument to replace the value of all cells
+            # rather than keep value
             self.GOL.SetCell(pointPlace, self.pointPlaceValue)
             self.pointPlace = pointPlace
             self.Display()
@@ -183,15 +214,23 @@ class GUI(tk.Tk):
     def ResetOriginClick(self, event=None):
         '''Default scroll to 0,0 in top left.
         '''
-        self.cnvs.config(scrollregion='0 0 %s %s' % (self.cnvs.cget('width'), self.cnvs.cget('height')))
+        self.cnvs.config(scrollregion='0 0 %s %s' % (
+            self.cnvs.cget('width'),
+            self.cnvs.cget('height')))
 
     def ChangeOriginClick(self, event):
-        self.pointScroll = self.cnvs.canvasx(event.x), self.cnvs.canvasy(event.y)
+        self.pointScroll = (
+            self.cnvs.canvasx(event.x),
+            self.cnvs.canvasy(event.y))
 
     def ChangeOriginDrag(self, event):
         # for the first two remove float part and convert to integer
-        curScroll = (floor(float(value)) for value in self.cnvs.cget('scrollregion').split()[:2])
-        toScroll = self.pointScroll[0] - self.cnvs.canvasx(event.x), self.pointScroll[1] - self.cnvs.canvasy(event.y)
+        curScroll = (
+            floor(float(value))
+            for value in self.cnvs.cget('scrollregion').split()[:2])
+        toScroll = (
+            self.pointScroll[0] - self.cnvs.canvasx(event.x),
+            self.pointScroll[1] - self.cnvs.canvasy(event.y))
         goingScroll = tuple(map(OpAdd, curScroll, toScroll))
 
         self.cnvs.config(scrollregion='{} {} {} {}'.format(
@@ -201,7 +240,9 @@ class GUI(tk.Tk):
             goingScroll[1] + int(self.cnvs.cget('height'))
         ))
 
-        self.pointScroll = self.cnvs.canvasx(event.x), self.cnvs.canvasy(event.y)
+        self.pointScroll = (
+            self.cnvs.canvasx(event.x),
+            self.cnvs.canvasy(event.y))
 
     def ZoomStep(self):
         return BoolToPlusMinusOne(not self.InvertZoom) * self.ZoomIncrement
@@ -224,13 +265,19 @@ class GUI(tk.Tk):
         self.Display()
 
     def CellToPoint(self, end, *cell):
-        return tuple([coordinate * (self.side + self.GAP) + (end * self.side) for coordinate in cell])
+        return tuple([
+            coordinate * (self.side + self.GAP) + (end * self.side)
+            for coordinate in cell])
 
     def PlaceCellOnCanvas(self, cell):
-        self.cnvs.create_rectangle(self.CellToPoint(False, *cell), self.CellToPoint(True, *cell), fill=self.foregroundTKColour, width=0)
+        self.cnvs.create_rectangle(
+            self.CellToPoint(False, *cell),
+            self.CellToPoint(True, *cell),
+            fill=self.foregroundTKColour, width=0)
 
     def Display(self):
-        '''Deletes any relevant contents of the canvas called "cnvs" replacing them with an updated view of the cells.
+        '''Deletes any relevant contents of the canvas called "cnvs"
+        replacing them with an updated view of the cells.
         the canvas is always double-buffered. Just create or modify
         canvas items as usual. When Tk returns to the event loop,
         the canvas is redrawn as soon as possible.
@@ -253,7 +300,8 @@ class GUI(tk.Tk):
             self.GoStop()
 
     def GoStop(self):
-        '''Must be implemented as a separate thread or check GUI for events at set intervals otherwise locks up.
+        '''Must be implemented as a separate thread or check GUI for
+        events at set intervals otherwise locks up.
         '''
         self.ChangeGoNow()
         while self.goNow:
@@ -279,7 +327,8 @@ class GUI(tk.Tk):
         return colour
 
     def PrintColour(self, colour, isForeground):
-        print('%s Colour Changed To: %s' % (ColourTypeToString(isForeground), colourutils.StandardHexColourPadded(colour)))
+        print('%s Colour Changed To: %s' % (ColourTypeToString(isForeground),
+              colourutils.StandardHexColourPadded(colour)))
 
     def ChangeForeground(self, colour=None):
         '''If Foreground colour is unspecified a random one will be chosen.
@@ -322,7 +371,8 @@ class GUI(tk.Tk):
             self.Display()
 
     def CanvasResize(self, event):
-        '''Change the size stored in the canvas when the window is resized so ChangeOriginDrag works properly.
+        '''Change the size stored in the canvas when the window is
+        resized so ChangeOriginDrag works properly.
         '''
         self.cnvs['width'], self.cnvs['height'] = event.width-4, event.height-4
 

@@ -12,19 +12,19 @@ def _StringToDigitTuple(digitString):
     '''Sorts and removes duplicates.
     Returns the canonical representation.
     '''
-    return tuple(sorted(set(int(char) for char in digitString if str(char) in digits)))
+    return tuple(sorted(set(
+        int(char)
+        for char in digitString
+        if str(char) in digits)))
 
 
 def _RuleToString(rule):
     '''Returns the string notation of an inputted rule data structure,
     Exactly opposite to StringToRule when using valid notations.
     '''
-
-    # outer one uses a direct list as join takes longer to deal with generator objects
     return _STRING_RULE_SEPARATOR.join([
-        # inner one makes a generator object rather than a list directly, speeds up
         ''.join((str(int(num)) for num in subList))
-      for subList in rule[:2]
+        for subList in rule[:2]
     ])
 
 
@@ -75,6 +75,7 @@ class Rule():
             allowed = self.born
 
         return liveCellsAround in allowed
+
 
 if __name__ == "__main__":
     print('"Rule" support unit.')
