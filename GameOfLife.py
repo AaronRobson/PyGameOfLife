@@ -195,8 +195,11 @@ class GameOfLife():
         Has to be limited so it doesn't try to assign a value to
         every coordinate in infinity.
         '''
-        if size == None: size = (self.SIZE,) * self.dimensions
-        if origin == None: origin = (self.ORIGIN,) * self.dimensions
+        if size == None:
+            size = (self.SIZE,) * self.dimensions
+
+        if origin == None:
+            origin = (self.ORIGIN,) * self.dimensions
 
         for cell in AroundList(*FixRange(size, origin)):
             self.SetCell(cell, RandomBoolean())
@@ -234,8 +237,11 @@ class GameOfLife():
     def GetRange(self, size=None, origin=None):
         '''A minus size will just select in the other direction. Assumes 2D.
         '''
-        if not size: size = (self.SIZE,) * self.dimensions
-        if not origin: origin = (ORIGIN,) * self.dimensions
+        if not size:
+            size = (self.SIZE,) * self.dimensions
+
+        if not origin:
+            origin = (ORIGIN,) * self.dimensions
 
         size, origin = FixRange(size, origin)
 

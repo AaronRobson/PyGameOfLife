@@ -33,7 +33,8 @@ def _StringToRule(stringRule=None):
     If no string is specified the John Conway standard rule string is used
     Exactly opposite to StringToRule when using valid notations.
     '''
-    if stringRule is None: stringRule = _CONWAY_STANDARD_STRING_RULE
+    if stringRule is None:
+        stringRule = _CONWAY_STANDARD_STRING_RULE
 
     splitRules = stringRule.split(_STRING_RULE_SEPARATOR)
 
