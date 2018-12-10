@@ -377,5 +377,3 @@ if __name__ == "__main__":
     print('\nPopulation: ' + str(GOL.population))
 
     GOL.ruleStr = ''
-
-    del(GOL)
