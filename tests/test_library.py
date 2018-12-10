@@ -2,7 +2,7 @@
 
 import unittest
 
-import GameOfLife as g
+import gameoflife as g
 
 
 class TestGameOfLife(unittest.TestCase):

@@ -9,7 +9,7 @@ from operator import add as OpAdd
 from math import floor
 # import time
 
-from GameOfLife import GameOfLife
+from gameoflife import GameOfLife
 import colourutils
 from cellfile import GetCellsFromFile
 
