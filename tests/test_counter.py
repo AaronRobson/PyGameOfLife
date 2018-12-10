@@ -1,27 +1,26 @@
 import unittest
 
-import counter
+from counter import Counter
 
 
 class TestCounter(unittest.TestCase):
 
     def setUp(self):
-        self.support = counter
-        self.widget = self.support.Counter()
+        self.counter = Counter()
 
     def test(self):
-        self.assertEqual(self.widget(), 0, '')
-        self.widget.Inc()
-        self.assertEqual(self.widget(), 1, '')
-        self.widget.Inc()
-        self.assertEqual(self.widget(), 2, '')
+        self.assertEqual(self.counter(), 0, '')
+        self.counter.Inc()
+        self.assertEqual(self.counter(), 1, '')
+        self.counter.Inc()
+        self.assertEqual(self.counter(), 2, '')
 
-        self.assertEqual(int(self.widget), 2, '')
-        self.assertEqual('%d' % (self.widget), '2', '')
-        self.assertEqual('%s' % (self.widget), '2', '')
+        self.assertEqual(int(self.counter), 2, '')
+        self.assertEqual('%d' % (self.counter), '2', '')
+        self.assertEqual('%s' % (self.counter), '2', '')
 
-        self.widget.Reset()
-        self.assertEqual(self.widget(), 0, '')
+        self.counter.Reset()
+        self.assertEqual(self.counter(), 0, '')
 
 
 if __name__ == "__main__":
