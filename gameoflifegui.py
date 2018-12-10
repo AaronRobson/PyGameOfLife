@@ -374,7 +374,7 @@ class GUI(tk.Tk):
         '''Change the size stored in the canvas when the window is
         resized so ChangeOriginDrag works properly.
         '''
-        self.cnvs['width'], self.cnvs['height'] = event.width-4, event.height-4
+        self.cnvs['width'], self.cnvs['height'] = event.width-2, event.height-2
 
 
 if __name__ == "__main__":
