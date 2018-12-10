@@ -379,5 +379,3 @@ if __name__ == "__main__":
     GOL.ruleStr = ''
 
     del(GOL)
-
-    input('\nPress Enter to Close:')
