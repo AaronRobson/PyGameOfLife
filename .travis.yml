@@ -1,3 +1,6 @@
+os:
+  - linux
+
 language: python
 
 python:
@@ -10,8 +13,13 @@ python:
 
 install:
   - pip install -r requirements.txt
+  - pip install flake8
+  - pip install python-coveralls
 
 script:
-  - nosetests
-  - pip install flake8
   - flake8 .
+  - nosetests
+  - coverage run --source=tests/ --include=. -m unittest discover
+
+after_success:
+  - coveralls
