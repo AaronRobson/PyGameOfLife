@@ -19,7 +19,7 @@ install:
 script:
   - flake8 .
   - nosetests
-  - coverage run --source=tests/ --include=. -m unittest discover
+  - coverage run --source=. -m unittest discover
 
 after_success:
   - coveralls
