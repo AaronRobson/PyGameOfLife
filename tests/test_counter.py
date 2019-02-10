@@ -21,3 +21,6 @@ class TestCounter(unittest.TestCase):
 
         self.counter.Reset()
         self.assertEqual(self.counter(), 0, '')
+
+    def test_representation(self):
+        self.assertEqual(repr(Counter(5)), 'Counter(5)')
