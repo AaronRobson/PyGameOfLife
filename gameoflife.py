@@ -356,9 +356,8 @@ def main():
         print(Display(GOL.GetRange(*ranging)))
 
     print(GOL.population)
-    print(GOL.ruleStr)
-    print(GOL.rule)
-    print('%r' % GOL.rule)
+
+    print(repr(GOL.rule))
 
     print('\nAround Testing')
     a = list(Around((1, 1, 1)))
