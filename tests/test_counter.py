@@ -14,13 +14,6 @@ class TestCounter(unittest.TestCase):
         counter.Reset()
         self.assertEqual(counter.value, 0)
 
-    def test(self):
-        self.counter = Counter()
-        self.counter.Inc()
-        self.assertEqual(self.counter.value, 1, '')
-        self.counter.Inc()
-        self.assertEqual(self.counter.value, 2, '')
-
     def test_find_value_by_calling(self):
         counter = Counter(2)
         self.assertEqual(counter(), 2)
@@ -33,3 +26,8 @@ class TestCounter(unittest.TestCase):
 
     def test_representation(self):
         self.assertEqual(repr(Counter(5)), 'Counter(5)')
+
+    def test_increment(self):
+        counter = Counter(6)
+        counter.Inc()
+        self.assertEqual(counter.value, 7)
