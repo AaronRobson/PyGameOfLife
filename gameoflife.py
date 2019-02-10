@@ -336,7 +336,7 @@ def Display(grid):
 
 
 def main():
-    SIZE_NUM = 6
+    SIZE_NUM = 5
     ORIGIN_NUM = 0
     DIMENSIONS = 2
 
