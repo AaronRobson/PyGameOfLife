@@ -344,7 +344,6 @@ def main():
 
     print('Game Of Life - Testing')
 
-    # ranging = (6, 6), (0, 0)
     ranging = (SIZE_NUM,) * DIMENSIONS, (ORIGIN_NUM,) * DIMENSIONS
 
     GOL = GameOfLife()
