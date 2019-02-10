@@ -26,22 +26,22 @@ class TestValidateToActualWholeNumber(unittest.TestCase):
 class TestCheck(unittest.TestCase):
 
     def test_defaults(self):
-        self.assertEqual(g.Check(), [-1, 0, 1])
+        self.assertEqual(list(g.Check()), [-1, 0, 1])
 
     def test_off_centre_positive(self):
-        self.assertEqual(g.Check(cent=1), [0, 1, 2])
+        self.assertEqual(list(g.Check(cent=1)), [0, 1, 2])
 
     def test_off_centre_negative(self):
-        self.assertEqual(g.Check(cent=-1), [-2, -1, 0])
+        self.assertEqual(list(g.Check(cent=-1)), [-2, -1, 0])
 
     def test_zero_range(self):
-        self.assertEqual(g.Check(ran=0), [0])
+        self.assertEqual(list(g.Check(ran=0)), [0])
 
     def test_larger_range(self):
-        self.assertEqual(g.Check(ran=2), [-2, -1, 0, 1, 2])
+        self.assertEqual(list(g.Check(ran=2)), [-2, -1, 0, 1, 2])
 
     def test_off_centre_with_larger_range(self):
-        self.assertEqual(g.Check(cent=1, ran=2), [-1, 0, 1, 2, 3])
+        self.assertEqual(list(g.Check(cent=1, ran=2)), [-1, 0, 1, 2, 3])
 
 
 class TestAround(unittest.TestCase):
