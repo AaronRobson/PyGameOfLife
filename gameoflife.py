@@ -305,7 +305,7 @@ class GameOfLife():
         return self.population
 
 
-if __name__ == "__main__":
+def main():
     def CellToChar(cellVal):
         '''input should be a bool.
         '''
@@ -377,3 +377,7 @@ if __name__ == "__main__":
     print('\nPopulation: ' + str(GOL.population))
 
     GOL.ruleStr = ''
+
+
+if __name__ == "__main__":
+    main()
