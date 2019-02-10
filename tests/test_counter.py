@@ -9,6 +9,11 @@ class TestCounter(unittest.TestCase):
         counter = Counter()
         self.assertEqual(counter.value, 0)
 
+    def test_reset(self):
+        counter = Counter(1)
+        counter.Reset()
+        self.assertEqual(counter.value, 0)
+
     def test(self):
         self.counter = Counter()
         self.counter.Inc()
@@ -18,9 +23,6 @@ class TestCounter(unittest.TestCase):
 
         self.assertEqual(int(self.counter), 2, '')
         self.assertEqual('%d' % (self.counter), '2', '')
-
-        self.counter.Reset()
-        self.assertEqual(self.counter(), 0, '')
 
     def test_convert_to_string(self):
         self.assertEqual(str(Counter(4)), '4')
