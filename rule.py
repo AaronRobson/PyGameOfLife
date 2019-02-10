@@ -85,5 +85,3 @@ if __name__ == "__main__":
     print(rule)
     print('born:', rule.born)
     print('survives:', rule.survives)
-
-    input('\nPress Enter to Close:')
