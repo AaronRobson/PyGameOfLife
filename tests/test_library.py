@@ -143,3 +143,15 @@ class TestCellToChar(unittest.TestCase):
 
     def test_dead(self):
         self.assertEqual(g.CellToChar(False), '-')
+
+
+class TestDisplay(unittest.TestCase):
+
+    def test_glider(self):
+        given = [
+            [False, True, False],
+            [False, False, True],
+            [True, True, True],
+        ]
+        expected = '-X-\n--X\nXXX'
+        self.assertEqual(g.Display(given), expected)

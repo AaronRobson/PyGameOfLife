@@ -221,8 +221,9 @@ class GameOfLife():
             self.cells.remove(cell)
 
     def Glider(self):
-        '''OXO
-        OOX
+        '''
+        -X-
+        --X
         XXX
         '''
         self.cells = [(1, 0), (2, 1), (0, 2), (1, 2), (2, 2)]
@@ -318,22 +319,23 @@ def CellToChar(cellVal):
         return CHAR_CELL_DEAD
 
 
+CHAR_SEP_CELL = ''
+CHAR_SEP_LINE = '\n'
+
+
+def Display(grid):
+    '''Because of the dimensional limitations of the display,
+    only 2 dimensions can be handled in this manner
+    (or one if given in the 2d format).
+    '''
+    return CHAR_SEP_LINE.join(
+        [CHAR_SEP_CELL.join(
+            [CellToChar(cell) for cell in line]
+        ) for line in grid]
+    )
+
+
 def main():
-    def Display(grid):
-        '''Because of the dimensional limitations of the display,
-        only 2 dimensions can be handled in this manner
-        (or one if given in the 2d format).
-        '''
-        return CHAR_SEP_LINE.join(
-            [CHAR_SEP_CELL.join(
-                [CellToChar(cell) for cell in line]
-            ) for line in grid]
-        )
-
-    # None of these constants should be referred to by the class directly
-    CHAR_SEP_CELL = ''
-    CHAR_SEP_LINE = '\n'
-
     SIZE_NUM = 6
     ORIGIN_NUM = 0
     DIMENSIONS = 2
