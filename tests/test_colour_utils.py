@@ -31,7 +31,3 @@ class TestColourUtils(unittest.TestCase):
         self.assertTrue(c.ColourNumberIsValid(0x101010), 'nominal')
         self.assertTrue(c.ColourNumberIsValid(0), 'min')
         self.assertFalse(c.ColourNumberIsValid(-1), 'under min')
-
-
-if __name__ == "__main__":
-    unittest.main()

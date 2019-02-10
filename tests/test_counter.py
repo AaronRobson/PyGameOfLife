@@ -21,7 +21,3 @@ class TestCounter(unittest.TestCase):
 
         self.counter.Reset()
         self.assertEqual(self.counter(), 0, '')
-
-
-if __name__ == "__main__":
-    unittest.main()

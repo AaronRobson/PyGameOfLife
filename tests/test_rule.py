@@ -112,7 +112,3 @@ class TestRule(unittest.TestCase):
         ruleStr = '45/89'
         rule = r.Rule(ruleStr)
         self.assertEqual(str(rule), ruleStr)
-
-
-if __name__ == "__main__":
-    unittest.main()

@@ -95,7 +95,3 @@ class TestGameOfLife(unittest.TestCase):
 
         self.assertEqual(gol.population, 5)
         self.assertEqual(len(gol), 5)
-
-
-if __name__ == "__main__":
-    unittest.main()
