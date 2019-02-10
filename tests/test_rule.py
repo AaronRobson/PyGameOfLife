@@ -6,6 +6,10 @@ import rule as r
 
 class TestRule(unittest.TestCase):
 
+    def test_representation(self):
+        rule = r.Rule('1/2')
+        self.assertEqual(repr(rule), "Rule('1/2')")
+
     def test_String(self):
         rule = r.Rule()
         self.assertEqual(str(rule), '3/23', 'Default rule string incorrect.')
