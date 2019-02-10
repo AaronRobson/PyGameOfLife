@@ -57,9 +57,6 @@ class Rule():
     def __repr__(self):
         return '%s(%r)' % (self.__class__.__name__, str(self))
 
-    def __call__(self):
-        return str(self)
-
     @property
     def born(self):
         return self._born

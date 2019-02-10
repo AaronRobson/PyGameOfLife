@@ -357,7 +357,7 @@ if __name__ == "__main__":
 
     print(GOL.population)
     print(GOL.ruleStr)
-    print(GOL.rule())
+    print(GOL.rule)
     print('%r' % GOL.rule)
 
     print('\nAround Testing')
