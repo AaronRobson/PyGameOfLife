@@ -5,6 +5,15 @@ import unittest
 import gameoflifegui as gui
 
 
+class TestColourTypeToString(unittest.TestCase):
+
+    def test_foreground(self):
+        self.assertEqual(gui.ColourTypeToString(True), 'Foreground')
+
+    def test_background(self):
+        self.assertEqual(gui.ColourTypeToString(False), 'Background')
+
+
 class TestGameOfLifeGUI(unittest.TestCase):
 
     def test_GoingToString(self):
