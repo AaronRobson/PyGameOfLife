@@ -21,8 +21,8 @@ class TestCounter(unittest.TestCase):
         self.counter.Inc()
         self.assertEqual(self.counter(), 2, '')
 
-        self.assertEqual(int(self.counter), 2, '')
-        self.assertEqual('%d' % (self.counter), '2', '')
+    def test_convert_to_integer(self):
+        self.assertEqual(int(Counter(3)), 3)
 
     def test_convert_to_string(self):
         self.assertEqual(str(Counter(4)), '4')
