@@ -5,10 +5,12 @@ from counter import Counter
 
 class TestCounter(unittest.TestCase):
 
+    def test_default_value(self):
+        counter = Counter()
+        self.assertEqual(counter.value, 0)
+
     def test(self):
         self.counter = Counter()
-
-        self.assertEqual(self.counter(), 0, '')
         self.counter.Inc()
         self.assertEqual(self.counter(), 1, '')
         self.counter.Inc()
