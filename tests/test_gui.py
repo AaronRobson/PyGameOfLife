@@ -14,6 +14,19 @@ class TestColourTypeToString(unittest.TestCase):
         self.assertEqual(gui.ColourTypeToString(False), 'Background')
 
 
+class TestColourTypeToChangeString(unittest.TestCase):
+
+    def test_foreground(self):
+        self.assertEqual(
+            gui.ColourTypeToChangeString(True),
+            'Change Foreground')
+
+    def test_background(self):
+        self.assertEqual(
+            gui.ColourTypeToChangeString(False),
+            'Change Background')
+
+
 class TestGameOfLifeGUI(unittest.TestCase):
 
     def test_GoingToString(self):
