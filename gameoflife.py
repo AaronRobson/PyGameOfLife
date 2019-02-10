@@ -305,15 +305,20 @@ class GameOfLife():
         return self.population
 
 
-def main():
-    def CellToChar(cellVal):
-        '''input should be a bool.
-        '''
-        if cellVal:
-            return CHAR_CELL_ALIVE
-        else:
-            return CHAR_CELL_DEAD
+CHAR_CELL_ALIVE = 'X'
+CHAR_CELL_DEAD = '-'
 
+
+def CellToChar(cellVal):
+    '''input should be a bool.
+    '''
+    if cellVal:
+        return CHAR_CELL_ALIVE
+    else:
+        return CHAR_CELL_DEAD
+
+
+def main():
     def Display(grid):
         '''Because of the dimensional limitations of the display,
         only 2 dimensions can be handled in this manner
@@ -326,8 +331,6 @@ def main():
         )
 
     # None of these constants should be referred to by the class directly
-    CHAR_CELL_ALIVE = 'X'
-    CHAR_CELL_DEAD = '-'
     CHAR_SEP_CELL = ''
     CHAR_SEP_LINE = '\n'
 

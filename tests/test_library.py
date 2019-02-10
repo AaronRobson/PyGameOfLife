@@ -134,3 +134,12 @@ class TestGameOfLife(unittest.TestCase):
 
         self.assertEqual(gol.population, 5)
         self.assertEqual(len(gol), 5)
+
+
+class TestCellToChar(unittest.TestCase):
+
+    def test_alive(self):
+        self.assertEqual(g.CellToChar(True), 'X')
+
+    def test_dead(self):
+        self.assertEqual(g.CellToChar(False), '-')
