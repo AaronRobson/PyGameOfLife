@@ -52,7 +52,28 @@ class TestAround(unittest.TestCase):
     def test_centre_cell(self):
         self.assertFalse((1, 1, 1) in self.values)
 
-    def test_within_a_cell_of_centre(self):
+    def test_within_range(self):
+        self.assertTrue((1, 1, 2) in self.values)
+
+    def test_minimum(self):
+        self.assertTrue((0, 0, 0) in self.values)
+
+    def test_maximum(self):
+        self.assertTrue((2, 2, 2) in self.values)
+
+    def test_out_of_range(self):
+        self.assertFalse((3, 1, 1) in self.values)
+
+
+class TestMooreNeighbourhood(unittest.TestCase):
+
+    def setUp(self):
+        self.values = list(g.MooreNeighborhood((1, 1, 1)))
+
+    def test_centre_cell(self):
+        self.assertTrue((1, 1, 1) in self.values)
+
+    def test_within_range(self):
         self.assertTrue((1, 1, 2) in self.values)
 
     def test_minimum(self):
@@ -66,14 +87,6 @@ class TestAround(unittest.TestCase):
 
 
 class TestGameOfLife(unittest.TestCase):
-
-    def test_MooreNeighborhood(self):
-        result = list(g.MooreNeighborhood((1, 1, 1)))
-        self.assertTrue((1, 1, 1) in result, 'centre cell')
-        self.assertTrue((1, 1, 2) in result, 'nominal')
-        self.assertTrue((0, 0, 0) in result, 'min')
-        self.assertTrue((2, 2, 2) in result, 'max')
-        self.assertFalse((3, 1, 1) in result, 'out of range')
 
     def test_AroundList(self):
         aroundListResult = list(g.AroundList((3, 4), (0, 2)))
