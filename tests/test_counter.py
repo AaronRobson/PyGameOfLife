@@ -17,9 +17,13 @@ class TestCounter(unittest.TestCase):
     def test(self):
         self.counter = Counter()
         self.counter.Inc()
-        self.assertEqual(self.counter(), 1, '')
+        self.assertEqual(self.counter.value, 1, '')
         self.counter.Inc()
-        self.assertEqual(self.counter(), 2, '')
+        self.assertEqual(self.counter.value, 2, '')
+
+    def test_find_value_by_calling(self):
+        counter = Counter(2)
+        self.assertEqual(counter(), 2)
 
     def test_convert_to_integer(self):
         self.assertEqual(int(Counter(3)), 3)
