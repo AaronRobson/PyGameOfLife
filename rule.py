@@ -72,13 +72,3 @@ class Rule():
             allowed = self.born
 
         return liveCellsAround in allowed
-
-
-if __name__ == "__main__":
-    print('"Rule" support unit.')
-    print()
-    rule = Rule()
-    print(repr(rule))
-    print(rule)
-    print('born:', rule.born)
-    print('survives:', rule.survives)
