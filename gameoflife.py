@@ -360,7 +360,7 @@ def main():
         print()  # separate the displays
         print(Display(GOL.GetRange(*ranging)))
 
-    print(GOL.population)
+    print('\nPopulation: ' + str(GOL.population))
 
     print(repr(GOL.rule))
 
@@ -377,8 +377,6 @@ def main():
     a = list(AroundList(test, (1, 1, 1)))
     print('a', a)
     print(a[len(a) - 1] == test)
-
-    print('\nPopulation: ' + str(GOL.population))
 
     GOL.ruleStr = ''
 
