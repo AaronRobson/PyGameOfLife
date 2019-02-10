@@ -31,3 +31,7 @@ class TestColourUtils(unittest.TestCase):
         self.assertTrue(c.ColourNumberIsValid(0x101010), 'nominal')
         self.assertTrue(c.ColourNumberIsValid(0), 'min')
         self.assertFalse(c.ColourNumberIsValid(-1), 'under min')
+
+    def test_RandomColour(self):
+        for i in range(10):
+            self.assertTrue(0 <= c.RandomColour() <= 0xffffff)
