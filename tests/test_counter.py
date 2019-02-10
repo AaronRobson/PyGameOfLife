@@ -17,10 +17,12 @@ class TestCounter(unittest.TestCase):
 
         self.assertEqual(int(self.counter), 2, '')
         self.assertEqual('%d' % (self.counter), '2', '')
-        self.assertEqual('%s' % (self.counter), '2', '')
 
         self.counter.Reset()
         self.assertEqual(self.counter(), 0, '')
+
+    def test_convert_to_string(self):
+        self.assertEqual(str(Counter(4)), '4')
 
     def test_representation(self):
         self.assertEqual(repr(Counter(5)), 'Counter(5)')
