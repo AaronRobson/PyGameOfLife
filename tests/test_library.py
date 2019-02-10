@@ -86,11 +86,11 @@ class TestMooreNeighbourhood(unittest.TestCase):
         self.assertFalse((3, 1, 1) in self.values)
 
 
-class TestGameOfLife(unittest.TestCase):
+class TestAroundList(unittest.TestCase):
 
-    def test_AroundList(self):
-        aroundListResult = list(g.AroundList((3, 4), (0, 2)))
-        expectedResult = [
+    def test(self):
+        actual = list(g.AroundList((3, 4), (0, 2)))
+        expected = [
             (0, 2),
             (0, 3),
             (0, 4),
@@ -102,8 +102,12 @@ class TestGameOfLife(unittest.TestCase):
             (2, 2),
             (2, 3),
             (2, 4),
-            (2, 5)]
-        self.assertEqual(aroundListResult, expectedResult, '')
+            (2, 5),
+        ]
+        self.assertEqual(actual, expected)
+
+
+class TestGameOfLife(unittest.TestCase):
 
     def test_CountAround(self):
         # Glider
