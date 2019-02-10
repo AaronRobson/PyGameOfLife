@@ -5,10 +5,9 @@ from counter import Counter
 
 class TestCounter(unittest.TestCase):
 
-    def setUp(self):
+    def test(self):
         self.counter = Counter()
 
-    def test(self):
         self.assertEqual(self.counter(), 0, '')
         self.counter.Inc()
         self.assertEqual(self.counter(), 1, '')
