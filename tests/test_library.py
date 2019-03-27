@@ -44,6 +44,37 @@ class TestCheck(unittest.TestCase):
         self.assertEqual(list(g.Check(cent=1, ran=2)), [-1, 0, 1, 2, 3])
 
 
+class TestValidateDimensions(unittest.TestCase):
+
+    def test_unpassed_returns_default(self):
+        self.assertEqual(g.ValidateDimensions(), g.DEFAULT_NUM_DIMENSIONS)
+
+    def test_explicit_None_returns_default(self):
+        self.assertEqual(g.ValidateDimensions(None), g.DEFAULT_NUM_DIMENSIONS)
+
+    def test_valid_number(self):
+        self.assertEqual(g.ValidateDimensions(3), 3)
+
+    def test_valid_number_as_string(self):
+        self.assertEqual(g.ValidateDimensions('4'), 4)
+
+    def test_TypeError_on_conversion_to_integer_raises_ValueError(self):
+        with self.assertRaises(ValueError):
+            g.ValidateDimensions(lambda a: a+1)
+
+    def test_ValueError_on_conversion_to_integer_raises_ValueError(self):
+        with self.assertRaises(ValueError):
+            g.ValidateDimensions('a')
+
+    def test_zero_is_invalid(self):
+        with self.assertRaises(ValueError):
+            g.ValidateDimensions(0)
+
+    def test_negative_is_invalid(self):
+        with self.assertRaises(ValueError):
+            g.ValidateDimensions(-1)
+
+
 class TestAround(unittest.TestCase):
 
     def setUp(self):
