@@ -28,10 +28,12 @@ def LineToCell(line):
 
 
 def GetCellsFromText(text):
+    cells = set()
     for line in text.split(fileCellSplitter):
         cell = tuple(LineToCell(line))
         if cell:
-            yield cell
+            cells.add(cell)
+    return cells
 
 
 def GetCellsFromFile(filepath):
