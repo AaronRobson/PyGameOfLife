@@ -21,7 +21,7 @@ class TestLineToCell(unittest.TestCase):
 class TestGetCellsFromText(unittest.TestCase):
 
     def test_empty(self):
-        self.assertEqual(list(GetCellsFromText('')), [])
+        self.assertEqual(GetCellsFromText(''), set())
 
     def test_realisic(self):
         text = '''; Glider
@@ -37,11 +37,11 @@ class TestGetCellsFromText(unittest.TestCase):
             ; 0,1
             ; 1,1
             ; 1,2'''
-        expected = [
+        expected = {
             (1, 0),
             (2, 1),
             (0, 2),
             (1, 2),
             (2, 2),
-        ]
-        self.assertEqual(list(GetCellsFromText(text)), expected)
+        }
+        self.assertEqual(GetCellsFromText(text), expected)
