@@ -341,14 +341,6 @@ def main():
 
     print(repr(GOL.rule))
 
-    print('\nAround Testing')
-    a = list(Around((1, 1, 1)))
-    print(a[len(a) // 2])
-    print((1, 1, 1) not in a)
-    print((1, 1, 2) in a)
-
-    print(a[len(a)-1] == (2, 2, 2))
-
     GOL.ruleStr = ''
 
 
