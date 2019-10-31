@@ -5,24 +5,6 @@ import unittest
 import gameoflife as g
 
 
-class TestValidateToActualWholeNumber(unittest.TestCase):
-
-    def test_None(self):
-        self.assertEqual(g.ValidateToActualWholeNumber(None), 1)
-
-    def test_zero(self):
-        self.assertEqual(g.ValidateToActualWholeNumber(0), 1)
-
-    def test_minimum(self):
-        self.assertEqual(g.ValidateToActualWholeNumber(1), 1)
-
-    def test_negative(self):
-        self.assertEqual(g.ValidateToActualWholeNumber(-3), 1)
-
-    def test_above_minimum(self):
-        self.assertEqual(g.ValidateToActualWholeNumber(5), 5)
-
-
 class TestCheck(unittest.TestCase):
 
     def test_defaults(self):

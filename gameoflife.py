@@ -23,21 +23,6 @@ DEFAULT_SIZE = 50
 ORIGIN = 0
 
 
-def ValidateToActualWholeNumber(number):
-    '''No negative, fractional or zero numbers.
-    '''
-    default = 1
-    try:
-        number = int(number)
-    except (ValueError, TypeError):
-        return default
-    else:
-        if default < number:
-            return number
-        else:
-            return default
-
-
 def Check(cent=0, ran=1):
     '''Defaults make = [-1,0,1]
     '''
@@ -186,13 +171,6 @@ class GameOfLife():
         '''
         self.cells = set(CellsOfNextGeneration(self.cells, self.rule))
         self._generation.Inc()
-
-    def IterateMany(self, number=1):
-        '''Do a single iteration by default or multiple if specified.
-        '''
-        number = ValidateToActualWholeNumber(number)
-        for i in range(number):
-            self.Iterate()
 
     def Random(self, size=None, origin=None):
         '''A minus size will just select in the other direction.
