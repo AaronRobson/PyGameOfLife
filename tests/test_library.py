@@ -119,6 +119,20 @@ class TestAroundList(unittest.TestCase):
         ]
         self.assertEqual(actual, expected)
 
+    def test_3d(self):
+        actual = list(g.AroundList((2, 2, 2), (1, 1, 1)))
+        expected = [
+            (1, 1, 1),
+            (1, 1, 2),
+            (1, 2, 1),
+            (1, 2, 2),
+            (2, 1, 1),
+            (2, 1, 2),
+            (2, 2, 1),
+            (2, 2, 2),
+        ]
+        self.assertEqual(actual, expected)
+
 
 class TestGameOfLife(unittest.TestCase):
 

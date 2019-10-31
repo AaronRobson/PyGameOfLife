@@ -349,12 +349,6 @@ def main():
 
     print(a[len(a)-1] == (2, 2, 2))
 
-    print('\nAroundList Testing')
-    test = (2, 2, 2)
-    a = list(AroundList(test, (1, 1, 1)))
-    print('a', a)
-    print(a[len(a) - 1] == test)
-
     GOL.ruleStr = ''
 
 
