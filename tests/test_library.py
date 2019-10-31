@@ -183,7 +183,7 @@ class TestGameOfLife(unittest.TestCase):
     def test_RandomBoolean(self):
         possiblities = True, False
         for i in range(10):
-            self.assertTrue(g.RandomBoolean() in possiblities)
+            self.assertIn(g.RandomBoolean(), possiblities)
 
     def test_population(self):
         gol = g.GameOfLife()
