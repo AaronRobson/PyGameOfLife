@@ -284,21 +284,13 @@ class GameOfLife():
         return self.population
 
 
-CHAR_CELL_ALIVE = 'X'
-CHAR_CELL_DEAD = '-'
-
-
 def CellToChar(cellVal):
     '''input should be a bool.
     '''
     if cellVal:
-        return CHAR_CELL_ALIVE
+        return 'X'
     else:
-        return CHAR_CELL_DEAD
-
-
-CHAR_SEP_CELL = ''
-CHAR_SEP_LINE = '\n'
+        return '-'
 
 
 def Display(grid):
@@ -306,8 +298,8 @@ def Display(grid):
     only 2 dimensions can be handled in this manner
     (or one if given in the 2d format).
     '''
-    return CHAR_SEP_LINE.join(
-        [CHAR_SEP_CELL.join(
+    return '\n'.join(
+        [''.join(
             [CellToChar(cell) for cell in line]
         ) for line in grid]
     )
