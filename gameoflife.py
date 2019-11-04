@@ -314,20 +314,14 @@ def Display(grid):
 
 
 def main():
-    SIZE_NUM = 5
-    ORIGIN_NUM = 0
-    DIMENSIONS = 2
-
-    GLIDER_PERIOD = 4
-
     print('Game Of Life - Testing')
-
-    ranging = (SIZE_NUM,) * DIMENSIONS, (ORIGIN_NUM,) * DIMENSIONS
 
     GOL = GameOfLife()
 
     GOL.Glider()
     # GOL.GosperGliderGun()
+
+    GLIDER_PERIOD = 4
 
     for r in range(-1, GLIDER_PERIOD):
         '''Display every time including when r == -1 but only Iterate() from 0,
@@ -335,13 +329,11 @@ def main():
         if not r < 0:
             GOL.Iterate()
         print()  # separate the displays
-        print(Display(GOL.GetRange(*ranging)))
+        print(Display(GOL.GetRange(size=(5, 5), origin=(0, 0))))
 
     print('\nPopulation: ' + str(GOL.population))
 
     print(repr(GOL.rule))
-
-    GOL.ruleStr = ''
 
 
 if __name__ == "__main__":
