@@ -1,9 +1,6 @@
 #!/usr/bin/python
 
-try:
-    import tkinter as tk
-except ImportError:
-    import Tkinter as tk
+import tkinter as tk
 
 from operator import add as OpAdd
 from math import floor
