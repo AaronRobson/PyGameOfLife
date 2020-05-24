@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 # file options
 fileCellSplitter = '\n'
 fileCellDimensionSplitter = ','

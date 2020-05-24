@@ -1,4 +1,3 @@
-
 import unittest
 
 import rule as r
