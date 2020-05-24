@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 import tkinter as tk
 
 from operator import add as OpAdd

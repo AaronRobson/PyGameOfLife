@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 from string import digits
 
 _STRING_RULE_SEPARATOR = '/'

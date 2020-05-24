@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 from random import randrange
 from itertools import product as itertoolsProduct
 from counter import Counter
