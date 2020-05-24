@@ -9,25 +9,11 @@ John Conway's Game Of Life implemented in the Python programming language.
 # Install dependencies
 
 ## Ubuntu
-
-### python2
-```bash
-sudo apt install python-tk
-```
-
-### python3
 ```bash
 sudo apt install python3-tk
 ```
 
 # Running
-
-## python2
-```bash
-python gameoflifegui.py
-```
-
-## python3
 ```bash
 python3 gameoflifegui.py
 ```
