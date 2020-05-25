@@ -10,6 +10,24 @@ Be able to initialise with a tuple/set of tuples live cells, in order
 to continue from some defined state such as the last time it was run.
 '''
 
+'''
+-X-
+--X
+XXX
+'''
+GLIDER = {(1, 0), (2, 1), (0, 2), (1, 2), (2, 2)}
+GLIDER_PERIOD = 4
+
+GOSPER_GLIDER_GUN = {
+    (0, 6), (0, 7), (1, 6), (1, 7),  # block
+    (8, 7), (8, 8), (9, 6), (9, 8), (10, 6), (10, 7),  # beehive
+    (16, 8), (16, 9), (16, 10), (17, 8), (18, 9),  # glider
+    (22, 5), (22, 6), (23, 4), (23, 6), (24, 4), (24, 5),  # beehive
+    (34, 4), (34, 5), (35, 4), (35, 5),  # block
+    (24, 16), (24, 17), (25, 16), (25, 18), (26, 16),  # glider
+    (35, 11), (35, 12), (35, 13), (36, 11), (37, 12),  # gliders
+}
+
 DEFAULT_SIZE = 50
 
 # For co-ordinates.
@@ -188,25 +206,6 @@ class GameOfLife():
         else:
             self.cells.discard(cell)
 
-    def Glider(self):
-        '''
-        -X-
-        --X
-        XXX
-        '''
-        self.cells = [(1, 0), (2, 1), (0, 2), (1, 2), (2, 2)]
-
-    def GosperGliderGun(self):
-        self.cells = [
-            (0, 6), (0, 7), (1, 6), (1, 7),  # block
-            (8, 7), (8, 8), (9, 6), (9, 8), (10, 6), (10, 7),  # beehive
-            (16, 8), (16, 9), (16, 10), (17, 8), (18, 9),  # glider
-            (22, 5), (22, 6), (23, 4), (23, 6), (24, 4), (24, 5),  # beehive
-            (34, 4), (34, 5), (35, 4), (35, 5),  # block
-            (24, 16), (24, 17), (25, 16), (25, 18), (26, 16),  # glider
-            (35, 11), (35, 12), (35, 13), (36, 11), (37, 12),  # gliders
-        ]
-
     def GetRange(self, size=None, origin=None):
         '''A minus size will just select in the other direction. Assumes 2D.
         '''
@@ -296,10 +295,8 @@ def main():
 
     GOL = GameOfLife()
 
-    GOL.Glider()
-    # GOL.GosperGliderGun()
-
-    GLIDER_PERIOD = 4
+    GOL.cells = GLIDER
+    # GOL.cells = GOSPER_GLIDER_GUN
 
     for r in range(-1, GLIDER_PERIOD):
         '''Display every time including when r == -1 but only Iterate() from 0,

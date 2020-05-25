@@ -351,11 +351,6 @@ class GUI(tk.Tk):
         self.background = colour
         self.backgroundTKColour = tkColour
 
-    def ClearPlaceGlider(self):
-        self.Reset()
-        self.GOL.Glider()
-        self.Display()
-
     def LoadCells(self):
         try:
             cells = GetCellsFromFile(fileCellpath)
