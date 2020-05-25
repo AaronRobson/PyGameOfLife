@@ -185,8 +185,8 @@ class GameOfLife():
     def SetCell(self, cell, value=True):
         if value:
             self.cells.add(cell)
-        elif cell in self.cells:
-            self.cells.remove(cell)
+        else:
+            self.cells.discard(cell)
 
     def Glider(self):
         '''
