@@ -1,18 +1,13 @@
 from random import randrange
 from itertools import product as itertoolsProduct
-from counter import Counter
 from rule import Rule
 
 _todo = '''To-Do:
-
-Make game stop when the iteration is the same as the last.
-
 Have a boolean flag isStatic which is reset when change is made to the cells,
 so that it knows it doesn't have to change anything for the next generation.
 
 Be able to initialise with a tuple/set of tuples live cells, in order
 to continue from some defined state such as the last time it was run.
-
 '''
 
 DEFAULT_SIZE = 50
@@ -154,8 +149,6 @@ class GameOfLife():
         '''
         self.SIZE = DEFAULT_SIZE
 
-        self._generation = Counter()
-
         """Population <=1/2 of maximum population for a stable arrangement,
         this favours a sparse data storage choice.
         """
@@ -168,7 +161,6 @@ class GameOfLife():
         '''Do a single iteration.
         '''
         self.cells = set(CellsOfNextGeneration(self.cells, self.rule))
-        self._generation.Inc()
 
     def Random(self, size=None, origin=None):
         '''A minus size will just select in the other direction.
@@ -249,10 +241,6 @@ class GameOfLife():
         population does not have to be counted by exhaustive searching.
         '''
         return len(self.cells)
-
-    @property
-    def generation(self):
-        return self._generation()
 
     @property
     def rule(self):
