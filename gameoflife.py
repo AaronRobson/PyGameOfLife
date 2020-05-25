@@ -112,13 +112,13 @@ def AffectableCells(cells):
     '''All the live cells and all those around them within
     range of checking without duplicates.
     '''
-    return set(c for cell in cells for c in MooreNeighborhood(cell))
+    return {c for cell in cells for c in MooreNeighborhood(cell)}
 
 
 def CellsOfNextGeneration(cells, rule):
-    return (cell
+    return {cell
             for cell in AffectableCells(cells)
-            if WillBeAlive(cell, cells, rule))
+            if WillBeAlive(cell, cells, rule)}
 
 
 class GameOfLife():
@@ -160,7 +160,7 @@ class GameOfLife():
     def Iterate(self):
         '''Do a single iteration.
         '''
-        self.cells = set(CellsOfNextGeneration(self.cells, self.rule))
+        self.cells = CellsOfNextGeneration(self.cells, self.rule)
 
     def Random(self, size=None, origin=None):
         '''A minus size will just select in the other direction.
