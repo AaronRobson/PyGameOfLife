@@ -169,6 +169,16 @@ class TestGameOfLife(unittest.TestCase):
         gol.Iterate()
         self.assertEqual(gol(), {(1, 0), (1, 1), (1, 2)})
 
+    def test_SetCell(self):
+        GIVEN_CELL = (1, 2)
+        gol = g.GameOfLife()
+        gol.SetCell(GIVEN_CELL, True)
+        self.assertEqual(gol.cells, {GIVEN_CELL})
+        gol.SetCell(GIVEN_CELL, False)
+        self.assertEqual(gol.cells, set())
+        gol.SetCell(GIVEN_CELL, False)
+        self.assertEqual(gol.cells, set())
+
     def test_FixRange(self):
         self.assertEqual(
             g.FixRange((-1, -1), (0, 0)), ((1, 1), (-1, -1)),
