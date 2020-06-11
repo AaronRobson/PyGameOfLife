@@ -4,7 +4,6 @@ from cellfile import line_to_cell, get_cells_from_text
 
 
 class TestLineToCell(unittest.TestCase):
-
     def test_empty(self):
         self.assertEqual(list(line_to_cell('')), [])
 
@@ -19,7 +18,6 @@ class TestLineToCell(unittest.TestCase):
 
 
 class TestGetCellsFromText(unittest.TestCase):
-
     def test_empty(self):
         self.assertEqual(get_cells_from_text(''), set())
 

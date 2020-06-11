@@ -4,7 +4,6 @@ import gameoflife as g
 
 
 class TestCheck(unittest.TestCase):
-
     def test_defaults(self):
         self.assertEqual(list(g.check()), [-1, 0, 1])
 
@@ -25,7 +24,6 @@ class TestCheck(unittest.TestCase):
 
 
 class TestValidateDimensions(unittest.TestCase):
-
     def test_unpassed_returns_default(self):
         self.assertEqual(g.validate_dimensions(), g.default_num_dimensions)
 
@@ -56,7 +54,6 @@ class TestValidateDimensions(unittest.TestCase):
 
 
 class TestAround(unittest.TestCase):
-
     def setUp(self):
         self.values = list(g.around((1, 1, 1)))
 
@@ -77,7 +74,6 @@ class TestAround(unittest.TestCase):
 
 
 class TestMooreNeighbourhood(unittest.TestCase):
-
     def setUp(self):
         self.values = list(g.moore_neighborhood((1, 1, 1)))
 
@@ -98,7 +94,6 @@ class TestMooreNeighbourhood(unittest.TestCase):
 
 
 class TestAroundList(unittest.TestCase):
-
     def test(self):
         actual = list(g.around_list((3, 4), (0, 2)))
         expected = [
@@ -133,7 +128,6 @@ class TestAroundList(unittest.TestCase):
 
 
 class TestGameOfLife(unittest.TestCase):
-
     def test_count_around(self):
         # Glider
         cells = [(1, 0), (2, 1), (0, 2), (1, 2), (2, 2)]
@@ -202,7 +196,6 @@ class TestGameOfLife(unittest.TestCase):
 
 
 class TestCellToChar(unittest.TestCase):
-
     def test_alive(self):
         self.assertEqual(g.cell_to_char(True), 'X')
 
@@ -211,7 +204,6 @@ class TestCellToChar(unittest.TestCase):
 
 
 class TestDisplay(unittest.TestCase):
-
     def test_glider(self):
         given = [
             [False, True, False],

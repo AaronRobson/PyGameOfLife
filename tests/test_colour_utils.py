@@ -4,7 +4,6 @@ import colourutils as c
 
 
 class TestColourUtils(unittest.TestCase):
-
     def test_hex_plain(self):
         self.assertEqual(c.hex_plain(0xF0), 'F0')
         self.assertEqual(c.hex_plain(0xF0F0F0), 'F0F0F0')
