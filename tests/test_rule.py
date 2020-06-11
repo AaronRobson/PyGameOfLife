@@ -9,7 +9,7 @@ class TestRule(unittest.TestCase):
         rule = r.Rule('1/2')
         self.assertEqual(repr(rule), "Rule('1/2')")
 
-    def test_String(self):
+    def test_text(self):
         rule = r.Rule()
         self.assertEqual(str(rule), '3/23', 'Default rule string incorrect.')
 
@@ -25,29 +25,29 @@ class TestRule(unittest.TestCase):
         rule = r.Rule('')
         self.assertEqual(str(rule), '/')
 
-    def test_IsAliveNextGeneration(self):
+    def test_is_alive_next_generation(self):
         rule = r.Rule()
 
-        self.assertTrue(rule.IsAliveNextGeneration(True, 3))
-        self.assertTrue(rule.IsAliveNextGeneration(True, 2))
-        self.assertTrue(rule.IsAliveNextGeneration(False, 3))
+        self.assertTrue(rule.is_alive_next_generation(True, 3))
+        self.assertTrue(rule.is_alive_next_generation(True, 2))
+        self.assertTrue(rule.is_alive_next_generation(False, 3))
 
-        self.assertFalse(rule.IsAliveNextGeneration(True, 4))
-        self.assertFalse(rule.IsAliveNextGeneration(True, 1))
-        self.assertFalse(rule.IsAliveNextGeneration(False, 4))
-        self.assertFalse(rule.IsAliveNextGeneration(False, 2))
+        self.assertFalse(rule.is_alive_next_generation(True, 4))
+        self.assertFalse(rule.is_alive_next_generation(True, 1))
+        self.assertFalse(rule.is_alive_next_generation(False, 4))
+        self.assertFalse(rule.is_alive_next_generation(False, 2))
 
         rule = r.Rule('23/12')
 
-        self.assertTrue(rule.IsAliveNextGeneration(True, 1))
-        self.assertTrue(rule.IsAliveNextGeneration(True, 2))
-        self.assertTrue(rule.IsAliveNextGeneration(False, 2))
-        self.assertTrue(rule.IsAliveNextGeneration(False, 3))
+        self.assertTrue(rule.is_alive_next_generation(True, 1))
+        self.assertTrue(rule.is_alive_next_generation(True, 2))
+        self.assertTrue(rule.is_alive_next_generation(False, 2))
+        self.assertTrue(rule.is_alive_next_generation(False, 3))
 
-        self.assertFalse(rule.IsAliveNextGeneration(True, 3))
-        self.assertFalse(rule.IsAliveNextGeneration(True, 0))
-        self.assertFalse(rule.IsAliveNextGeneration(False, 4))
-        self.assertFalse(rule.IsAliveNextGeneration(False, 1))
+        self.assertFalse(rule.is_alive_next_generation(True, 3))
+        self.assertFalse(rule.is_alive_next_generation(True, 0))
+        self.assertFalse(rule.is_alive_next_generation(False, 4))
+        self.assertFalse(rule.is_alive_next_generation(False, 1))
 
     def test_born_and_survives(self):
         rule = r.Rule('3/23')
@@ -74,44 +74,48 @@ class TestRule(unittest.TestCase):
         self.assertEqual(rule.born, ())
         self.assertEqual(rule.survives, ())
 
-    def test_StringToDigitTuple(self):
-        self.assertEqual(r._StringToDigitTuple(''), ())
+    def test_string_to_digit_tuple(self):
+        self.assertEqual(r._string_to_digit_tuple(''), ())
         self.assertEqual(
-            r._StringToDigitTuple('jasdjf $ ;\\!"$%^//&*()\'#;[]\':{:\')'),
+            r._string_to_digit_tuple('jasdjf $ ;\\!"$%^//&*()\'#;[]\':{:\')'),
             ())
         self.assertEqual(
-            r._StringToDigitTuple('93648261'),
+            r._string_to_digit_tuple('93648261'),
             (1, 2, 3, 4, 6, 8, 9))
         self.assertEqual(
-            r._StringToDigitTuple('djksd2kdfadfk3kfa;@~}1'),
+            r._string_to_digit_tuple('djksd2kdfadfk3kfa;@~}1'),
             (1, 2, 3))
         self.assertEqual(
-            r._StringToDigitTuple('11111111111111111111adjfa33333333jdfj5555'),
+            r._string_to_digit_tuple('1111111111111111adjfa33333333jdfj5555'),
             (1, 3, 5))
 
-    def test_RuleToString(self):
-        self.assertEqual(r._RuleToString(((), ())), '/', 'empty')
-        self.assertEqual(r._RuleToString(((1,), (2,))), '1/2', '1 by 1')
-        self.assertEqual(r._RuleToString(((1, 2), (3,))), '12/3', '2 by 1')
-        self.assertEqual(r._RuleToString(((1, 2), (3, 4))), '12/34', '2 by 2')
-        self.assertEqual(r._RuleToString(((1,), (2,), (3,))), '1/2', '>2.')
-
-    def test_StringToRule(self):
-        self.assertEqual(r._StringToRule(), ((3,), (2, 3)), 'default')
-        self.assertEqual(r._StringToRule(''), ((), ()), 'empty')
-        self.assertEqual(r._StringToRule('/'), ((), ()), 'just separator')
-        self.assertEqual(r._StringToRule('1/'), ((1,), ()), 'first empty')
-        self.assertEqual(r._StringToRule('/2'), ((), (2,)), 'second empty')
-        self.assertEqual(r._StringToRule('1/2'), ((1,), (2,)), '1 by 1.')
+    def test_rule_to_string(self):
+        self.assertEqual(r._rule_to_string(((), ())), '/', 'empty')
+        self.assertEqual(r._rule_to_string(((1,), (2,))), '1/2', '1 by 1')
+        self.assertEqual(r._rule_to_string(((1, 2), (3,))), '12/3', '2 by 1')
         self.assertEqual(
-            r._StringToRule('  5  6  /  7  8  \r\n\t!"$%^&*()'),
+            r._rule_to_string(((1, 2), (3, 4))), '12/34',
+            '2 by 2')
+        self.assertEqual(r._rule_to_string(((1,), (2,), (3,))), '1/2', '>2.')
+
+    def test_string_to_rule(self):
+        self.assertEqual(r._string_to_rule(), ((3,), (2, 3)), 'default')
+        self.assertEqual(r._string_to_rule(''), ((), ()), 'empty')
+        self.assertEqual(r._string_to_rule('/'), ((), ()), 'just separator')
+        self.assertEqual(r._string_to_rule('1/'), ((1,), ()), 'first empty')
+        self.assertEqual(r._string_to_rule('/2'), ((), (2,)), 'second empty')
+        self.assertEqual(r._string_to_rule('1/2'), ((1,), (2,)), '1 by 1.')
+        self.assertEqual(
+            r._string_to_rule('  5  6  /  7  8  \r\n\t!"$%^&*()'),
             ((5, 6), (7, 8)),
             'ignore invalid characters')
-        self.assertEqual(r._StringToRule('12/3'), ((1, 2), (3,)), '2 by 1')
-        self.assertEqual(r._StringToRule('12/34'), ((1, 2), (3, 4)), '2 by 2')
-        self.assertEqual(r._StringToRule('1/2/3'), ((1,), (2,)), '>2')
+        self.assertEqual(r._string_to_rule('12/3'), ((1, 2), (3,)), '2 by 1')
+        self.assertEqual(
+            r._string_to_rule('12/34'), ((1, 2), (3, 4)),
+            '2 by 2')
+        self.assertEqual(r._string_to_rule('1/2/3'), ((1,), (2,)), '>2')
 
-    def test_RuleParserFromString_GetRule_RuleToString(self):
-        ruleStr = '45/89'
-        rule = r.Rule(ruleStr)
-        self.assertEqual(str(rule), ruleStr)
+    def test_rule_parser_from_text_and_back(self):
+        rule_text = '45/89'
+        rule = r.Rule(rule_text)
+        self.assertEqual(str(rule), rule_text)

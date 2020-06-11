@@ -1,40 +1,40 @@
 from random import randrange
 
 # RGB
-_COLOUR_MIN = 0x000000
-_COLOUR_MAX = 0xFFFFFF
+_colour_min = 0x000000
+_colour_max = 0xFFFFFF
 
-assert _COLOUR_MIN <= _COLOUR_MAX
+assert _colour_min <= _colour_max
 
 
-def HexPlain(number):
+def hex_plain(number):
     '''Without 0x at the start.
     '''
     return '%X' % number
 
 
-_COLOUR_MAX_LENGTH = len(HexPlain(_COLOUR_MAX))
+_colour_max_length = len(hex_plain(_colour_max))
 
 
-def HexPlainPadded(number, paddedLen):
-    return HexPlain(number).zfill(paddedLen)
+def hex_plain_padded(number, padded_len):
+    return hex_plain(number).zfill(padded_len)
 
 
-def HexColourPadded(colourNumber, prefix=''):
-    return str(prefix) + HexPlainPadded(colourNumber, _COLOUR_MAX_LENGTH)
+def hex_colour_padded(colour_number, prefix=''):
+    return str(prefix) + hex_plain_padded(colour_number, _colour_max_length)
 
 
-def StandardHexColourPadded(colourNumber):
-    return HexColourPadded(colourNumber, prefix='0x')
+def standard_hex_colour_padded(colour_number):
+    return hex_colour_padded(colour_number, prefix='0x')
 
 
-def TKHexColourPadded(colourNumber):
-    return HexColourPadded(colourNumber, prefix='#')
+def tk_hex_colour_padded(colour_number):
+    return hex_colour_padded(colour_number, prefix='#')
 
 
-def ColourNumberIsValid(colourNumber):
-    return _COLOUR_MIN <= colourNumber <= _COLOUR_MAX
+def colour_number_is_valid(colour_number):
+    return _colour_min <= colour_number <= _colour_max
 
 
-def RandomColour():
-    return randrange(_COLOUR_MIN, _COLOUR_MAX + 1)
+def random_colour():
+    return randrange(_colour_min, _colour_max + 1)

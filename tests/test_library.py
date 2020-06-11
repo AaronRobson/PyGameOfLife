@@ -6,59 +6,59 @@ import gameoflife as g
 class TestCheck(unittest.TestCase):
 
     def test_defaults(self):
-        self.assertEqual(list(g.Check()), [-1, 0, 1])
+        self.assertEqual(list(g.check()), [-1, 0, 1])
 
     def test_off_centre_positive(self):
-        self.assertEqual(list(g.Check(cent=1)), [0, 1, 2])
+        self.assertEqual(list(g.check(cent=1)), [0, 1, 2])
 
     def test_off_centre_negative(self):
-        self.assertEqual(list(g.Check(cent=-1)), [-2, -1, 0])
+        self.assertEqual(list(g.check(cent=-1)), [-2, -1, 0])
 
     def test_zero_range(self):
-        self.assertEqual(list(g.Check(ran=0)), [0])
+        self.assertEqual(list(g.check(ran=0)), [0])
 
     def test_larger_range(self):
-        self.assertEqual(list(g.Check(ran=2)), [-2, -1, 0, 1, 2])
+        self.assertEqual(list(g.check(ran=2)), [-2, -1, 0, 1, 2])
 
     def test_off_centre_with_larger_range(self):
-        self.assertEqual(list(g.Check(cent=1, ran=2)), [-1, 0, 1, 2, 3])
+        self.assertEqual(list(g.check(cent=1, ran=2)), [-1, 0, 1, 2, 3])
 
 
 class TestValidateDimensions(unittest.TestCase):
 
     def test_unpassed_returns_default(self):
-        self.assertEqual(g.ValidateDimensions(), g.DEFAULT_NUM_DIMENSIONS)
+        self.assertEqual(g.validate_dimensions(), g.default_num_dimensions)
 
-    def test_explicit_None_returns_default(self):
-        self.assertEqual(g.ValidateDimensions(None), g.DEFAULT_NUM_DIMENSIONS)
+    def test_explicit_none_returns_default(self):
+        self.assertEqual(g.validate_dimensions(None), g.default_num_dimensions)
 
     def test_valid_number(self):
-        self.assertEqual(g.ValidateDimensions(3), 3)
+        self.assertEqual(g.validate_dimensions(3), 3)
 
     def test_valid_number_as_string(self):
-        self.assertEqual(g.ValidateDimensions('4'), 4)
+        self.assertEqual(g.validate_dimensions('4'), 4)
 
-    def test_TypeError_on_conversion_to_integer_raises_ValueError(self):
+    def test_type_error_on_conversion_to_integer_raises_value_error(self):
         with self.assertRaises(ValueError):
-            g.ValidateDimensions(lambda a: a+1)
+            g.validate_dimensions(lambda a: a+1)
 
-    def test_ValueError_on_conversion_to_integer_raises_ValueError(self):
+    def test_value_error_on_conversion_to_integer_raises_value_error(self):
         with self.assertRaises(ValueError):
-            g.ValidateDimensions('a')
+            g.validate_dimensions('a')
 
     def test_zero_is_invalid(self):
         with self.assertRaises(ValueError):
-            g.ValidateDimensions(0)
+            g.validate_dimensions(0)
 
     def test_negative_is_invalid(self):
         with self.assertRaises(ValueError):
-            g.ValidateDimensions(-1)
+            g.validate_dimensions(-1)
 
 
 class TestAround(unittest.TestCase):
 
     def setUp(self):
-        self.values = list(g.Around((1, 1, 1)))
+        self.values = list(g.around((1, 1, 1)))
 
     def test_centre_cell(self):
         self.assertFalse((1, 1, 1) in self.values)
@@ -79,7 +79,7 @@ class TestAround(unittest.TestCase):
 class TestMooreNeighbourhood(unittest.TestCase):
 
     def setUp(self):
-        self.values = list(g.MooreNeighborhood((1, 1, 1)))
+        self.values = list(g.moore_neighborhood((1, 1, 1)))
 
     def test_centre_cell(self):
         self.assertTrue((1, 1, 1) in self.values)
@@ -100,7 +100,7 @@ class TestMooreNeighbourhood(unittest.TestCase):
 class TestAroundList(unittest.TestCase):
 
     def test(self):
-        actual = list(g.AroundList((3, 4), (0, 2)))
+        actual = list(g.around_list((3, 4), (0, 2)))
         expected = [
             (0, 2),
             (0, 3),
@@ -118,7 +118,7 @@ class TestAroundList(unittest.TestCase):
         self.assertEqual(actual, expected)
 
     def test_3d(self):
-        actual = list(g.AroundList((2, 2, 2), (1, 1, 1)))
+        actual = list(g.around_list((2, 2, 2), (1, 1, 1)))
         expected = [
             (1, 1, 1),
             (1, 1, 2),
@@ -134,16 +134,16 @@ class TestAroundList(unittest.TestCase):
 
 class TestGameOfLife(unittest.TestCase):
 
-    def test_CountAround(self):
+    def test_count_around(self):
         # Glider
         cells = [(1, 0), (2, 1), (0, 2), (1, 2), (2, 2)]
 
-        self.assertEqual(g.CountAround((1, 1), cells), 5, '')
-        self.assertEqual(g.CountAround((1, 3), cells), 3, '')
-        self.assertEqual(g.CountAround((3, 3), cells), 1, '')
-        self.assertEqual(g.CountAround((-1, -1), cells), 0, '')
+        self.assertEqual(g.count_around((1, 1), cells), 5, '')
+        self.assertEqual(g.count_around((1, 3), cells), 3, '')
+        self.assertEqual(g.count_around((3, 3), cells), 1, '')
+        self.assertEqual(g.count_around((-1, -1), cells), 0, '')
 
-    def test_AffectableCells(self):
+    def test_affectable_cells(self):
         x = 1
         y = 5
         cells = [(x, y)]
@@ -157,37 +157,37 @@ class TestGameOfLife(unittest.TestCase):
             (x+1, y-1),
             (x+1, y),
             (x+1, y+1)}
-        self.assertEqual(g.AffectableCells(cells), expected)
+        self.assertEqual(g.affectable_cells(cells), expected)
 
-    def test_SetCells_Iterate__call__(self):
-        exampleKeyList = {(0, 1), (1, 1), (2, 1)}
+    def test_set_cells_iterate__call__(self):
+        given_keys = {(0, 1), (1, 1), (2, 1)}
         gol = g.GameOfLife()
         self.assertEqual(gol(), set())
-        gol.cells = exampleKeyList
-        self.assertEqual(gol(), exampleKeyList)
+        gol.cells = given_keys
+        self.assertEqual(gol(), given_keys)
 
-        gol.Iterate()
+        gol.iterate()
         self.assertEqual(gol(), {(1, 0), (1, 1), (1, 2)})
 
-    def test_SetCell(self):
-        GIVEN_CELL = (1, 2)
+    def test_set_cell(self):
+        given_cell = (1, 2)
         gol = g.GameOfLife()
-        gol.SetCell(GIVEN_CELL, True)
-        self.assertEqual(gol.cells, {GIVEN_CELL})
-        gol.SetCell(GIVEN_CELL, False)
+        gol.set_cell(given_cell, True)
+        self.assertEqual(gol.cells, {given_cell})
+        gol.set_cell(given_cell, False)
         self.assertEqual(gol.cells, set())
-        gol.SetCell(GIVEN_CELL, False)
+        gol.set_cell(given_cell, False)
         self.assertEqual(gol.cells, set())
 
-    def test_FixRange(self):
+    def test_fix_range(self):
         self.assertEqual(
-            g.FixRange((-1, -1), (0, 0)), ((1, 1), (-1, -1)),
+            g.fix_range((-1, -1), (0, 0)), ((1, 1), (-1, -1)),
             'minus size')
 
-    def test_RandomBoolean(self):
+    def test_random_boolean(self):
         possiblities = True, False
         for i in range(10):
-            self.assertIn(g.RandomBoolean(), possiblities)
+            self.assertIn(g.random_boolean(), possiblities)
 
     def test_population(self):
         gol = g.GameOfLife()
@@ -204,10 +204,10 @@ class TestGameOfLife(unittest.TestCase):
 class TestCellToChar(unittest.TestCase):
 
     def test_alive(self):
-        self.assertEqual(g.CellToChar(True), 'X')
+        self.assertEqual(g.cell_to_char(True), 'X')
 
     def test_dead(self):
-        self.assertEqual(g.CellToChar(False), '-')
+        self.assertEqual(g.cell_to_char(False), '-')
 
 
 class TestDisplay(unittest.TestCase):
@@ -219,4 +219,4 @@ class TestDisplay(unittest.TestCase):
             [True, True, True],
         ]
         expected = '-X-\n--X\nXXX'
-        self.assertEqual(g.Display(given), expected)
+        self.assertEqual(g.display(given), expected)

@@ -6,31 +6,31 @@ import gameoflifegui as gui
 class TestColourTypeToString(unittest.TestCase):
 
     def test_foreground(self):
-        self.assertEqual(gui.ColourTypeToString(True), 'Foreground')
+        self.assertEqual(gui.colour_type_to_string(True), 'Foreground')
 
     def test_background(self):
-        self.assertEqual(gui.ColourTypeToString(False), 'Background')
+        self.assertEqual(gui.colour_type_to_string(False), 'Background')
 
 
 class TestColourTypeToChangeString(unittest.TestCase):
 
     def test_foreground(self):
         self.assertEqual(
-            gui.ColourTypeToChangeString(True),
+            gui.colour_type_to_change_string(True),
             'Change Foreground')
 
     def test_background(self):
         self.assertEqual(
-            gui.ColourTypeToChangeString(False),
+            gui.colour_type_to_change_string(False),
             'Change Background')
 
 
 class TestGameOfLifeGUI(unittest.TestCase):
 
-    def test_GoingToString(self):
-        self.assertEqual(gui.GoingToString(False), 'Go')
-        self.assertEqual(gui.GoingToString(True), 'Stop')
+    def test_going_to_sring(self):
+        self.assertEqual(gui.going_to_string(False), 'Go')
+        self.assertEqual(gui.going_to_string(True), 'Stop')
 
-    def test_BoolToPlusMinusOne(self):
-        self.assertEqual(gui.BoolToPlusMinusOne(False), -1)
-        self.assertEqual(gui.BoolToPlusMinusOne(True), 1)
+    def test_bool_to_plus_minus_one(self):
+        self.assertEqual(gui.bool_to_plus_minus_one(False), -1)
+        self.assertEqual(gui.bool_to_plus_minus_one(True), 1)
