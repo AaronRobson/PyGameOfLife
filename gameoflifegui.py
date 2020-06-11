@@ -1,45 +1,45 @@
 import tkinter as tk
 
-from operator import add as OpAdd
+from operator import add
 from math import floor
 # import time
 
 from gameoflife import GameOfLife
 import colourutils
-from cellfile import GetCellsFromFile
+from cellfile import get_cells_from_file
 
-fileCellpath = 'cells.ini'
+file_cell_path = 'cells.ini'
 
-colourTypeMessages = ('Background', 'Foreground')
-
-
-def ColourTypeToString(isForegound):
-    return colourTypeMessages[isForegound]
+colour_type_messages = ('Background', 'Foreground')
 
 
-def ColourTypeToChangeString(isForeground):
-    return 'Change %s' % ColourTypeToString(isForeground)
+def colour_type_to_string(is_foregound):
+    return colour_type_messages[is_foregound]
+
+
+def colour_type_to_change_string(is_foreground):
+    return 'Change %s' % colour_type_to_string(is_foreground)
 
 
 # green on black
-DEFAULT_FOREGROUND_COLOUR = 0x00ff00
-DEFAULT_BACKGROUND_COLOUR = 0x000000
+default_foreground_colour = 0x00ff00
+default_background_colour = 0x000000
 
-goingStringEnum = ('Go', 'Stop')
-
-
-def GoingToString(isGoing):
-    return goingStringEnum[isGoing]
+going_string_enum = ('Go', 'Stop')
 
 
-def BoolToPlusMinusOne(inputBool):
-    return (bool(inputBool) * 2) - 1
+def going_to_string(is_going):
+    return going_string_enum[is_going]
 
 
-_MINIMUM_SIDE = 1
+def bool_to_plus_minus_one(input_bool):
+    return (bool(input_bool) * 2) - 1
 
 
-class GUI(tk.Tk):
+minimum_size = 1
+
+
+class Gui(tk.Tk):
     """A custom graphical user interface for the GameOfLife Class
 
     First working Iteration() at 10:08Pm 2nd July 2008"""
@@ -56,24 +56,24 @@ class GUI(tk.Tk):
 
         # leave at defaults for a 2 dimensional game of life with
         # John Conway standard rules (3/23)
-        self.GOL = GameOfLife()
+        self.gol = GameOfLife()
 
-        self.CreateWidgets()
-        self.Bindings()
-        self.Reset()
-        self.ResetColour()
+        self.create_widgets()
+        self.bindings()
+        self.reset()
+        self.reset_colour()
 
-    def Reset(self):
-        self.ChangeGoNow(False)
+    def reset(self):
+        self.change_go_now(False)
         self.side = 5
-        self.GAP = 1
-        self.InvertZoom = False
-        self.ZoomIncrement = 1
+        self.gap = 1
+        self.invert_zoom = False
+        self.zoom_increment = 1
 
-        self.GOL.Reset()
-        self.ResetOriginClick()
-        self.Display()
-        self.DisplayGoingToString()
+        self.gol.reset()
+        self.reset_origin_click()
+        self.display()
+        self.display_going_to_string()
 
     @property
     def side(self):
@@ -81,53 +81,53 @@ class GUI(tk.Tk):
 
     @side.setter
     def side(self, side):
-        self._side = max(int(side), _MINIMUM_SIDE)
+        self._side = max(int(side), minimum_size)
 
-    def ResetColour(self):
-        self.ChangeForeground(DEFAULT_FOREGROUND_COLOUR)
-        self.ChangeBackground(DEFAULT_BACKGROUND_COLOUR)
+    def reset_colour(self):
+        self.change_foreground(default_foreground_colour)
+        self.change_background(default_background_colour)
 
-    def Key(self, event):
-        if event.keysym in self.keyDict:
-            self.keyDict[event.keysym]()
+    def key(self, event):
+        if event.keysym in self.key_dict:
+            self.key_dict[event.keysym]()
 
-    def CloseProgram(self):
-        self.ChangeGoNow(False)
+    def close_program(self):
+        self.change_go_now(False)
         self.destroy()
 
-    def CreateWidgets(self):
-        self.vGoStop = tk.StringVar()
+    def create_widgets(self):
+        self.v_go_stop = tk.StringVar()
 
-        fCont = tk.Frame(self)
+        f_cont = tk.Frame(self)
         tk.Button(
-            fCont,
+            f_cont,
             text='Reset',
-            command=self.Reset).pack(side=tk.LEFT)
+            command=self.reset).pack(side=tk.LEFT)
         tk.Button(
-            fCont,
+            f_cont,
             text='Iterate',
-            command=self.Iterate).pack(side=tk.LEFT)
+            command=self.iterate).pack(side=tk.LEFT)
         tk.Button(
-            fCont,
-            textvariable=self.vGoStop,
-            command=self.GoStop).pack(side=tk.LEFT)
+            f_cont,
+            textvariable=self.v_go_stop,
+            command=self.go_stop).pack(side=tk.LEFT)
         tk.Button(
-            fCont,
+            f_cont,
             text='Reset Colour',
-            command=self.ResetColour).pack(side=tk.LEFT)
+            command=self.reset_colour).pack(side=tk.LEFT)
         tk.Button(
-            fCont,
-            text=ColourTypeToChangeString(True),
-            command=self.ChangeForeground).pack(side=tk.LEFT)
+            f_cont,
+            text=colour_type_to_change_string(True),
+            command=self.change_foreground).pack(side=tk.LEFT)
         tk.Button(
-            fCont,
-            text=ColourTypeToChangeString(False),
-            command=self.ChangeBackground).pack(side=tk.LEFT)
+            f_cont,
+            text=colour_type_to_change_string(False),
+            command=self.change_background).pack(side=tk.LEFT)
         tk.Button(
-            fCont,
+            f_cont,
             text='Load Cells',
-            command=self.LoadCells).pack(side=tk.LEFT)
-        fCont.grid(sticky=tk.W)
+            command=self.load_cells).pack(side=tk.LEFT)
+        f_cont.grid(sticky=tk.W)
 
         # put canvas in same GUI rather than #master = Tk() (new one)
         self.cnvs = tk.Canvas(bd=0)
@@ -136,141 +136,142 @@ class GUI(tk.Tk):
         self.rowconfigure(1, weight=1)
         self.columnconfigure(1, weight=1)
 
-    def Bindings(self):
-        self.protocol('WM_DELETE_WINDOW', self.CloseProgram)
+    def bindings(self):
+        self.protocol('WM_DELETE_WINDOW', self.close_program)
 
-        self.keyDict = {
-            'Escape': self.CloseProgram,
-            'Delete': self.Reset,
-            'r': self.Reset,
-            'Return': self.Iterate,
-            'i': self.Iterate,
-            'g': self.Go,
-            's': self.Stop,
-            'space': self.GoStop,
-            'f': self.ChangeForeground,
-            'b': self.ChangeBackground,
-            'l': self.LoadCells,
+        self.key_dict = {
+            'Escape': self.close_program,
+            'Delete': self.reset,
+            'r': self.reset,
+            'Return': self.iterate,
+            'i': self.iterate,
+            'g': self.go,
+            's': self.stop,
+            'space': self.go_stop,
+            'f': self.change_foreground,
+            'b': self.change_background,
+            'l': self.load_cells,
             # 'Left': '',
             # 'Right': '',
             # 'Up': '',
             # 'Down': '',
         }
-        self.bind('<Key>', self.Key)
-        self.cnvs.bind('<Button-1>', self.PlacePointClick)  # left mouse
-        self.cnvs.bind('<B1-Motion>', self.PlacePointDrag)
-        self.cnvs.bind('<Button-2>', self.ResetOriginClick)  # right mouse
-        self.cnvs.bind('<Button-3>', self.ChangeOriginClick)
-        self.cnvs.bind('<B3-Motion>', self.ChangeOriginDrag)
-        self.bind('<MouseWheel>', self.MouseWheelZoom)  # mouse wheel
-        self.bind('<Button-4>', self.MouseWheelZoom)
-        self.bind('<Button-5>', self.MouseWheelZoom)
+        self.bind('<Key>', self.key)
+        self.cnvs.bind('<Button-1>', self.place_point_click)  # left mouse
+        self.cnvs.bind('<B1-Motion>', self.place_point_drag)
+        self.cnvs.bind('<Button-2>', self.reset_origin_click)  # right mouse
+        self.cnvs.bind('<Button-3>', self.change_origin_click)
+        self.cnvs.bind('<B3-Motion>', self.change_origin_drag)
+        self.bind('<MouseWheel>', self.mouse_wheel_zoom)  # mouse wheel
+        self.bind('<Button-4>', self.mouse_wheel_zoom)
+        self.bind('<Button-5>', self.mouse_wheel_zoom)
 
-        self.cnvs.bind('<Configure>', self.CanvasResize)
+        self.cnvs.bind('<Configure>', self.canvas_resize)
 
-    def PointDimToCellDim(self, i):
-        return int(i // (self.side + self.GAP))
+    def point_dim_to_cell_dim(self, i):
+        return int(i // (self.side + self.gap))
 
-    def PointToCell(self, *point):
+    def point_to_cell(self, *point):
         '''Internal method to Convert a Point on the canvas to
         a Tuple refering to the Cell it is in.
         '''
-        canvasedPoints = (
+        canvased_points = (
             self.cnvs.canvasx(point[0]),
             self.cnvs.canvasy(point[1]))
-        return tuple(map(self.PointDimToCellDim, canvasedPoints))
+        return tuple(map(self.point_dim_to_cell_dim, canvased_points))
 
-    def PlacePointClick(self, event):
+    def place_point_click(self, event):
         '''Using normal variable rather than object one stops doubling up
         of turning on and off or vice versa of a single point (re-entrancy).
         '''
-        pointPlace = self.PointToCell(event.x, event.y)
+        point_place = self.point_to_cell(event.x, event.y)
 
-        self.GOL.ToggleCell(pointPlace)
+        self.gol.toggle_cell(point_place)
 
-        self.pointPlace = pointPlace
+        self.point_place = point_place
         # store the value so all those in any directly subsequent
-        # PlacePointDrag will use it
-        self.pointPlaceValue = self.GOL.IsCellAlive(pointPlace)
-        self.Display()
+        # place_point_drag will use it
+        self.point_place_value = self.gol.is_cell_alive(point_place)
+        self.display()
 
-    def PlacePointDrag(self, event):
+    def place_point_drag(self, event):
         '''Assumes that PlacePointClick sets self.point otherwise
         in setup it must be set to "= None".
         '''
-        pointPlace = self.PointToCell(event.x, event.y)
-        if not pointPlace == self.pointPlace:
+        point_place = self.point_to_cell(event.x, event.y)
+        if not point_place == self.point_place:
             # remove final argument to replace the value of all cells
             # rather than keep value
-            self.GOL.SetCell(pointPlace, self.pointPlaceValue)
-            self.pointPlace = pointPlace
-            self.Display()
+            self.gol.set_cell(point_place, self.point_place_value)
+            self.point_place = point_place
+            self.display()
 
-    def ResetOriginClick(self, event=None):
+    def reset_origin_click(self, event=None):
         '''Default scroll to 0,0 in top left.
         '''
         self.cnvs.config(scrollregion='0 0 %s %s' % (
             self.cnvs.cget('width'),
             self.cnvs.cget('height')))
 
-    def ChangeOriginClick(self, event):
-        self.pointScroll = (
+    def change_origin_click(self, event):
+        self.point_scroll = (
             self.cnvs.canvasx(event.x),
             self.cnvs.canvasy(event.y))
 
-    def ChangeOriginDrag(self, event):
+    def change_origin_drag(self, event):
         # for the first two remove float part and convert to integer
-        curScroll = (
+        cur_scroll = (
             floor(float(value))
             for value in self.cnvs.cget('scrollregion').split()[:2])
-        toScroll = (
-            self.pointScroll[0] - self.cnvs.canvasx(event.x),
-            self.pointScroll[1] - self.cnvs.canvasy(event.y))
-        goingScroll = tuple(map(OpAdd, curScroll, toScroll))
+        to_scroll = (
+            self.point_scroll[0] - self.cnvs.canvasx(event.x),
+            self.point_scroll[1] - self.cnvs.canvasy(event.y))
+        going_scroll = tuple(map(add, cur_scroll, to_scroll))
 
         self.cnvs.config(scrollregion='{} {} {} {}'.format(
-            goingScroll[0],
-            goingScroll[1],
-            goingScroll[0] + int(self.cnvs.cget('width')),
-            goingScroll[1] + int(self.cnvs.cget('height'))
+            going_scroll[0],
+            going_scroll[1],
+            going_scroll[0] + int(self.cnvs.cget('width')),
+            going_scroll[1] + int(self.cnvs.cget('height'))
         ))
 
-        self.pointScroll = (
+        self.point_scroll = (
             self.cnvs.canvasx(event.x),
             self.cnvs.canvasy(event.y))
 
-    def ZoomStep(self):
-        return BoolToPlusMinusOne(not self.InvertZoom) * self.ZoomIncrement
+    def zoom_step(self):
+        return bool_to_plus_minus_one(not self.invert_zoom) * \
+            self.zoom_increment
 
-    def MouseWheelZoom(self, event):
+    def mouse_wheel_zoom(self, event):
         '''Respond to Linux (event.num) or Windows (event.delta) wheel events.
         Zooms in and out.
         Focused on (0,0) i.e the original top left corner place.
         '''
-        _DELTA = 120
-        zoomStep = self.ZoomStep()
+        delta = 120
+        zoom_step = self.zoom_step()
 
-        if event.num == 4 or event.delta == _DELTA:
+        if event.num == 4 or event.delta == delta:
             # mouse wheel up
-            self.side += zoomStep
-        elif event.num == 5 or event.delta == -_DELTA:
+            self.side += zoom_step
+        elif event.num == 5 or event.delta == -delta:
             # mouse wheel down
-            self.side -= zoomStep
+            self.side -= zoom_step
 
-        self.Display()
+        self.display()
 
-    def CellToPoint(self, end, *cell):
+    def cell_to_point(self, end, *cell):
         return tuple([
-            coordinate * (self.side + self.GAP) + (end * self.side)
+            coordinate * (self.side + self.gap) + (end * self.side)
             for coordinate in cell])
 
-    def PlaceCellOnCanvas(self, cell):
+    def place_cell_on_canvas(self, cell):
         self.cnvs.create_rectangle(
-            self.CellToPoint(False, *cell),
-            self.CellToPoint(True, *cell),
-            fill=self.foregroundTKColour, width=0)
+            self.cell_to_point(False, *cell),
+            self.cell_to_point(True, *cell),
+            fill=self.foreground_tk_colour, width=0)
 
-    def Display(self):
+    def display(self):
         '''Deletes any relevant contents of the canvas called "cnvs"
         replacing them with an updated view of the cells.
         the canvas is always double-buffered. Just create or modify
@@ -279,88 +280,89 @@ class GUI(tk.Tk):
         http://mail.python.org/pipermail/python-list/2001-March/073778.html
         '''
         self.cnvs.delete(tk.ALL)
-        list(map(self.PlaceCellOnCanvas, self.GOL()))
+        list(map(self.place_cell_on_canvas, self.gol()))
 
-    def Iterate(self):
-        self.ChangeGoNow(False)
-        self.GOL.Iterate()
-        self.Display()
+    def iterate(self):
+        self.change_go_now(False)
+        self.gol.iterate()
+        self.display()
 
-    def Go(self):
-        if not self.goNow:
-            self.GoStop()
+    def go(self):
+        if not self.go_now:
+            self.go_stop()
 
-    def Stop(self):
-        if self.goNow:
-            self.GoStop()
+    def stop(self):
+        if self.go_now:
+            self.go_stop()
 
-    def GoStop(self):
+    def go_stop(self):
         '''Must be implemented as a separate thread or check GUI for
         events at set intervals otherwise locks up.
         '''
-        self.ChangeGoNow()
-        while self.goNow:
-            self.GOL.Iterate()
-            self.Display()
+        self.change_go_now()
+        while self.go_now:
+            self.gol.iterate()
+            self.display()
             self.cnvs.update()
             # time.sleep(.1)
 
-    def DisplayGoingToString(self):
-        self.vGoStop.set(GoingToString(self.goNow))
+    def display_going_to_string(self):
+        self.v_go_stop.set(going_to_string(self.go_now))
 
-    def ChangeGoNow(self, newValue=None):
-        if newValue is None:
-            self.goNow = not self.goNow
+    def change_go_now(self, new_value=None):
+        if new_value is None:
+            self.go_now = not self.go_now
         else:
-            self.goNow = bool(newValue)
+            self.go_now = bool(new_value)
 
-        self.DisplayGoingToString()
+        self.display_going_to_string()
 
-    def RandomIfUnspecifiedColour(self, colour=None):
+    def random_if_unspecified_colour(self, colour=None):
         if colour is None:
-            colour = colourutils.RandomColour()
+            colour = colourutils.random_colour()
         return colour
 
-    def PrintColour(self, colour, isForeground):
-        print('%s Colour Changed To: %s' % (ColourTypeToString(isForeground),
-              colourutils.StandardHexColourPadded(colour)))
+    def print_colour(self, colour, is_foreground):
+        print('%s Colour Changed To: %s' % (
+            colour_type_to_string(is_foreground),
+            colourutils.standard_hex_colour_padded(colour)))
 
-    def ChangeForeground(self, colour=None):
+    def change_foreground(self, colour=None):
         '''If Foreground colour is unspecified a random one will be chosen.
         '''
-        colour = self.RandomIfUnspecifiedColour(colour)
-        tkColour = colourutils.TKHexColourPadded(colour)
+        colour = self.random_if_unspecified_colour(colour)
+        tk_colour = colourutils.tk_hex_colour_padded(colour)
 
-        self.PrintColour(colour, isForeground=True)
-        self.cnvs.itemconfig(tk.ALL, fill=tkColour)
+        self.print_colour(colour, is_foreground=True)
+        self.cnvs.itemconfig(tk.ALL, fill=tk_colour)
 
         # storing choices
         self.foreground = colour
-        self.foregroundTKColour = tkColour
+        self.foreground_tk_colour = tk_colour
 
-    def ChangeBackground(self, colour=None):
+    def change_background(self, colour=None):
         '''If Background colour is unspecified a random one will be chosen.
         '''
-        colour = self.RandomIfUnspecifiedColour(colour)
-        tkColour = colourutils.TKHexColourPadded(colour)
+        colour = self.random_if_unspecified_colour(colour)
+        tk_colour = colourutils.tk_hex_colour_padded(colour)
 
-        self.PrintColour(colour, isForeground=False)
-        self.cnvs.config(bg=tkColour)
+        self.print_colour(colour, is_foreground=False)
+        self.cnvs.config(bg=tk_colour)
 
         # storing choices
         self.background = colour
-        self.backgroundTKColour = tkColour
+        self.background_tk_colour = tk_colour
 
-    def LoadCells(self):
+    def load_cells(self):
         try:
-            cells = GetCellsFromFile(fileCellpath)
+            cells = get_cells_from_file(file_cell_path)
         except IOError:
-            print('File "%s" not found.' % fileCellpath)
+            print('File "%s" not found.' % file_cell_path)
         else:
-            self.GOL.cells = cells
-            self.Display()
+            self.gol.cells = cells
+            self.display()
 
-    def CanvasResize(self, event):
+    def canvas_resize(self, event):
         '''Change the size stored in the canvas when the window is
         resized so ChangeOriginDrag works properly.
         '''
@@ -368,5 +370,5 @@ class GUI(tk.Tk):
 
 
 if __name__ == "__main__":
-    gui = GUI()
+    gui = Gui()
     gui.mainloop()
