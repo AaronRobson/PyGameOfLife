@@ -4,7 +4,6 @@ import gameoflifegui as gui
 
 
 class TestColourTypeToString(unittest.TestCase):
-
     def test_foreground(self):
         self.assertEqual(gui.colour_type_to_string(True), 'Foreground')
 
@@ -13,7 +12,6 @@ class TestColourTypeToString(unittest.TestCase):
 
 
 class TestColourTypeToChangeString(unittest.TestCase):
-
     def test_foreground(self):
         self.assertEqual(
             gui.colour_type_to_change_string(True),
@@ -26,7 +24,6 @@ class TestColourTypeToChangeString(unittest.TestCase):
 
 
 class TestGameOfLifeGUI(unittest.TestCase):
-
     def test_going_to_sring(self):
         self.assertEqual(gui.going_to_string(False), 'Go')
         self.assertEqual(gui.going_to_string(True), 'Stop')
