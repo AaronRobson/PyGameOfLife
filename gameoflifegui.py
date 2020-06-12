@@ -1,5 +1,7 @@
 import tkinter as tk
 
+from typing import Callable, Dict, Optional, Tuple
+
 from operator import add
 from math import floor
 # import time
@@ -13,30 +15,30 @@ file_cell_path = 'cells.ini'
 colour_type_messages = ('Background', 'Foreground')
 
 
-def colour_type_to_string(is_foregound):
+def colour_type_to_string(is_foregound: bool) -> str:
     return colour_type_messages[is_foregound]
 
 
-def colour_type_to_change_string(is_foreground):
+def colour_type_to_change_string(is_foreground: bool) -> str:
     return 'Change %s' % colour_type_to_string(is_foreground)
 
 
 # green on black
-default_foreground_colour = 0x00ff00
-default_background_colour = 0x000000
+default_foreground_colour: int = 0x00ff00
+default_background_colour: int = 0x000000
 
-going_string_enum = ('Go', 'Stop')
+going_string_enum: Tuple[str, str] = ('Go', 'Stop')
 
 
-def going_to_string(is_going):
+def going_to_string(is_going: bool) -> str:
     return going_string_enum[is_going]
 
 
-def bool_to_plus_minus_one(input_bool):
-    return (bool(input_bool) * 2) - 1
+def bool_to_plus_minus_one(value: bool):
+    return (bool(value) * 2) - 1
 
 
-minimum_size = 1
+minimum_size: int = 1
 
 
 class Gui(tk.Tk):
@@ -64,6 +66,7 @@ class Gui(tk.Tk):
         self.reset_colour()
 
     def reset(self):
+        self.go_now: bool = False
         self.change_go_now(False)
         self.side = 5
         self.gap = 1
@@ -76,26 +79,26 @@ class Gui(tk.Tk):
         self.display_going_to_string()
 
     @property
-    def side(self):
+    def side(self) -> int:
         return self._side
 
     @side.setter
-    def side(self, side):
+    def side(self, side: int) -> None:
         self._side = max(int(side), minimum_size)
 
-    def reset_colour(self):
+    def reset_colour(self) -> None:
         self.change_foreground(default_foreground_colour)
         self.change_background(default_background_colour)
 
-    def key(self, event):
+    def key(self, event) -> None:
         if event.keysym in self.key_dict:
             self.key_dict[event.keysym]()
 
-    def close_program(self):
+    def close_program(self) -> None:
         self.change_go_now(False)
         self.destroy()
 
-    def create_widgets(self):
+    def create_widgets(self) -> None:
         self.v_go_stop = tk.StringVar()
 
         f_cont = tk.Frame(self)
@@ -136,10 +139,10 @@ class Gui(tk.Tk):
         self.rowconfigure(1, weight=1)
         self.columnconfigure(1, weight=1)
 
-    def bindings(self):
+    def bindings(self) -> None:
         self.protocol('WM_DELETE_WINDOW', self.close_program)
 
-        self.key_dict = {
+        self.key_dict: Dict[str, Callable[..., None]] = {
             'Escape': self.close_program,
             'Delete': self.reset,
             'r': self.reset,
@@ -168,7 +171,7 @@ class Gui(tk.Tk):
 
         self.cnvs.bind('<Configure>', self.canvas_resize)
 
-    def point_dim_to_cell_dim(self, i):
+    def point_dim_to_cell_dim(self, i: int) -> int:
         return int(i // (self.side + self.gap))
 
     def point_to_cell(self, *point):
@@ -194,7 +197,7 @@ class Gui(tk.Tk):
         self.point_place_value = self.gol.is_cell_alive(point_place)
         self.display()
 
-    def place_point_drag(self, event):
+    def place_point_drag(self, event) -> None:
         '''Assumes that PlacePointClick sets self.point otherwise
         in setup it must be set to "= None".
         '''
@@ -206,19 +209,19 @@ class Gui(tk.Tk):
             self.point_place = point_place
             self.display()
 
-    def reset_origin_click(self, event=None):
+    def reset_origin_click(self, event=None) -> None:
         '''Default scroll to 0,0 in top left.
         '''
         self.cnvs.config(scrollregion='0 0 %s %s' % (
             self.cnvs.cget('width'),
             self.cnvs.cget('height')))
 
-    def change_origin_click(self, event):
+    def change_origin_click(self, event) -> None:
         self.point_scroll = (
             self.cnvs.canvasx(event.x),
             self.cnvs.canvasy(event.y))
 
-    def change_origin_drag(self, event):
+    def change_origin_drag(self, event) -> None:
         # for the first two remove float part and convert to integer
         cur_scroll = (
             floor(float(value))
@@ -239,11 +242,11 @@ class Gui(tk.Tk):
             self.cnvs.canvasx(event.x),
             self.cnvs.canvasy(event.y))
 
-    def zoom_step(self):
+    def zoom_step(self) -> int:
         return bool_to_plus_minus_one(not self.invert_zoom) * \
             self.zoom_increment
 
-    def mouse_wheel_zoom(self, event):
+    def mouse_wheel_zoom(self, event) -> None:
         '''Respond to Linux (event.num) or Windows (event.delta) wheel events.
         Zooms in and out.
         Focused on (0,0) i.e the original top left corner place.
@@ -265,13 +268,13 @@ class Gui(tk.Tk):
             coordinate * (self.side + self.gap) + (end * self.side)
             for coordinate in cell])
 
-    def place_cell_on_canvas(self, cell):
+    def place_cell_on_canvas(self, cell) -> None:
         self.cnvs.create_rectangle(
             self.cell_to_point(False, *cell),
             self.cell_to_point(True, *cell),
             fill=self.foreground_tk_colour, width=0)
 
-    def display(self):
+    def display(self) -> None:
         '''Deletes any relevant contents of the canvas called "cnvs"
         replacing them with an updated view of the cells.
         the canvas is always double-buffered. Just create or modify
@@ -282,20 +285,20 @@ class Gui(tk.Tk):
         self.cnvs.delete(tk.ALL)
         list(map(self.place_cell_on_canvas, self.gol()))
 
-    def iterate(self):
+    def iterate(self) -> None:
         self.change_go_now(False)
         self.gol.iterate()
         self.display()
 
-    def go(self):
+    def go(self) -> None:
         if not self.go_now:
             self.go_stop()
 
-    def stop(self):
+    def stop(self) -> None:
         if self.go_now:
             self.go_stop()
 
-    def go_stop(self):
+    def go_stop(self) -> None:
         '''Must be implemented as a separate thread or check GUI for
         events at set intervals otherwise locks up.
         '''
@@ -306,10 +309,10 @@ class Gui(tk.Tk):
             self.cnvs.update()
             # time.sleep(.1)
 
-    def display_going_to_string(self):
+    def display_going_to_string(self) -> None:
         self.v_go_stop.set(going_to_string(self.go_now))
 
-    def change_go_now(self, new_value=None):
+    def change_go_now(self, new_value: Optional[bool] = None) -> None:
         if new_value is None:
             self.go_now = not self.go_now
         else:
@@ -317,20 +320,20 @@ class Gui(tk.Tk):
 
         self.display_going_to_string()
 
-    def random_if_unspecified_colour(self, colour=None):
+    def ensure_colour(self, colour: Optional[int] = None) -> int:
         if colour is None:
             colour = colourutils.random_colour()
         return colour
 
-    def print_colour(self, colour, is_foreground):
+    def print_colour(self, colour: int, is_foreground: bool) -> None:
         print('%s Colour Changed To: %s' % (
             colour_type_to_string(is_foreground),
             colourutils.standard_hex_colour_padded(colour)))
 
-    def change_foreground(self, colour=None):
+    def change_foreground(self, colour: Optional[int] = None) -> None:
         '''If Foreground colour is unspecified a random one will be chosen.
         '''
-        colour = self.random_if_unspecified_colour(colour)
+        colour = self.ensure_colour(colour)
         tk_colour = colourutils.tk_hex_colour_padded(colour)
 
         self.print_colour(colour, is_foreground=True)
@@ -340,10 +343,10 @@ class Gui(tk.Tk):
         self.foreground = colour
         self.foreground_tk_colour = tk_colour
 
-    def change_background(self, colour=None):
+    def change_background(self, colour: Optional[int] = None) -> None:
         '''If Background colour is unspecified a random one will be chosen.
         '''
-        colour = self.random_if_unspecified_colour(colour)
+        colour = self.ensure_colour(colour)
         tk_colour = colourutils.tk_hex_colour_padded(colour)
 
         self.print_colour(colour, is_foreground=False)
@@ -353,7 +356,7 @@ class Gui(tk.Tk):
         self.background = colour
         self.background_tk_colour = tk_colour
 
-    def load_cells(self):
+    def load_cells(self) -> None:
         try:
             cells = get_cells_from_file(file_cell_path)
         except IOError:
@@ -362,7 +365,7 @@ class Gui(tk.Tk):
             self.gol.cells = cells
             self.display()
 
-    def canvas_resize(self, event):
+    def canvas_resize(self, event) -> None:
         '''Change the size stored in the canvas when the window is
         resized so ChangeOriginDrag works properly.
         '''

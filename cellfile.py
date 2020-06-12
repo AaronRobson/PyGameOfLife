@@ -1,10 +1,13 @@
+from gameoflife import Cell, Cells
+
+
 # file options
 file_cell_splitter = '\n'
 file_cell_dimension_splitter = ','
 file_cell_comment = ';'
 
 
-def get_file_text(filepath):
+def get_file_text(filepath: str) -> str:
     '''Get contents of file.
     Assumes contents are small enough to read in all together without problems.
     If the file does not exist will raise IOError exception
@@ -13,19 +16,19 @@ def get_file_text(filepath):
         return f.read()
 
 
-def remove_comments(line):
+def remove_comments(line: str) -> str:
     return line.split(file_cell_comment)[0].strip()
 
 
-def line_to_cell(line):
+def line_to_cell(line: str) -> Cell:
     line = remove_comments(line)
     if line:
-        return map(int, line.split(file_cell_dimension_splitter))
+        return tuple(map(int, line.split(file_cell_dimension_splitter)))
     else:
         return ()
 
 
-def get_cells_from_text(text):
+def get_cells_from_text(text: str) -> Cells:
     cells = set()
     for line in text.split(file_cell_splitter):
         cell = tuple(line_to_cell(line))
@@ -34,5 +37,5 @@ def get_cells_from_text(text):
     return cells
 
 
-def get_cells_from_file(filepath):
+def get_cells_from_file(filepath: str) -> Cells:
     return get_cells_from_text(get_file_text(filepath))
