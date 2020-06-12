@@ -4,21 +4,21 @@ os:
 language: python
 
 python:
-  - 3.5
   - 3.6
   - 3.7
   - 3.8
   - nightly
-  - pypy3
 
 install:
   - pip install -r requirements.txt
   - pip install flake8
+  - pip install mypy
   - pip install pep8-naming
   - pip install python-coveralls
 
 script:
   - flake8 .
+  - mypy .
   - nosetests
   - coverage run --source=. -m unittest discover
 
