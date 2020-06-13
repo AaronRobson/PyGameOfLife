@@ -65,7 +65,8 @@ class Gui(tk.Tk):
         self.reset()
         self.reset_colour()
 
-    def reset(self):
+    def reset(self, event=None):
+        print('Reset')
         self.go_now: bool = False
         self.change_go_now(False)
         self.side = 5
@@ -163,6 +164,7 @@ class Gui(tk.Tk):
             # 'Down': '',
         }
         self.bind('<Key>', self.key)
+        self.bind('<F2>', self.reset)
         self.bind('<Control-o>', self.load_cells)  # 'O' for Open.
         self.bind('<Control-l>', self.load_cells)  # 'L' for Load.
         self.bind('<Control-s>', self.save_cells)
