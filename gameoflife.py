@@ -1,4 +1,4 @@
-from typing import List, Optional, Sequence, Set, Tuple
+from typing import Iterable, Optional, Set, Tuple
 from random import randrange
 from itertools import product
 from rule import Rule
@@ -38,7 +38,7 @@ default_size: int = 50
 origin: int = 0
 
 
-def check(cent: int = 0, ran: int = 1) -> Sequence[int]:
+def check(cent: int = 0, ran: int = 1) -> Iterable[int]:
     '''Defaults make = [-1,0,1]
     '''
     cent = int(cent)
@@ -94,7 +94,7 @@ def around(origin: Cell) -> Cells:
     return set(filter(lambda x: x != origin, moore_neighborhood(origin)))
 
 
-def around_list(size: int, origin: Cell) -> Cells:
+def around_list(size: int, origin: Cell) -> Iterable[Cell]:
     '''Returns tuples of co-ordinates for a given range.
     Built from ideas learned on the making of Around().
     '''
@@ -104,7 +104,7 @@ def around_list(size: int, origin: Cell) -> Cells:
     # http://www.daniweb.com/software-development/python/threads/272931
 
     dimensional_ranges = map(low_high, *fix_range(size, origin))
-    return set(product(*dimensional_ranges))
+    return product(*dimensional_ranges)
 
 
 def fix_range(size, origin):
@@ -212,7 +212,7 @@ class GameOfLife():
         else:
             self.cells.discard(cell)
 
-    def get_range(self, size=None, origin=None) -> List[List[bool]]:
+    def get_range(self, size=None, origin=None) -> Iterable[Iterable[bool]]:
         '''A minus size will just select in the other direction. Assumes 2D.
         '''
         if not size:
@@ -282,7 +282,7 @@ def cell_to_char(cell_val: bool) -> str:
         return '-'
 
 
-def display(grid: List[List[bool]]) -> str:
+def display(grid: Iterable[Iterable[bool]]) -> str:
     '''Because of the dimensional limitations of the display,
     only 2 dimensions can be handled in this manner
     (or one if given in the 2d format).
