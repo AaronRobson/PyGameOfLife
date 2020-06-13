@@ -1,3 +1,4 @@
+from typing import Iterable
 from gameoflife import Cell, Cells
 
 
@@ -28,6 +29,14 @@ def line_to_cell(line: str) -> Cell:
         return ()
 
 
+def cell_to_line(cell: Cell) -> str:
+    return file_cell_dimension_splitter.join(map(str, cell))
+
+
+def cells_to_lines(cells: Cells) -> Iterable[str]:
+    return map(cell_to_line, sorted(cells))
+
+
 def get_cells_from_text(text: str) -> Cells:
     cells = set()
     for line in text.split(file_cell_splitter):
@@ -37,5 +46,11 @@ def get_cells_from_text(text: str) -> Cells:
     return cells
 
 
-def get_cells_from_file(filepath: str) -> Cells:
+def load(filepath: str) -> Cells:
     return get_cells_from_text(get_file_text(filepath))
+
+
+def save(filepath: str, cells: Cells) -> None:
+    with open(filepath, 'w') as f:
+        for line in cells_to_lines(cells):
+            f.write(line + file_cell_splitter)
