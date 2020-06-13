@@ -8,7 +8,7 @@ from math import floor
 
 from gameoflife import GameOfLife
 import colourutils
-from cellfile import get_cells_from_file
+import cellfile
 
 file_cell_path = 'cells.ini'
 
@@ -130,6 +130,10 @@ class Gui(tk.Tk):
             f_cont,
             text='Load Cells',
             command=self.load_cells).pack(side=tk.LEFT)
+        tk.Button(
+            f_cont,
+            text='Save Cells',
+            command=self.save_cells).pack(side=tk.LEFT)
         f_cont.grid(sticky=tk.W)
 
         # put canvas in same GUI rather than #master = Tk() (new one)
@@ -153,13 +157,15 @@ class Gui(tk.Tk):
             'space': self.go_stop,
             'f': self.change_foreground,
             'b': self.change_background,
-            'l': self.load_cells,
             # 'Left': '',
             # 'Right': '',
             # 'Up': '',
             # 'Down': '',
         }
         self.bind('<Key>', self.key)
+        self.bind('<Control-o>', self.load_cells)  # 'O' for Open.
+        self.bind('<Control-l>', self.load_cells)  # 'L' for Load.
+        self.bind('<Control-s>', self.save_cells)
         self.cnvs.bind('<Button-1>', self.place_point_click)  # left mouse
         self.cnvs.bind('<B1-Motion>', self.place_point_drag)
         self.cnvs.bind('<Button-2>', self.reset_origin_click)  # right mouse
@@ -356,14 +362,23 @@ class Gui(tk.Tk):
         self.background = colour
         self.background_tk_colour = tk_colour
 
-    def load_cells(self) -> None:
+    def load_cells(self, event=None) -> None:
         try:
-            cells = get_cells_from_file(file_cell_path)
+            cells = cellfile.load(file_cell_path)
         except IOError:
             print('File "%s" not found.' % file_cell_path)
         else:
             self.gol.cells = cells
+            print('Loaded from file "%s"' % file_cell_path)
             self.display()
+
+    def save_cells(self, event=None) -> None:
+        try:
+            cellfile.save(file_cell_path, self.gol.cells)
+        except IOError:
+            print('Unable to save to file "%s".' % file_cell_path)
+        else:
+            print('Saved to file "%s".' % file_cell_path)
 
     def canvas_resize(self, event) -> None:
         '''Change the size stored in the canvas when the window is

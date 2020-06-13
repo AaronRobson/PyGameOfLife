@@ -1,6 +1,11 @@
 import unittest
+import tempfile
+import os
 
-from cellfile import line_to_cell, get_cells_from_text
+from cellfile import line_to_cell, get_cells_from_text, \
+                     cell_to_line, cells_to_lines, \
+                     save, load, \
+                     Cells
 
 
 class TestLineToCell(unittest.TestCase):
@@ -43,3 +48,33 @@ class TestGetCellsFromText(unittest.TestCase):
             (2, 2),
         }
         self.assertEqual(get_cells_from_text(text), expected)
+
+
+class TestCellToLine(unittest.TestCase):
+    def test_2d(self):
+        self.assertEqual(cell_to_line((1, 2)), '1,2')
+
+
+class TestCellsToLines(unittest.TestCase):
+    def test_2d(self):
+        self.assertEqual(
+            list(cells_to_lines({(3, 4), (1, 2)})),
+            ['1,2', '3,4'])
+
+
+class TestSaveLoad(unittest.TestCase):
+    def setUp(self):
+        self.tf = tempfile.NamedTemporaryFile(delete=False)
+
+    def tearDown(self):
+        os.remove(self.tf.name)
+
+    def test(self):
+        given: Cells = {
+            (0, 1),
+            (2, 3),
+            (4, 5),
+        }
+        save(self.tf.name, given)
+        actual = load(self.tf.name)
+        self.assertEqual(actual, given)
