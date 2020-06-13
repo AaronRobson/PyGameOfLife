@@ -95,8 +95,8 @@ class TestMooreNeighbourhood(unittest.TestCase):
 
 class TestAroundList(unittest.TestCase):
     def test(self):
-        actual = g.around_list((3, 4), (0, 2))
-        expected = {
+        actual = list(g.around_list((3, 4), (0, 2)))
+        expected = [
             (0, 2),
             (0, 3),
             (0, 4),
@@ -109,12 +109,12 @@ class TestAroundList(unittest.TestCase):
             (2, 3),
             (2, 4),
             (2, 5),
-        }
+        ]
         self.assertEqual(actual, expected)
 
     def test_3d(self):
-        actual = g.around_list((2, 2, 2), (1, 1, 1))
-        expected = {
+        actual = list(g.around_list((2, 2, 2), (1, 1, 1)))
+        expected = [
             (1, 1, 1),
             (1, 1, 2),
             (1, 2, 1),
@@ -123,7 +123,7 @@ class TestAroundList(unittest.TestCase):
             (2, 1, 2),
             (2, 2, 1),
             (2, 2, 2),
-        }
+        ]
         self.assertEqual(actual, expected)
 
 
