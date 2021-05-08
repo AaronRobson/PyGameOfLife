@@ -220,9 +220,12 @@ class Gui(tk.Tk):
     def reset_origin_click(self, event=None) -> None:
         '''Default scroll to 0,0 in top left.
         '''
-        self.cnvs.config(scrollregion='0 0 %s %s' % (
+        self.cnvs.config(scrollregion=(
+            0,
+            0,
             self.cnvs.cget('width'),
-            self.cnvs.cget('height')))
+            self.cnvs.cget('height'),
+        ))
 
     def change_origin_click(self, event) -> None:
         self.point_scroll = (
@@ -239,11 +242,11 @@ class Gui(tk.Tk):
             self.point_scroll[1] - self.cnvs.canvasy(event.y))
         going_scroll = tuple(map(add, cur_scroll, to_scroll))
 
-        self.cnvs.config(scrollregion='{} {} {} {}'.format(
+        self.cnvs.config(scrollregion=(
             going_scroll[0],
             going_scroll[1],
             going_scroll[0] + int(self.cnvs.cget('width')),
-            going_scroll[1] + int(self.cnvs.cget('height'))
+            going_scroll[1] + int(self.cnvs.cget('height')),
         ))
 
         self.point_scroll = (
