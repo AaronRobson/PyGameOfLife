@@ -10,7 +10,7 @@ John Conway's Game Of Life implemented in the Python programming language.
 
 ## Ubuntu
 ```bash
-sudo apt install python3-tk
+sudo apt install -y python3-tk
 ```
 
 # Running
