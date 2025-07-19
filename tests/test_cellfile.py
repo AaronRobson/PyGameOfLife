@@ -69,7 +69,7 @@ class TestSaveLoad(unittest.TestCase):
     def tearDown(self):
         os.remove(self.tf.name)
 
-    def test(self):
+    def test(self) -> None:
         given: Cells = {
             (0, 1),
             (2, 3),

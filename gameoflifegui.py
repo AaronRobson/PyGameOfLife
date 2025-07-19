@@ -65,7 +65,7 @@ class Gui(tk.Tk):
         self.reset()
         self.reset_colour()
 
-    def reset(self, event=None):
+    def reset(self, event=None) -> None:
         print('Reset')
         self.go_now: bool = False
         self.change_go_now(False)
