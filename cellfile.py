@@ -54,3 +54,25 @@ def save(filepath: str, cells: Cells) -> None:
     with open(filepath, 'w') as f:
         for line in cells_to_lines(cells):
             f.write(line + file_cell_splitter)
+
+
+if __name__ == '__main__':
+    text = '''; Glider
+1,0
+2,1
+0,2
+1,2
+2,2
+'''
+    print('Parse save file contents :\n%s' % text)
+    expected: Cells = {
+        (1, 0),
+        (2, 1),
+        (0, 2),
+        (1, 2),
+        (2, 2),
+    }
+    actual = get_cells_from_text(text)
+    print('Cells:\n%r' % actual)
+    if actual != expected:
+        exit('\nError - expected Cells to be:\n%r' % expected)
