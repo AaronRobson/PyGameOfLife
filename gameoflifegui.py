@@ -2,8 +2,6 @@ import tkinter as tk
 
 from typing import Callable, Dict, Optional, Tuple
 
-from operator import add
-from math import floor
 # import time
 
 from gameoflife import GameOfLife
@@ -53,6 +51,7 @@ class Gui(tk.Tk):
 
     def initialise(self):
         self.title('Game Of Life')
+        self.resizable(True, True)
 
         self.grid()
 
@@ -75,7 +74,6 @@ class Gui(tk.Tk):
         self.zoom_increment = 1
 
         self.gol.reset()
-        self.reset_origin_click()
         self.display()
         self.display_going_to_string()
 
@@ -170,14 +168,11 @@ class Gui(tk.Tk):
         self.bind('<Control-s>', self.save_cells)
         self.cnvs.bind('<Button-1>', self.place_point_click)  # left mouse
         self.cnvs.bind('<B1-Motion>', self.place_point_drag)
-        self.cnvs.bind('<Button-2>', self.reset_origin_click)  # right mouse
         self.cnvs.bind('<Button-3>', self.change_origin_click)
         self.cnvs.bind('<B3-Motion>', self.change_origin_drag)
         self.bind('<MouseWheel>', self.mouse_wheel_zoom)  # mouse wheel
         self.bind('<Button-4>', self.mouse_wheel_zoom)
         self.bind('<Button-5>', self.mouse_wheel_zoom)
-
-        self.cnvs.bind('<Configure>', self.canvas_resize)
 
     def point_dim_to_cell_dim(self, i: int) -> int:
         return int(i // (self.side + self.gap))
@@ -217,41 +212,11 @@ class Gui(tk.Tk):
             self.point_place = point_place
             self.display()
 
-    def reset_origin_click(self, event=None) -> None:
-        '''Default scroll to 0,0 in top left.
-        '''
-        self.cnvs.config(scrollregion=(
-            0,
-            0,
-            self.cnvs.cget('width'),
-            self.cnvs.cget('height'),
-        ))
-
     def change_origin_click(self, event) -> None:
-        self.point_scroll = (
-            self.cnvs.canvasx(event.x),
-            self.cnvs.canvasy(event.y))
+        self.cnvs.scan_mark(event.x, event.y)
 
     def change_origin_drag(self, event) -> None:
-        # for the first two remove float part and convert to integer
-        cur_scroll = (
-            floor(float(value))
-            for value in self.cnvs.cget('scrollregion').split()[:2])
-        to_scroll = (
-            self.point_scroll[0] - self.cnvs.canvasx(event.x),
-            self.point_scroll[1] - self.cnvs.canvasy(event.y))
-        going_scroll = tuple(map(add, cur_scroll, to_scroll))
-
-        self.cnvs.config(scrollregion=(
-            going_scroll[0],
-            going_scroll[1],
-            going_scroll[0] + int(self.cnvs.cget('width')),
-            going_scroll[1] + int(self.cnvs.cget('height')),
-        ))
-
-        self.point_scroll = (
-            self.cnvs.canvasx(event.x),
-            self.cnvs.canvasy(event.y))
+        self.cnvs.scan_dragto(event.x, event.y, gain=1)
 
     def zoom_step(self) -> int:
         return bool_to_plus_minus_one(not self.invert_zoom) * \
@@ -384,12 +349,6 @@ class Gui(tk.Tk):
             print('Unable to save to file "%s".' % file_cell_path)
         else:
             print('Saved to file "%s".' % file_cell_path)
-
-    def canvas_resize(self, event) -> None:
-        '''Change the size stored in the canvas when the window is
-        resized so ChangeOriginDrag works properly.
-        '''
-        self.cnvs['width'], self.cnvs['height'] = event.width-4, event.height-4
 
 
 if __name__ == "__main__":
