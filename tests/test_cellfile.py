@@ -63,18 +63,14 @@ class TestCellsToLines(unittest.TestCase):
 
 
 class TestSaveLoad(unittest.TestCase):
-    def setUp(self):
-        self.tf = tempfile.NamedTemporaryFile(delete=False)
-
-    def tearDown(self):
-        os.remove(self.tf.name)
-
     def test(self) -> None:
         given: Cells = {
             (0, 1),
             (2, 3),
             (4, 5),
         }
-        save(self.tf.name, given)
-        actual = load(self.tf.name)
-        self.assertEqual(actual, given)
+        with tempfile.TemporaryDirectory() as tmpdirname:
+            filename = os.path.join(tmpdirname, 'cells.ini')
+            save(filename, given)
+            actual = load(filename)
+            self.assertEqual(actual, given)
