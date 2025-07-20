@@ -70,3 +70,7 @@ class Rule():
             allowed = self.born
 
         return live_cells_around in allowed
+
+
+if __name__ == '__main__':
+    print('Standard Conway rules (Born/Survives): %s' % Rule())
