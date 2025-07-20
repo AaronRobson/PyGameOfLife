@@ -3,16 +3,23 @@
 .PHONY: all
 all: check test
 
+.PHONY: install-packages
+install-packages:
+	python3 -m pip install --upgrade --user \
+	  -r dev-requirements.txt \
+	  -r requirements.txt \
+	  -r tests/requirements.txt
+
 .PHONY: check
 check: lint typecheck
 
 .PHONY: lint
 lint:
-	flake8 .
+	python3 -m flake8 .
 
 .PHONY: typecheck
 typecheck:
-	mypy .
+	python3 -m mypy .
 
 .PHONY: test
 test:
