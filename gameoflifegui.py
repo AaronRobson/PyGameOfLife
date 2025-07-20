@@ -163,6 +163,7 @@ class Gui(tk.Tk):
             # 'Down': '',
         }
         self.bind('<Key>', self.key)
+        self.bind('<Pause>', self.go_stop)
         self.bind('<F2>', self.reset)
         self.bind('<Control-o>', self.load_cells)  # 'O' for Open.
         self.bind('<Control-l>', self.load_cells)  # 'L' for Load.
