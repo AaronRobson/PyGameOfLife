@@ -154,6 +154,7 @@ class Gui(tk.Tk):
             'g': self.go,
             's': self.stop,
             'space': self.go_stop,
+            'p': self.go_stop,
             'f': self.change_foreground,
             'b': self.change_background,
             # 'Left': '',
@@ -274,7 +275,7 @@ class Gui(tk.Tk):
         if self.go_now:
             self.go_stop()
 
-    def go_stop(self) -> None:
+    def go_stop(self, event=None) -> None:
         '''Must be implemented as a separate thread or check GUI for
         events at set intervals otherwise locks up.
         '''
