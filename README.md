@@ -8,6 +8,13 @@ John Conway's Game Of Life implemented in the Python programming language.
 
 ![screenshot](screenshot.png)
 
+# Download code
+
+```sh
+git clone https://github.com/AaronRobson/PyGameOfLife.git
+cd PyGameOfLife
+```
+
 # Install dependencies
 
 ## General
