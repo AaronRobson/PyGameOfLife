@@ -164,6 +164,7 @@ class Gui(tk.Tk):
         }
         self.bind('<Key>', self.key)
         self.bind('<Pause>', self.go_stop)
+        self.bind('<Control-Num_Lock>', self.go_stop)  # Linux Pause key.
         self.bind('<F2>', self.reset)
         self.bind('<Control-o>', self.load_cells)  # 'O' for Open.
         self.bind('<Control-l>', self.load_cells)  # 'L' for Load.
