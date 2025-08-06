@@ -268,10 +268,7 @@ class GameOfLife():
 
 
 def cell_to_char(cell_val: bool) -> str:
-    if cell_val:
-        return 'X'
-    else:
-        return '-'
+    return 'X' if cell_val else '-'
 
 
 def display(grid: Iterable[Iterable[bool]]) -> str:
