@@ -2,7 +2,7 @@ import tkinter as tk
 
 from typing import Callable, Dict, Optional, Tuple
 
-# import time
+import time
 
 from gameoflife import GameOfLife
 import colourutils
@@ -302,7 +302,7 @@ class Gui(tk.Tk):
             self.gol.iterate()
             self.display()
             self.cnvs.update()
-            # time.sleep(.1)
+            time.sleep(.1)
 
     def display_going_to_string(self) -> None:
         self.v_go_stop.set(going_to_string(self.go_now))
