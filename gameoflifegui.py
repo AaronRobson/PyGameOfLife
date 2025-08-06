@@ -245,9 +245,9 @@ class Gui(tk.Tk):
         self.display()
 
     def cell_to_point(self, end, *cell):
-        return tuple([
+        return tuple(
             coordinate * (self.side + self.gap) + (end * self.side)
-            for coordinate in cell])
+            for coordinate in cell)
 
     def place_cell_on_canvas(self, cell) -> None:
         self.cnvs.create_rectangle(
