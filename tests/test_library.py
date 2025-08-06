@@ -156,12 +156,12 @@ class TestGameOfLife(unittest.TestCase):
     def test_set_cells_iterate__call__(self):
         given_keys = {(0, 1), (1, 1), (2, 1)}
         gol = g.GameOfLife()
-        self.assertEqual(gol(), set())
+        self.assertEqual(gol.cells, set())
         gol.cells = given_keys
-        self.assertEqual(gol(), given_keys)
+        self.assertEqual(gol.cells, given_keys)
 
         gol.iterate()
-        self.assertEqual(gol(), {(1, 0), (1, 1), (1, 2)})
+        self.assertEqual(gol.cells, {(1, 0), (1, 1), (1, 2)})
 
     def test_set_cell(self):
         given_cell = (1, 2)

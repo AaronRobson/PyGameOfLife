@@ -262,7 +262,7 @@ class Gui(tk.Tk):
         http://mail.python.org/pipermail/python-list/2001-March/073778.html
         '''
         self.cnvs.delete(tk.ALL)
-        list(map(self.place_cell_on_canvas, self.gol()))
+        list(map(self.place_cell_on_canvas, self.gol.cells))
 
     def iterate(self) -> None:
         self.change_go_now(False)

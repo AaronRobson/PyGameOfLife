@@ -173,9 +173,6 @@ class GameOfLife():
         """
         self.cells: Cells = set()
 
-    def __call__(self) -> Cells:
-        return self.cells
-
     def iterate(self) -> None:
         '''Do a single iteration.
         '''
