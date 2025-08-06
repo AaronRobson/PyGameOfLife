@@ -90,7 +90,11 @@ def moore_neighborhood(origin: Cell) -> Cells:
 
 
 def around(origin: Cell) -> Cells:
-    return set(filter(lambda x: x != origin, moore_neighborhood(origin)))
+    return {
+        cell
+        for cell in moore_neighborhood(origin)
+        if cell != origin
+    }
 
 
 def around_list(size: int, origin: Cell) -> Iterable[Cell]:
