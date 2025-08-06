@@ -276,9 +276,9 @@ def display(grid: Iterable[Iterable[bool]]) -> str:
     (or one if given in the 2d format).
     '''
     return '\n'.join(
-        [''.join(
-            [cell_to_char(cell) for cell in line]
-        ) for line in grid]
+        ''.join(
+            cell_to_char(cell) for cell in line
+        ) for line in grid
     )
 
 
