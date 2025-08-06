@@ -187,7 +187,9 @@ class Gui(tk.Tk):
         canvased_points = (
             self.cnvs.canvasx(point[0]),
             self.cnvs.canvasy(point[1]))
-        return tuple(map(self.point_dim_to_cell_dim, canvased_points))
+        return tuple(
+            self.point_dim_to_cell_dim(point)
+            for point in canvased_points)
 
     def place_point_click(self, event):
         '''Using normal variable rather than object one stops doubling up
