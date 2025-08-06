@@ -146,7 +146,7 @@ def cells_of_next_generation(cells: Cells, rule: Rule) -> Cells:
 
 
 class GameOfLife():
-    def __init__(self, *args, **kwargs):
+    def __init__(self, dim=None, rule_str=None):
         '''"dim" is the number of dimensions wanted and the ruleStr is a string
         consisting of two sets of an arbitary number of integer values
         separated with a '/' (forward slash).
@@ -156,11 +156,6 @@ class GameOfLife():
         needed to make a new cell be born.
 
         These numbers may but have no obligation to overlap.
-        '''
-        self.restart(*args, **kwargs)
-
-    def restart(self, dim=None, rule_str=None) -> None:
-        '''As if the class had been destroyed and a new one created.
         '''
         self.dimensions = validate_dimensions(dim)
 
