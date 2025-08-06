@@ -61,12 +61,11 @@ def validate_dimensions(dimensions: Optional[int] = None) -> int:
         dimensions = int(dimensions)
     except (ValueError, TypeError):
         raise ValueError(validate_dimensions_error)
-    else:
+
+    if dimensions <= 0:
         # No such thing as negative or 0 dimensions this side of Event Horizon.
-        if 1 <= dimensions:
-            return dimensions
-        else:
-            raise ValueError(validate_dimensions_error)
+        raise ValueError(validate_dimensions_error)
+    return dimensions
 
 
 def random_boolean() -> bool:
