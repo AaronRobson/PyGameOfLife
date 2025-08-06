@@ -25,6 +25,19 @@ def colour_type_to_change_string(is_foreground: bool) -> str:
 default_foreground_colour: int = 0x00ff00
 default_background_colour: int = 0x000000
 
+
+def ensure_colour(colour: Optional[int] = None) -> int:
+    if colour is None:
+        colour = colourutils.random_colour()
+    return colour
+
+
+def print_colour(colour: int, is_foreground: bool) -> None:
+    print('%s Colour Changed To: %s' % (
+        colour_type_to_string(is_foreground),
+        colourutils.standard_hex_colour_padded(colour)))
+
+
 going_string_enum: Tuple[str, str] = ('Go', 'Stop')
 
 
@@ -302,23 +315,13 @@ class Gui(tk.Tk):
 
         self.display_going_to_string()
 
-    def ensure_colour(self, colour: Optional[int] = None) -> int:
-        if colour is None:
-            colour = colourutils.random_colour()
-        return colour
-
-    def print_colour(self, colour: int, is_foreground: bool) -> None:
-        print('%s Colour Changed To: %s' % (
-            colour_type_to_string(is_foreground),
-            colourutils.standard_hex_colour_padded(colour)))
-
     def change_foreground(self, colour: Optional[int] = None) -> None:
         '''If Foreground colour is unspecified a random one will be chosen.
         '''
-        colour = self.ensure_colour(colour)
+        colour = ensure_colour(colour)
         tk_colour = colourutils.tk_hex_colour_padded(colour)
 
-        self.print_colour(colour, is_foreground=True)
+        print_colour(colour, is_foreground=True)
         self.cnvs.itemconfig(tk.ALL, fill=tk_colour)
 
         # storing choices
@@ -328,10 +331,10 @@ class Gui(tk.Tk):
     def change_background(self, colour: Optional[int] = None) -> None:
         '''If Background colour is unspecified a random one will be chosen.
         '''
-        colour = self.ensure_colour(colour)
+        colour = ensure_colour(colour)
         tk_colour = colourutils.tk_hex_colour_padded(colour)
 
-        self.print_colour(colour, is_foreground=False)
+        print_colour(colour, is_foreground=False)
         self.cnvs.config(bg=tk_colour)
 
         # storing choices
