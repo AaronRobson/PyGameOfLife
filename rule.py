@@ -72,5 +72,9 @@ class Rule():
         return live_cells_around in allowed
 
 
-if __name__ == '__main__':
+def main() -> None:
     print('Standard Conway rules (Born/Survives): %s' % Rule())
+
+
+if __name__ == '__main__':  # pragma: no cover
+    main()

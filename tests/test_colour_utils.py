@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 
 import colourutils as c
 
@@ -34,3 +35,9 @@ class TestColourUtils(unittest.TestCase):
     def test_random_colour(self):
         for i in range(10):
             self.assertTrue(0 <= c.random_colour() <= 0xffffff)
+
+    @patch('builtins.print')
+    def test_main(self, mock_print) -> None:
+        c.main()
+        mock_print.assert_called_once_with(
+            'Colour range from 0x000000 and 0xFFFFFF (inclusive).')

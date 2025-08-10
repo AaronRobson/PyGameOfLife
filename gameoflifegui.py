@@ -360,6 +360,6 @@ class Gui(tk.Tk):
             print('Saved to file "%s".' % file_cell_path)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':  # pragma: no cover
     gui = Gui()
     gui.mainloop()

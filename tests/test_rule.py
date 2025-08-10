@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 
 import rule as r
 
@@ -119,3 +120,9 @@ class TestRule(unittest.TestCase):
         rule_text = '45/89'
         rule = r.Rule(rule_text)
         self.assertEqual(str(rule), rule_text)
+
+    @patch('builtins.print')
+    def test_main(self, mock_print) -> None:
+        r.main()
+        mock_print.assert_any_call(
+            'Standard Conway rules (Born/Survives): 3/23')

@@ -56,7 +56,7 @@ def save(filepath: str, cells: Cells) -> None:
             f.write(line + file_cell_splitter)
 
 
-if __name__ == '__main__':
+def main() -> None:
     text = '''; Glider
 1,0
 2,1
@@ -64,7 +64,7 @@ if __name__ == '__main__':
 1,2
 2,2
 '''
-    print('Parse save file contents :\n%s' % text)
+    print('Parse save file contents:\n%s' % text)
     expected: Cells = {
         (1, 0),
         (2, 1),
@@ -76,3 +76,7 @@ if __name__ == '__main__':
     print('Cells:\n%r' % actual)
     if actual != expected:
         exit('\nError - expected Cells to be:\n%r' % expected)
+
+
+if __name__ == '__main__':  # pragma: no cover
+    main()

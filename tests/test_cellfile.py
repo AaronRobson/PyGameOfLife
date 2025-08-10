@@ -1,11 +1,13 @@
 import unittest
+from unittest.mock import patch
 import tempfile
 import os
 
 from cellfile import line_to_cell, get_cells_from_text, \
                      cell_to_line, cells_to_lines, \
                      save, load, \
-                     Cells
+                     Cells, \
+                     main
 
 
 class TestLineToCell(unittest.TestCase):
@@ -74,3 +76,21 @@ class TestSaveLoad(unittest.TestCase):
             save(filename, given)
             actual = load(filename)
             self.assertEqual(actual, given)
+
+
+@patch('builtins.print')
+class TestMain(unittest.TestCase):
+    def test(self, mock_print) -> None:
+        main()
+        mock_print.assert_any_call(
+            '\n'.join([
+                'Parse save file contents:',
+                '; Glider',
+                '1,0',
+                '2,1',
+                '0,2',
+                '1,2',
+                '2,2',
+                '',
+            ]),
+        )

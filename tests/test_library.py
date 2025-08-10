@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import call, patch
 
 import gameoflife as g
 
@@ -212,3 +213,27 @@ class TestDisplay(unittest.TestCase):
         ]
         expected = '-X-\n--X\nXXX'
         self.assertEqual(g.display(given), expected)
+
+
+@patch('builtins.print')
+class TestMain(unittest.TestCase):
+    def test(self, mock_print) -> None:
+        g.main()
+        self.assertEqual(
+            mock_print.call_args_list,
+            [
+                call('Game Of Life - Testing'),
+                call(),
+                call('--X--\nX-X--\n-XX--\n-----\n-----'),
+                call(),
+                call('-X---\n--XX-\n-XX--\n-----\n-----'),
+                call(),
+                call('--X--\n---X-\n-XXX-\n-----\n-----'),
+                call(),
+                call('-----\n-X-X-\n--XX-\n--X--\n-----'),
+                call(),
+                call('-----\n---X-\n-X-X-\n--XX-\n-----'),
+                call('\nPopulation: 5'),
+                call("Rule('3/23')"),
+            ],
+        )

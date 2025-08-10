@@ -7,7 +7,7 @@ endif
 .DEFAULT_GOAL := all
 
 .PHONY: all
-all: check test
+all: check test coverage
 
 .PHONY: install-packages
 install-packages:
@@ -33,6 +33,11 @@ test: unittest
 .PHONY: unittest
 unittest:
 	$(PYTHON) -m unittest
+
+.PHONY: coverage
+coverage:
+	$(PYTHON) -m coverage run -m unittest discover
+	$(PYTHON) -m coverage report -m --fail 80
 
 .PHONY: run
 run:

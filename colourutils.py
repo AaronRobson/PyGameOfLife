@@ -46,5 +46,5 @@ def main() -> None:
     print(f'Colour range from {from_} and {to} (inclusive).')
 
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
     main()
