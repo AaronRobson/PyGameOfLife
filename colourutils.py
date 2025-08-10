@@ -38,3 +38,13 @@ def colour_number_is_valid(colour_number: int) -> bool:
 
 def random_colour() -> int:
     return randrange(_colour_min, _colour_max + 1)
+
+
+def main() -> None:
+    from_ = standard_hex_colour_padded(_colour_min)
+    to = standard_hex_colour_padded(_colour_max)
+    print(f'Colour range from {from_} and {to} (inclusive).')
+
+
+if __name__ == '__main__':
+    main()
