@@ -343,11 +343,10 @@ class Gui(tk.Tk):
 
     def load_cells(self, event=None) -> None:
         try:
-            cells = cellfile.load(file_cell_path)
+            self.gol.cells = cellfile.load(file_cell_path)
         except IOError:
             print('File "%s" not found.' % file_cell_path)
         else:
-            self.gol.cells = cells
             print('Loaded from file "%s"' % file_cell_path)
             self.display()
 
