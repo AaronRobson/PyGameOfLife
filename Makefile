@@ -9,6 +9,11 @@ endif
 .PHONY: all
 all: check test coverage
 
+.PHONY: clean
+clean:
+	rm -f .coverage
+	rm -rf htmlcov/
+
 .PHONY: install-packages
 install-packages:
 	$(PYTHON) -m pip install --upgrade --user \
@@ -38,6 +43,7 @@ unittest:
 coverage:
 	$(PYTHON) -m coverage run -m unittest discover
 	$(PYTHON) -m coverage report -m --fail 80
+	$(PYTHON) -m coverage html
 
 .PHONY: run
 run:
